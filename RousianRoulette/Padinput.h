@@ -3,29 +3,29 @@
 
 #define BUTTONS 16
 
-//ƒXƒeƒBƒbƒN
+//ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 struct Stick
 {
-	short ThumbX;	//‰¡²’l
-	short ThumbY;	//c²’l
+	short ThumbX;	//ï¿½ï¿½ï¿½ï¿½ï¿½l
+	short ThumbY;	//ï¿½cï¿½ï¿½ï¿½l
 };
 
 class PAD_INPUT
 {
 private:
-	static char NowKey[BUTTONS]; //¡‰ñ‚Ì“ü—ÍƒL[
-	static char OldKey[BUTTONS]; //‘O‰ñ‚Ì“ü—ÍƒL[
-	static XINPUT_STATE Input; //ƒpƒbƒh
-	static Stick Rstick; //‰EƒXƒeƒBƒbƒN
-	static Stick Lstick; //¶ƒXƒeƒBƒbƒN
+	static char NowKey[BUTTONS]; //ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+	static char OldKey[BUTTONS]; //ï¿½Oï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+	static XINPUT_STATE Input; //ï¿½pï¿½bï¿½h
+	static Stick Rstick; //ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½N
+	static Stick Lstick; //ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 private:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	PAD_INPUT() = default;
 public:
-	//ƒpƒbƒhî•ñ‚ÌXV
+	//ï¿½pï¿½bï¿½hï¿½ï¿½ï¿½ÌXï¿½V
 	static void UpdateKey()
 	{
-		// “ü—ÍƒL[æ“¾
+		// ï¿½ï¿½ï¿½ÍƒLï¿½[ï¿½æ“¾
 		GetJoypadXInputState(DX_INPUT_KEY_PAD1, &Input);
 		for (int i = 0; i < BUTTONS; i++)
 		{
@@ -33,36 +33,36 @@ public:
 			NowKey[i] = Input.Buttons[i];
 		}
 
-		//‰EƒXƒeƒBƒbƒN
+		//ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½N
 		Rstick.ThumbX = Input.ThumbRX;
 		Rstick.ThumbY = Input.ThumbRY;
 
-		//¶ƒXƒeƒBƒbƒN
+		//ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 		Lstick.ThumbX = Input.ThumbLX;
 		Lstick.ThumbY = Input.ThumbLY;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚³‚ê‚½uŠÔ
+	//ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½uï¿½ï¿½
 	static bool OnButton(int button)
 	{
 		bool ret = (NowKey[button] == 1 && OldKey[button] == 0);
 		return ret;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ—£‚µ‚½uŠÔ
+	//ï¿½{ï¿½^ï¿½ï¿½ï¿½ğ—£‚ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½
 	static bool OnRelease(int button)
 	{
 		bool ret = (NowKey[button] == 0 && OldKey[button] == 1);
 		return ret;
 	}
 
-	//‰EƒXƒeƒBƒbƒN‚Ìæ“¾
+	//ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ìæ“¾
 	static Stick GetRStick()
 	{
 		return Rstick;
 	}
 
-	//¶ƒXƒeƒBƒbƒN‚Ìæ“¾
+	//ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ìæ“¾
 	static Stick GetLStick()
 	{
 		return Lstick;

@@ -8,19 +8,19 @@ private:
     AbstractScene* mScene;
 public:
 
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     SceneManager(AbstractScene* scene) :mScene(scene) {};
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~SceneManager()
     {
         delete mScene;
     }
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };
 

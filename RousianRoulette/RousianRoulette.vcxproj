@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Padinput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Padinput.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneManager.h" />
