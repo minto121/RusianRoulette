@@ -16,14 +16,14 @@ ResultScene::~ResultScene()
 
 AbstractScene* ResultScene::Update()
 {
-	//\šƒL[ª“ü—Í
+	//ï¿½\ï¿½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
 	{
 		//PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
 		Select--;
 		if (Select < 0)Select = 3;
 	}
-	//\šƒL[«“ü—Í
+	//ï¿½\ï¿½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		//PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
@@ -31,7 +31,7 @@ AbstractScene* ResultScene::Update()
 		if (Select > 3)Select = 0;
 	}
 
-	//LƒXƒeƒBƒbƒNã“ü—Í
+	//Lï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½
 	if (PAD_INPUT::GetLStick().ThumbY > 10000 && Once == TRUE)
 	{
 		//PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
@@ -40,7 +40,7 @@ AbstractScene* ResultScene::Update()
 		Once = FALSE;
 	}
 
-	//LƒXƒeƒBƒbƒN‰º“ü—Í
+	//Lï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (PAD_INPUT::GetLStick().ThumbY < -10000 && Once == TRUE)
 	{
 		//PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
@@ -49,7 +49,7 @@ AbstractScene* ResultScene::Update()
 		Once = FALSE;
 	}
 
-	//LƒXƒeƒBƒbƒN‚ªŒ³‚É–ß‚³‚ê‚½‚çOnce‚ğƒŠƒZƒbƒg
+	//Lï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½ï¿½ê‚½ï¿½ï¿½Onceï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
 	if (Once == FALSE && PAD_INPUT::GetLStick().ThumbY < 10000 && PAD_INPUT::GetLStick().ThumbY > -10000)
 	{
 		Once = TRUE;
@@ -60,17 +60,6 @@ AbstractScene* ResultScene::Update()
 
 void ResultScene::Draw()const
 {
-	//ƒ^ƒCƒgƒ‹‚Ì•`‰æ
-	//DrawGraph(0, 0, TitleImg, FALSE);
-	//DrawStringToHandle(150, 100, "‚è‚ñ‚²‚¨‚Æ‚µ", 0xffffff, MenuFont);
-
-	//ƒƒjƒ…[‚Ì•`‰æ
-	//DrawStringToHandle(730, 240, "‚·‚½[‚Æ", 0xffffff, MenuFont);
-	//DrawStringToHandle(730, 320, "‚ç‚ñ‚«‚ñ‚®", 0xffffff, MenuFont);
-	//DrawStringToHandle(730, 400, "‚Ö‚é‚Õ", 0xffffff, MenuFont);
-	//DrawStringToHandle(730, 480, "‚¦‚ñ‚Ç", 0xffffff, MenuFont);
-
-	//ƒJ[ƒ\ƒ‹‚Ì•`‰æ
 	int select_y = 230 + Select * 80;
 	DrawGraph(650, select_y, CursorImg, TRUE);
 }

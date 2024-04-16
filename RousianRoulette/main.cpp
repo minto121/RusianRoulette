@@ -4,28 +4,30 @@
 #include"Title.h"
 #include"PadInput.h"
 #include"GameMain.h"
+#include "DrawRanking.h"
+#include "InputRanking.h"
 
-#define FRAMERATE 60.0 //ƒtƒŒ[ƒ€ƒŒ[ƒg
+#define FRAMERATE 60.0 //ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½g
 
 #define HEIGHT 720
 #define WIDTH 1280 
 #define REFRESHRATE 32
 
 /***********************************************
- * ƒvƒƒOƒ‰ƒ€‚ÌŠJŽn
+ * ï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÌŠJï¿½n
  ***********************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	SetMainWindowText("Russian Rolette");
 
-	ChangeWindowMode(TRUE);		// ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Å‹N“®
+	ChangeWindowMode(TRUE);		// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½[ï¿½hï¿½Å‹Nï¿½ï¿½
 
-	SetGraphMode(WIDTH, HEIGHT, REFRESHRATE);	//‰æ–ÊƒTƒCƒY‚ÌÝ’è
+	SetGraphMode(WIDTH, HEIGHT, REFRESHRATE);	//ï¿½ï¿½ÊƒTï¿½Cï¿½Yï¿½ÌÝ’ï¿½
 
-	if (DxLib_Init() == -1) return -1;	// DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
+	if (DxLib_Init() == -1) return -1;	// DXï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	SetDrawScreen(DX_SCREEN_BACK);	// •`‰ææ‰æ–Ê‚ð— ‚É‚·‚é
+	SetDrawScreen(DX_SCREEN_BACK);	// ï¿½`ï¿½ï¿½ï¿½ï¿½Ê‚ð— ‚É‚ï¿½ï¿½ï¿½
 
 	SceneManager* sceneMng;
 
@@ -41,30 +43,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		DATEDATA data;
 
 		GetDateTime(&data);
-		//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 		fopen_s(&fp, "ErrLog.txt", "a");
-		//ƒGƒ‰[ƒf[ƒ^‚Ì‘‚«ž‚Ý
-		fprintf_s(fp, "%02d”N %02dŒŽ %02d“ú %02dŽž %02d•ª %02d•b : %s‚ª‚ ‚è‚Ü‚¹‚ñB\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+		//ï¿½Gï¿½ï¿½ï¿½[ï¿½fï¿½[ï¿½^ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		fprintf_s(fp, "%02dï¿½N %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½b : %sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		return 0;
 	}
 	//FpsController FPSC(FRAMERATE, 800);
 
-	// ƒQ[ƒ€ƒ‹[ƒv
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
-		ClearDrawScreen();		// ‰æ–Ê‚Ì‰Šú‰»
+		ClearDrawScreen();		// ï¿½ï¿½Ê‚Ìï¿½ï¿½ï¿½ï¿½ï¿½
 		PAD_INPUT::UpdateKey();
 		sceneMng->Draw();
 		//FPSC.All();
 		//FPSC.Disp();
-		//‹­§I—¹
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK))
 		{
 			break;
 		}
 
-		ScreenFlip();			// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
+		ScreenFlip();			// ï¿½ï¿½ï¿½ï¿½Ê‚Ì“ï¿½eï¿½ï¿½\ï¿½ï¿½Ê‚É”ï¿½ï¿½f
 	}
 	return 0;
 }

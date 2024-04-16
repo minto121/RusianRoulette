@@ -17,10 +17,10 @@ AbstractScene* SceneManager::Update()
 
 		GetDateTime(&data);
 
-		//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 		fopen_s(&fp, "ErrLog.txt", "a");
-		//ƒGƒ‰[ƒf[ƒ^‚Ì‘‚«ž‚Ý
-		fprintf_s(fp, "%02d”N %02dŒŽ %02d“ú %02dŽž %02d•ª %02d•b : %s‚ª‚ ‚è‚Ü‚¹‚ñB\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+		//ï¿½Gï¿½ï¿½ï¿½[ï¿½fï¿½[ï¿½^ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		fprintf_s(fp, "%02dï¿½N %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½b : %sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		return nullptr;
 	}
@@ -35,7 +35,7 @@ AbstractScene* SceneManager::Update()
 }
 
 void SceneManager::Draw() const {
-	//¡‚ÌƒV[ƒ“‚Ì•`‰æ
+	//ï¿½ï¿½ï¿½ÌƒVï¿½[ï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 	mScene->Draw();
 }
 
