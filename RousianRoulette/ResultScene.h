@@ -8,29 +8,29 @@ class ResultScene :
 {
 private:
 
-    int Select;     //‘I‘ğ”
-    int OldKey;		//‘O‚Ì“ü—ÍƒL[
-    int NowKey;		//¡‚Ì“ü—ÍƒL[
-    int KeyFlg;		//“ü—ÍƒL[î•ñ
+    int Select;     //ï¿½Iï¿½ï¿½
+    int OldKey;		//ï¿½Oï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+    int NowKey;		//ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+    int KeyFlg;		//ï¿½ï¿½ï¿½ÍƒLï¿½[ï¿½ï¿½ï¿½
 
-    bool Once;      //LƒXƒeƒBƒbƒN‚ÅƒJ[ƒ\ƒ‹‚ğ“®‚©‚·—p
+    bool Once;      //Lï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ÅƒJï¿½[ï¿½\ï¿½ï¿½ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½p
 
-    int score;      //ƒXƒRƒA
-    int bgimg;      //”wŒi‰æ‘œ
+    int stage;      //ï¿½Xï¿½Rï¿½A
+    int bgimg;      //ï¿½wï¿½iï¿½æ‘œ
 
     int CursorImg;
 
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ResultScene();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~ResultScene();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };
 
