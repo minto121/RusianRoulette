@@ -13,7 +13,7 @@ private:
 	int TitleSE2;
 
 public:
-	DrawRankingScene(int _score);
+	DrawRankingScene(int stage);
 
 public:
 	virtual void Draw()const override;

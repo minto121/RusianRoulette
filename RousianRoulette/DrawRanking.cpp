@@ -2,7 +2,7 @@
 #include "PadInput.h"
 #include "DxLib.h"
 
-DrawRankingScene::DrawRankingScene(int _score) {
+DrawRankingScene::DrawRankingScene(int stage) {
 	ranking.ReadRanking();
 	for (int i = 0; i < 5; i++) {
 
@@ -10,7 +10,6 @@ DrawRankingScene::DrawRankingScene(int _score) {
 	}
 
 	image = LoadGraph("Resources/images/Ranking.png");
-	//TitleSE2 = LoadSoundMem("Resources/sounds/decision.wav");
 }
 
 AbstractScene* DrawRankingScene::Update() {

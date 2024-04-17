@@ -14,7 +14,7 @@ private:
 
 public:
 	void ReadRanking();
-	void WriteRanking(std::string _name, long int _score);
+	void WriteRanking(std::string _name, long int stage);
 
 	RANKING_DATA GetRankingData(int index) { return rankingData[index]; }
 };

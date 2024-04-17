@@ -27,11 +27,11 @@ void Ranking::ReadRanking() {
 	}
 }
 
-void Ranking::WriteRanking(std::string _name, long int _score) {
+void Ranking::WriteRanking(std::string _name, long int stage) {
 	std::ofstream ofs(RANKING_FILE_NAME);
 
 	rankingData[4].name = _name;
-	rankingData[4].score = _score;
+	rankingData[4].score = stage;
 	for (int i = 0; i < 4; i++) {
 		for (int j = i + 1; j < 5; j++) {
 			if (rankingData[i].score < rankingData[j].score) {

@@ -2,8 +2,8 @@
 #include "DrawRanking.h"
 #include "PadInput.h"
 
-InputRankingScene::InputRankingScene(int _score) {
-	score = _score;
+InputRankingScene::InputRankingScene(int stage) {
+	score = stage;
 	cursorPoint = { 0, 0 };
 	ranking.ReadRanking();
 	for (int i = 0; i < 5; i++) {
