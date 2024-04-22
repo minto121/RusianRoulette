@@ -6,19 +6,29 @@ class GameMain :
     public AbstractScene
 {
 private:
+    int P_life;
+    int E_life;
+    int Round;
 
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã®çŠ¶æ…‹ã‚’è¡¨ã™åˆ—æŒ™å‹
+    enum class PlayerState {
+        PLAYER,
+        ENEMY
+    };
+
+    PlayerState currentPlayer = PlayerState::PLAYER; // ç¾åœ¨ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 public:
 
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     GameMain();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~GameMain();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };
 

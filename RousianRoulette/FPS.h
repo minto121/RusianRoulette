@@ -5,11 +5,11 @@
 #include "DxLib.h"
 
 class Fps {
-	int mStartTime;         //‘ª’èŠJŽnŽž
-	int mCount;             //ƒJƒEƒ“ƒ^
+	int mStartTime;         //ï¿½ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½
+	int mCount;             //ï¿½Jï¿½Eï¿½ï¿½ï¿½^
 
-	static const int N = 60;//•½‹Ï‚ðŽæ‚éƒTƒ“ƒvƒ‹”
-	static const int FPS = 60;	//Ý’è‚µ‚½FPS
+	static const int N = 60;//ï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½
+	static const int FPS = 60;	//ï¿½Ý’è‚µï¿½ï¿½FPS
 
 public:
 	float mFps;             //fps
@@ -20,10 +20,10 @@ public:
 	}
 
 	bool Update() {
-		if (mCount == 0) { //1ƒtƒŒ[ƒ€–Ú‚È‚çŽž‚ð‹L‰¯
+		if (mCount == 0) { //1ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ú‚È‚çŽžï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½
 			mStartTime = GetNowCount();
 		}
-		if (mCount == N) { //60ƒtƒŒ[ƒ€–Ú‚È‚ç•½‹Ï‚ðŒvŽZ‚·‚é
+		if (mCount == N) { //60ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ú‚È‚ç•½ï¿½Ï‚ï¿½vï¿½Zï¿½ï¿½ï¿½ï¿½
 			int t = GetNowCount();
 			mFps = 1000.f / ((t - mStartTime) / (float)N);
 			mCount = 0;
@@ -39,13 +39,13 @@ public:
 	}
 
 	void Wait() {
-		int tookTime = GetNowCount() - mStartTime;	//‚©‚©‚Á‚½ŽžŠÔ
-		int waitTime = mCount * 1000 / FPS - tookTime;	//‘Ò‚Â‚×‚«ŽžŠÔ
+		int tookTime = GetNowCount() - mStartTime;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int waitTime = mCount * 1000 / FPS - tookTime;	//ï¿½Ò‚Â‚×‚ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		if (waitTime > 0) {
 			std::chrono::milliseconds dura(waitTime);
 			std::this_thread::sleep_for(dura);
-			//Sleep(waitTime);	//‘Ò‹@
+			//Sleep(waitTime);	//ï¿½Ò‹@
 		}
 	}
 };
