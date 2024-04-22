@@ -5,13 +5,13 @@ private:
 
 public:
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	Player();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	~Player();
 
-	//•`‰æˆÈŠO‚ÌXV‚ðŽÀ‘•‚·‚é
+	//ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Update();
 
 };
