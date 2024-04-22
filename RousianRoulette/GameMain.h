@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 #include "Player.h"
+#include "bullet.h"
 
 class GameMain :
     public AbstractScene
@@ -30,5 +31,9 @@ public:
 
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
+
+
+
+    bullet* BULLET;
 };
 

@@ -9,6 +9,7 @@
 
 GameMain::GameMain()
 {
+	BULLET = new bullet;
 	P_life = 2;
     E_life = 2;
     Round = 1;
@@ -73,10 +74,13 @@ AbstractScene* GameMain::Update()
     }
 
 	return this;
+	BULLET->Update();
+	return this;
 }
 
 void GameMain::Draw() const
 {
+	BULLET->Draw();
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
