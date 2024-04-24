@@ -2,10 +2,7 @@
 class bullet
 {
 private:
-	int Bullet;     
-	int Cylinder[6];   
-	int FireC;     
-	int RandBox;    
+	  
 	
 public:
 	bullet();
@@ -25,5 +22,10 @@ public:
 	void Shot();         
 
 	void B_location();   
+
+	int Bullet;
+	int Cylinder[6];
+	int FireC;
+	int RandBox;
 };
 

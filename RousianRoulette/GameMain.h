@@ -32,7 +32,7 @@ public:
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
 
-
+    void life();
 
     bullet* BULLET;
 };

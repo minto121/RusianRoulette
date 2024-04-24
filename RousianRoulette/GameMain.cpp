@@ -33,23 +33,8 @@ AbstractScene* GameMain::Update()
             break;
         }
     }*/
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-    {
-        E_life--;
-    }
-
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-    {
-        P_life--;
-    }
-
-    //ラウンドが進んだ時にライフをリセットする
-    if (E_life <= 0) {
-        Round++;
-        P_life = 2;
-        E_life = 2;
-    }
-    else
+    
+  /*  else
     {
         if(currentPlayer == PlayerState::PLAYER)
             if ([rand() % NUM_CHAMBERS] == 1) {
@@ -62,7 +47,7 @@ AbstractScene* GameMain::Update()
                 E_life;
             }
         currentPlayer == PlayerState::PLAYER;
-    }
+    }*/
 
 
     //プレイヤーが負けた時の処理
@@ -85,4 +70,24 @@ void GameMain::Draw() const
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+}
+
+void GameMain::life()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    {
+        E_life--;
+    }
+
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    {
+        P_life--;
+    }
+
+    //ラウンドが進んだ時にライフをリセットする
+    if (E_life <= 0) {
+        Round++;
+        P_life = 2;
+        E_life = 2;
+    }
 }
