@@ -3,7 +3,7 @@
 #include "GameMain.h"
 //#include "Result.h"
 #include "PadInput.h"
-//#include "bullet.h"
+#include "bullet.h"
 #include "Title.h"
 //#include "FpsController.h"
 
@@ -51,8 +51,8 @@ AbstractScene* GameMain::Update()
     }
     else
     {
-     /*   if(currentPlayer == PlayerState::PLAYER)
-            if (chamber[rand() % NUM_CHAMBERS] == 1) {
+        if(currentPlayer == PlayerState::PLAYER)
+            if ([rand() % NUM_CHAMBERS] == 1) {
                 P_life--;
             }
         currentPlayer = PlayerState::ENEMY;
@@ -61,7 +61,7 @@ AbstractScene* GameMain::Update()
             if (chamber[rand() % NUM_CHAMBERS] == 1) {
                 E_life;
             }
-        currentPlayer == PlayerState::PLAYER;*/
+        currentPlayer == PlayerState::PLAYER;
     }
 
 
@@ -73,8 +73,8 @@ AbstractScene* GameMain::Update()
         }
     }
 
-	return this;
-	BULLET->Update();
+	
+	//BULLET->Update();
 	return this;
 }
 
