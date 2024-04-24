@@ -1,5 +1,6 @@
 #include "bullet.h"
 #include "DxLib.h"
+#include "Padinput.h"
 
 bullet::bullet()
 {
@@ -57,7 +58,15 @@ void bullet::Reload()
 
 void bullet::Shot()
 {
-	
+	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X))
+	{
+		if (Cylinder[FireC] == 1)
+		{
+			Cylinder[FireC] = 0;
+			
+		}
+		FireC++;
+	}
 }
 
 void bullet::B_location()
@@ -101,7 +110,8 @@ void bullet::B_location()
 
 void bullet::Update()
 {
-
+	Shot();
+	Reload();
 }
 
 void bullet::Draw() const
