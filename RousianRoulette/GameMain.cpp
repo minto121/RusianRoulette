@@ -7,6 +7,7 @@
 
 GameMain::GameMain()
 {
+	BULLET = new bullet;
 }
 
 GameMain::~GameMain()
@@ -15,10 +16,11 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-	return nullptr;
+	BULLET->Update();
+	return this;
 }
 
 void GameMain::Draw() const
 {
-
+	BULLET->Draw();
 }
