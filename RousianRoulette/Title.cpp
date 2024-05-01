@@ -19,8 +19,7 @@ Title::Title()
 	Select = 0;
 	Once = TRUE;
 
-	//�t�H���g�̒ǉ�
-	MenuFont = CreateFontToHandle("HG�n�p�p�߯�ߑ�", 64, 8, DX_FONTTYPE_ANTIALIASING);
+	
 
 	////�^�C�g���摜�̓ǂݍ���
 	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
@@ -58,8 +57,6 @@ Title::Title()
 
 Title::~Title()
 {
-	//�t�H���g�̍폜
-	DeleteFontToHandle(MenuFont);
 
 	StopSoundMem(TitleBGM);
 	//�T�E���h�̍폜
@@ -141,15 +138,19 @@ AbstractScene* Title::Update()
 
 void Title::Draw()const
 {
+	SetFontSize(64);
+
 	//�^�C�g���̕`��
 	DrawGraph(0, 0, TitleImg, FALSE);
-	DrawStringToHandle(150, 100, "��񂲂��Ƃ�", 0xffffff, MenuFont);
+	DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
+
+	SetFontSize(48);
 
 	//���j���[�̕`��
-	DrawStringToHandle(730, 240, "�����[��", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 320, "��񂫂�", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 400, "�ւ��", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 480, "�����", 0xffffff, MenuFont);
+	DrawFormatString(520, 380, 0xffffff, "START");
+	DrawFormatString(520, 440, 0xffffff, "HELP");
+	DrawFormatString(520, 500, 0xffffff, "RANKING");
+	DrawFormatString(520, 560, 0xffffff, "END");
 
 	//�J�[�\���̕`��
 	int select_y = 230 + Select * 80;

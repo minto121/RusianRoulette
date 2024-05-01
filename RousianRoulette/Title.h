@@ -6,32 +6,32 @@ class Title :
 
 {
 private:
-    int Select;     //‘I‘ğ”
-    int OldKey;		//‘O‚Ì“ü—ÍƒL[
-    int NowKey;		//¡‚Ì“ü—ÍƒL[
-    int KeyFlg;		//“ü—ÍƒL[î•ñ
+    int Select;     //ï¿½Iï¿½ï¿½
+    int OldKey;		//ï¿½Oï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+    int NowKey;		//ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+    int KeyFlg;		//ï¿½ï¿½ï¿½ÍƒLï¿½[ï¿½ï¿½ï¿½
 
-    bool Once;      //LƒXƒeƒBƒbƒN‚ÅƒJ[ƒ\ƒ‹‚ğ“®‚©‚·—p
+    bool Once;      //Lï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ÅƒJï¿½[ï¿½\ï¿½ï¿½ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½p
 
-    int MenuFont; //ƒƒjƒ…[—p‚ÌƒtƒHƒ“ƒg
+    int MenuFont; //ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½pï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½g
 
-    int TitleBGM;     //BGM—p
-    int MenuSE;       //‘I‘ğSE—p
-    int TitleImg;     //ƒ^ƒCƒgƒ‹‰æ‘œ
-    int CursorImg;    //ƒJ[ƒ\ƒ‹‰æ‘œ
+    int TitleBGM;     //BGMï¿½p
+    int MenuSE;       //ï¿½Iï¿½ï¿½SEï¿½p
+    int TitleImg;     //ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œ
+    int CursorImg;    //ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½æ‘œ
 
 
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     Title();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~Title();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };
 
