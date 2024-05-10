@@ -15,9 +15,7 @@ GameMain::GameMain()
     Round = 1;
     TurnCount = 0;
     //Turn = 1;
-    isPlayerTurn = FALSE;
-
-    int a = 0;
+   /* isPlayerTurn = TRUE;*/
 }
 
 GameMain::~GameMain()
@@ -90,24 +88,14 @@ void GameMain::life()
 
 void GameMain::Turn()
 {
-    
-       
-           
-
     TurnCount = bullet::FireC;
-            
 
-            // ターンリセット
-            if (TurnCount == 6) { // カウントが6になったら
-                TurnCount = 0; // カウントをリセットする
-            }
-        
-    
-
-  
-    // ターン切り替え（Enterキーが押されたとき）
-    if (CheckHitKey(KEY_INPUT_RETURN)) {
-        isPlayerTurn = !isPlayerTurn; // ターンを切り替える
+    if (TurnCount%2==0) {
+        isPlayerTurn = TRUE;
     }
-   
+    else
+    {
+        isPlayerTurn = FALSE;
+    }
+     
 }
