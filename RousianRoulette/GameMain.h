@@ -37,6 +37,7 @@ public:
 
     void life();
     void Turn();
+    void Choice();
 
     bullet* BULLET;
 };
