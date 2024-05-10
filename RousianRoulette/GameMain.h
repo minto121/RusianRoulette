@@ -5,11 +5,16 @@
 
 class GameMain :
     public AbstractScene
+
 {
 private:
 
 public:
-
+    int CursolImg;
+    int LocationX,LocationY;
+    static int ItemNo;
+    int Life;
+    bool isUseCigarettes;
     //�R���X�g���N�^
     GameMain();
 
@@ -21,5 +26,6 @@ public:
 
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
+   
 };
 

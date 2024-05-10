@@ -6,7 +6,7 @@ private:
 	int LoupeImg;		//ルーペ
 	int BeerImg;		//ビール
 	int BombImg;		//爆弾
-	int CorsolImg;
+	
 
 	
 
