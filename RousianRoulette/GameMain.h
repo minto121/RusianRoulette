@@ -10,11 +10,7 @@ class GameMain :
 private:
 
 public:
-    int CursolImg;
-    int LocationX,LocationY;
-    static int ItemNo;
-    int Life;
-    bool isUseCigarettes;
+   
     //�R���X�g���N�^
     GameMain();
 
