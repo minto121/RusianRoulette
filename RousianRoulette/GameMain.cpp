@@ -99,3 +99,15 @@ void GameMain::Turn()
     }
      
 }
+void GameMain::Choice()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    {
+       
+    }
+
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    {
+       
+    }
+}
