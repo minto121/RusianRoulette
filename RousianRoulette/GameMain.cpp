@@ -13,7 +13,9 @@ GameMain::GameMain()
 	P_life = 2;
     E_life = 2;
     Round = 1;
+    TurnCount = 0;
     //Turn = 1;
+    isPlayerTurn = FALSE;
 }
 
 GameMain::~GameMain()
@@ -22,33 +24,13 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
+    life();
+    Turn();
+    BULLET->Update();
 
-  /*  if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-    {
-        switch (currentPlayer)
-        {
-        case PlayerState::PLAYER:
-           
-        default:
-            break;
-        }
+  /*  if (isPlayerTurn) {
+        BULLET->Update();
     }*/
-    
-  /*  else
-    {
-        if(currentPlayer == PlayerState::PLAYER)
-            if ([rand() % NUM_CHAMBERS] == 1) {
-                P_life--;
-            }
-        currentPlayer = PlayerState::ENEMY;
-
-        if(currentPlayer == PlayerState::ENEMY)
-            if (chamber[rand() % NUM_CHAMBERS] == 1) {
-                E_life;
-            }
-        currentPlayer == PlayerState::PLAYER;
-    }*/
-
 
     //プレイヤーが負けた時の処理
     if (P_life <= 0) {
@@ -58,8 +40,6 @@ AbstractScene* GameMain::Update()
         }
     }
 
-	
-	//BULLET->Update();
 	return this;
 }
 
@@ -71,7 +51,19 @@ void GameMain::Draw() const
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
+    DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d",TurnCount);
+   /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
+    DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+
+    if (isPlayerTurn == TRUE)
+    {
+        DrawString(0, 160, "Pleyer",0xffffff);
+    }
+    else
+    {
+        DrawString(0, 180, "Enemy", 0xffffff);
+    }
 }
 
 void GameMain::life()
@@ -92,4 +84,26 @@ void GameMain::life()
         P_life = 2;
         E_life = 2;
     }
+}
+
+void GameMain::Turn()
+{
+    if (BULLET->FireC
+        
+        ) {
+        TurnCount++;
+
+        // ターンリセット
+        if (TurnCount == 6) { // カウントが6になったら
+            TurnCount = 0; // カウントをリセットする
+        }
+    }
+
+
+  
+    // ターン切り替え（Enterキーが押されたとき）
+    if (CheckHitKey(KEY_INPUT_RETURN)) {
+        isPlayerTurn = !isPlayerTurn; // ターンを切り替える
+    }
+   
 }

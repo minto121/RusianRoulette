@@ -10,6 +10,9 @@ private:
     int P_life;
     int E_life;
     int Round;
+    int TurnCount;
+
+    bool isPlayerTurn; // プレイヤーターンのフラグ
 
     // プレイヤーとコンピュータの状態を表す列挙型
     enum class PlayerState {
@@ -33,6 +36,7 @@ public:
     void Draw() const override;
 
     void life();
+    void Turn();
 
     bullet* BULLET;
 };

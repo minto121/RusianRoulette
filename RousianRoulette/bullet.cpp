@@ -105,9 +105,6 @@ void bullet::B_location()
 
 }
 
-
-
-
 void bullet::Update()
 {
 	Shot();
