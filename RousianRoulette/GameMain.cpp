@@ -66,6 +66,8 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 	BULLET->Draw();
+	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
