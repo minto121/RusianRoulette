@@ -2,9 +2,9 @@
 #include "Title.h"
 #include "GameMain.h"
 #include "PadInput.h"
+#include "DrawRanking.h"
+#include "ResultScene.h"
 
-
-//�^�C�g�����j���[
 enum class TITLE_MENU
 {
 	GAME_START = 0,
@@ -20,7 +20,6 @@ Title::Title()
 	Once = TRUE;
 
 	
-
 	////�^�C�g���摜�̓ǂݍ���
 	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
 	//{
@@ -105,40 +104,42 @@ AbstractScene* Title::Update()
 		Once = TRUE;
 	}
 
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	//{
-	//	switch (static_cast<TITLE_MENU>(Select))
-	//	{
-	//		//�Q�[����ʂ�
-	//	case TITLE_MENU::GAME_START:
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		switch (static_cast<TITLE_MENU>(Select))
+		{
+			//�Q�[����ʂ�
+		case TITLE_MENU::GAME_START:
 
-	//		return new GameMain();
-	//		break;
-	//		//�����L���O��ʂ�
-	//	case TITLE_MENU::GAME_RANKING:
-	//		return new DrawRanking();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�w���v���
-	//	case TITLE_MENU::GAME_HELP:
-	//		return new Help();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�G���h��ʂ�
-	//	case TITLE_MENU::GAME_END:
-	//		return new End();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+			return new GameMain();
+			break;
+			//�����L���O��ʂ�
+		case TITLE_MENU::GAME_RANKING:
+			return new DrawRankingScene(100);
+			//StopSoundMem(TitleBGM);
+			break;
+			//�w���v���
+		case TITLE_MENU::GAME_HELP:
+			return new GameMain();
+			//StopSoundMem(TitleBGM);
+			break;
+			//�G���h��ʂ�
+		case TITLE_MENU::GAME_END:
+			return new ResultScene();
+			//StopSoundMem(TitleBGM);
+			break;
+		default:
+			break;
+		}
+	}
 	return this;
 }
 
 void Title::Draw()const
 {
 	SetFontSize(64);
+
+	//DrawCircle(Select, Select, 10, GetColor(0, 255, 0), TRUE);
 
 	//�^�C�g���̕`��
 	DrawGraph(0, 0, TitleImg, FALSE);
@@ -148,11 +149,13 @@ void Title::Draw()const
 
 	//���j���[�̕`��
 	DrawFormatString(520, 380, 0xffffff, "START");
-	DrawFormatString(520, 440, 0xffffff, "HELP");
-	DrawFormatString(520, 500, 0xffffff, "RANKING");
-	DrawFormatString(520, 560, 0xffffff, "END");
+	DrawFormatString(520, 460, 0xffffff, "HELP");
+	DrawFormatString(520, 540, 0xffffff, "RANKING");
+	DrawFormatString(520, 620, 0xffffff, "END");
 
 	//�J�[�\���̕`��
-	int select_y = 230 + Select * 80;
-	DrawGraph(650, select_y, CursorImg, TRUE);
+	int select_y = 400 + Select * 80;
+	//DrawGraph(650, select_y, CursorImg, TRUE);
+
+	DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
 }
