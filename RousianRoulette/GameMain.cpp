@@ -23,4 +23,6 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 	BULLET->Draw();
+	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
 }
