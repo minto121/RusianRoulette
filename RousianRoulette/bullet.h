@@ -25,7 +25,7 @@ public:
 
 	int Bullet;
 	int Cylinder[6];
-	int FireC;
+	static int FireC;
 	int RandBox;
 };
 

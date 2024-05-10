@@ -2,6 +2,9 @@
 #include "DxLib.h"
 #include "Padinput.h"
 
+
+int bullet::FireC;
+
 bullet::bullet()
 {
 	
