@@ -7,9 +7,13 @@
 #include "Title.h"
 //#include "FpsController.h"
 
+int GameMain::E_life;
+int GameMain::P_life;
+
 GameMain::GameMain()
 {
 	BULLET = new bullet;
+    ITEM = new Item;
 	P_life = 2;
     E_life = 2;
     Round = 1;
@@ -27,7 +31,7 @@ AbstractScene* GameMain::Update()
     life();
     Turn();
     BULLET->Update();
-
+    ITEM->Update();
   /*  if (isPlayerTurn) {
         BULLET->Update();
     }*/
@@ -46,6 +50,7 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 	BULLET->Draw();
+    ITEM->Draw();
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);

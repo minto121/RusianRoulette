@@ -2,13 +2,13 @@
 #include "AbstractScene.h"
 #include "Player.h"
 #include "bullet.h"
+#include "Item.h"
 
 class GameMain :
     public AbstractScene
 {
 private:
-    int P_life;
-    int E_life;
+    
     int Round;
     int TurnCount;
 
@@ -39,5 +39,9 @@ public:
     void Turn();
 
     bullet* BULLET;
+    Item* ITEM;
+
+    static int P_life;
+    static int E_life;
 };
 

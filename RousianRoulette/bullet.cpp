@@ -4,6 +4,7 @@
 
 
 int bullet::FireC;
+int bullet::Cylinder[6];
 
 bullet::bullet()
 {
