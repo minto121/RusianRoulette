@@ -42,6 +42,17 @@ AbstractScene* GameMain::Update()
         return new Title;
     }
 
+    
+
+    //敵のHPがなくなるとラウンドが進み弾がリロードされる
+    if (E_life <= 0) {
+        Round++;
+        /*       P_life = 2;*/
+        BULLET->B_INIT();
+        isPlayerTurn = TRUE;
+        E_life = 2;
+    }
+
 	return this;
 }
 
@@ -100,17 +111,18 @@ void GameMain::Draw() const
 
 void GameMain::Choice()
 {
-    TurnCount = bullet::FireC;
+    TurnCount = bullet::Cylinder[bullet::FireC];
 
     //プレイヤーが敵を選択
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && isPlayerTurn == TRUE)
     {
-        BULLET->Shot();
+       
 
-        if (BULLET->RandBox == 1 && isPlayerTurn == TRUE)
+        if (bullet::Cylinder[bullet::FireC] == 1 /*&& isPlayerTurn == TRUE*/)
         {
             E_life--;
             isPlayerTurn = FALSE;
+            bullet::Cylinder[bullet::FireC] = 0;
         }
         else
         {
@@ -122,7 +134,6 @@ void GameMain::Choice()
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
         BULLET->Shot();
-
         if (BULLET->RandBox == 0 && isPlayerTurn == TRUE)
         {
             isPlayerTurn = TRUE;
@@ -134,7 +145,7 @@ void GameMain::Choice()
     {
         BULLET->Shot();
 
-        if (BULLET->RandBox == 1 && isPlayerTurn == FALSE)
+        if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
         {
             P_life--;
             isPlayerTurn = TRUE;
@@ -145,10 +156,5 @@ void GameMain::Choice()
         }
     }
 
-    //ラウンドが進んだ時にライフをリセットする
-    if (E_life <= 0) {
-        Round++;
-        /*       P_life = 2;*/
-        E_life = 2;
-    }
+   
 }

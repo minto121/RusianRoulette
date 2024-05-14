@@ -23,9 +23,6 @@ private:
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 public:
 
-    int P_life;
-    int E_life;
-
     //�R���X�g���N�^
     GameMain();
 
