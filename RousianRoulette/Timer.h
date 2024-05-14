@@ -1,21 +1,21 @@
 #pragma once
-class Enemy
+class Timer
 {
 private:
-
-
+	
 
 public:
-	Enemy();
+	Timer();
 
-	~Enemy();
+	~Timer();
 
 	void Update();
 
 	void Draw() const;
 
-	void E_Turn();
+	void WaitTime();
 
-
+	
+	static int FPS;
 };
 
