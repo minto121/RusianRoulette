@@ -1,6 +1,7 @@
 #include "DrawRanking.h"
 #include "PadInput.h"
 #include "DxLib.h"
+#include "Title.h"
 
 DrawRankingScene::DrawRankingScene(int stage) {
 	ranking.ReadRanking();
@@ -13,6 +14,12 @@ DrawRankingScene::DrawRankingScene(int stage) {
 }
 
 AbstractScene* DrawRankingScene::Update() {
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1) {
+
+		return new Title();
+
+	}
+
 	return this;
 }
 
