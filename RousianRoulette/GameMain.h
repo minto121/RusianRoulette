@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "bullet.h"
 #include "Item.h"
+#include "Timer.h"
 
 class GameMain :
     public AbstractScene
@@ -41,6 +42,7 @@ public:
 
     bullet* BULLET;
     Item* ITEM;
+    Timer* TIMER;
 
     static int P_life;
     static int E_life;

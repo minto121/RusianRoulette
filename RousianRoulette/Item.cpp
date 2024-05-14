@@ -3,6 +3,7 @@
 #include <math.h>
 #include "GameMain.h"
 #include "PadInput.h"
+#include "Timer.h"
 Item::Item()
 {
     L_Check = 0;
@@ -31,7 +32,9 @@ void Item::LOUPE()
 {
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
     {
-        UItime = 1;
+       
+        Timer::FPS = 1;
+
         if (bullet::Cylinder[bullet::FireC] == 0)
         {
             L_Check = 1;
@@ -49,13 +52,11 @@ void Item::LOUPE()
 
 void Item::ITEM_UI_TIME()
 {
-    
-        UItime++;
-        if (UItime == 400)
-        {
-            L_Check = 0;
-            UItime = 0;
-        }
+    if (Timer::FPS == 0)
+    {
+        L_Check = 0;
+    }
+
    
 }
 

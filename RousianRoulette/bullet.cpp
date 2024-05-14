@@ -60,18 +60,7 @@ void bullet::Reload()
 }
 
 
-void bullet::Shot()
-{
-	/*if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X))
-	{*/
-		if (Cylinder[FireC] == 1)
-		{
-			Cylinder[FireC] = 0;
-			
-		}
-		FireC++;
-	//}
-}
+
 
 void bullet::B_location()
 {
@@ -124,6 +113,7 @@ void bullet::Draw() const
 	DrawFormatString(0, 360, 0xffffff, "B_Location:%d", Cylinder[3]);
 	DrawFormatString(0, 380, 0xffffff, "B_Location:%d", Cylinder[4]);
 	DrawFormatString(0, 400, 0xffffff, "B_Location:%d", Cylinder[5]);
+	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);
 }
 
 

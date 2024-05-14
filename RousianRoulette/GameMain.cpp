@@ -5,6 +5,7 @@
 #include "PadInput.h"
 #include "bullet.h"
 #include "Title.h"
+#include "Timer.h"
 //#include "FpsController.h"
 
 int GameMain::E_life;
@@ -14,11 +15,11 @@ GameMain::GameMain()
 {
 	BULLET = new bullet;
     ITEM = new Item;
+    TIMER = new Timer;
 	P_life = 2;
     E_life = 2;
     Round = 1;
     TurnCount = 0;
-    //Turn = 1;
     isPlayerTurn = TRUE;
 }
 
@@ -31,6 +32,7 @@ AbstractScene* GameMain::Update()
   /*  life();*/
     BULLET->Update();
     ITEM->Update();
+    TIMER->Update();
     Choice();
 
   /*  if (isPlayerTurn) {
@@ -60,6 +62,7 @@ void GameMain::Draw() const
 {
 	BULLET->Draw();
     ITEM->Draw();
+    TIMER->Draw();
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
@@ -111,35 +114,53 @@ void GameMain::Draw() const
 
 void GameMain::Choice()
 {
-    TurnCount = bullet::Cylinder[bullet::FireC];
-
-    //プレイヤーが敵を選択
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && isPlayerTurn == TRUE)
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
     {
-       
-
-        if (bullet::Cylinder[bullet::FireC] == 1 /*&& isPlayerTurn == TRUE*/)
+        
+        if (bullet::Cylinder[bullet::FireC] == 1)
         {
             E_life--;
-            isPlayerTurn = FALSE;
             bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
         }
-        else
+        else if (bullet::Cylinder[bullet::FireC] == 0)
         {
-            isPlayerTurn = FALSE;
+            bullet::FireC++;
         }
+        isPlayerTurn = !isPlayerTurn;
+
     }
 
     //プレイヤーが自分を選択
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
-        BULLET->Shot();
-        if (BULLET->RandBox == 0 && isPlayerTurn == TRUE)
+       
+        if (bullet::Cylinder[bullet::FireC] == 1)
         {
-            isPlayerTurn = TRUE;
+            P_life--;
+            isPlayerTurn = !isPlayerTurn;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
         }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
+        
     }
 
+    //ラウンドが進んだ時にライフをリセットする
+    if (E_life <= 0) {
+        Round++;
+        P_life = 2;
+        E_life = 2;
+    }
+
+void GameMain::Turn()
+{
+    TurnCount = bullet::FireC;
+    if (isPlayerTurn == FALSE)
+    {
     //敵がプレイヤーを選択
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)&& isPlayerTurn == FALSE)
     {
@@ -155,6 +176,5 @@ void GameMain::Choice()
             isPlayerTurn = TRUE;
         }
     }
-
-   
+     */
 }
