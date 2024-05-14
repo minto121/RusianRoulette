@@ -24,7 +24,7 @@ public:
 	void B_location();   
 
 	int Bullet;
-	int Cylinder[6];
+	static int Cylinder[6];
 	static int FireC;
 	int RandBox;
 };
