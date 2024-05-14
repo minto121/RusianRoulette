@@ -15,7 +15,7 @@ GameMain::GameMain()
     Round = 1;
     TurnCount = 0;
     //Turn = 1;
-   /* isPlayerTurn = TRUE;*/
+    isPlayerTurn = TRUE;
 }
 
 GameMain::~GameMain()
@@ -24,9 +24,9 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-    life();
-    Turn();
+  /*  life();*/
     BULLET->Update();
+    Choice();
 
   /*  if (isPlayerTurn) {
         BULLET->Update();
@@ -34,10 +34,7 @@ AbstractScene* GameMain::Update()
 
     //プレイヤーが負けた時の処理
     if (P_life <= 0) {
-        DrawString(20, 140, "Game Over. Press Escape to exit.", GetColor(255, 255, 255));
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_START)||CheckHitKey(KEY_INPUT_ESCAPE)) {
-            return new Title;
-        }
+        return new Title;
     }
 
 	return this;
@@ -66,48 +63,86 @@ void GameMain::Draw() const
     }
 }
 
-void GameMain::life()
+//void GameMain::life()
+//{
+//  /*  if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+//    {
+//        E_life--;
+//    }*/
+//
+//    //if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+//    //{
+//    //    P_life--;
+//    //}
+//
+//  
+//}
+//
+//void GameMain::Turn()
+//{
+//    TurnCount = bullet::FireC;
+//
+// /*   if (TurnCount % 2 == 0) {
+//        isPlayerTurn = TRUE;
+//    }
+//    else
+//    {
+//        isPlayerTurn = FALSE;
+//    }*/
+//     
+//}
+
+void GameMain::Choice()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    TurnCount = bullet::FireC;
+
+    //プレイヤーが敵を選択
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && isPlayerTurn == TRUE)
     {
-        E_life--;
+        BULLET->Shot();
+
+        if (BULLET->RandBox == 1 && isPlayerTurn == TRUE)
+        {
+            E_life--;
+            isPlayerTurn = FALSE;
+        }
+        else
+        {
+            isPlayerTurn = FALSE;
+        }
     }
 
+    //プレイヤーが自分を選択
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
-        P_life--;
+        BULLET->Shot();
+
+        if (BULLET->RandBox == 0 && isPlayerTurn == TRUE)
+        {
+            isPlayerTurn = TRUE;
+        }
+    }
+
+    //敵がプレイヤーを選択
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)&& isPlayerTurn == FALSE)
+    {
+        BULLET->Shot();
+
+        if (BULLET->RandBox == 1 && isPlayerTurn == FALSE)
+        {
+            P_life--;
+            isPlayerTurn = TRUE;
+        }
+        else 
+        {
+            isPlayerTurn = TRUE;
+        }
     }
 
     //ラウンドが進んだ時にライフをリセットする
     if (E_life <= 0) {
         Round++;
-        P_life = 2;
+        /*       P_life = 2;*/
         E_life = 2;
-    }
-}
-
-void GameMain::Turn()
-{
-    TurnCount = bullet::FireC;
-
-    if (TurnCount%2==0) {
-        isPlayerTurn = TRUE;
-    }
-    else
-    {
-        isPlayerTurn = FALSE;
-    }
-     
-}
-void GameMain::Choice()
-{
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-    {
-       
-    }
-
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-    {
-       
     }
 }

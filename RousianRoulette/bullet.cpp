@@ -61,15 +61,15 @@ void bullet::Reload()
 
 void bullet::Shot()
 {
-	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X))
-	{
+	/*if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X))
+	{*/
 		if (Cylinder[FireC] == 1)
 		{
 			Cylinder[FireC] = 0;
 			
 		}
 		FireC++;
-	}
+	//}
 }
 
 void bullet::B_location()
@@ -110,7 +110,7 @@ void bullet::B_location()
 
 void bullet::Update()
 {
-	Shot();
+	/*Shot();*/
 	Reload();
 }
 
