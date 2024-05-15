@@ -57,10 +57,10 @@ Title::Title()
 Title::~Title()
 {
 
-	StopSoundMem(TitleBGM);
-	//�T�E���h�̍폜
-	DeleteSoundMem(TitleBGM);
-	DeleteSoundMem(MenuSE);
+	//StopSoundMem(TitleBGM);
+	////�T�E���h�̍폜
+	//DeleteSoundMem(TitleBGM);
+	//DeleteSoundMem(MenuSE);
 }
 
 AbstractScene* Title::Update()
@@ -110,7 +110,6 @@ AbstractScene* Title::Update()
 		{
 			//�Q�[����ʂ�
 		case TITLE_MENU::GAME_START:
-
 			return new GameMain();
 			break;
 			//�����L���O��ʂ�
@@ -120,12 +119,12 @@ AbstractScene* Title::Update()
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new GameMain();
+			return new Help();
 			//StopSoundMem(TitleBGM);
 			break;
 			//�G���h��ʂ�
 		case TITLE_MENU::GAME_END:
-			return new ResultScene();
+			return nullptr;
 			//StopSoundMem(TitleBGM);
 			break;
 		default:
