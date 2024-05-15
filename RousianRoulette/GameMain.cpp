@@ -10,7 +10,7 @@
 
 int GameMain::E_life;
 int GameMain::P_life;
-
+bool GameMain::isPlayerTurn;
 GameMain::GameMain()
 {
 	BULLET = new bullet;

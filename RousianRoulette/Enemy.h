@@ -3,7 +3,7 @@ class Enemy
 {
 private:
 
-
+	int E_Choice;
 
 public:
 	Enemy();
@@ -15,6 +15,8 @@ public:
 	void Draw() const;
 
 	void E_Turn();
+
+	void E_AI();
 
 
 };

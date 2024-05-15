@@ -13,7 +13,7 @@ private:
     int Round;
     int TurnCount;
 
-    bool isPlayerTurn; // プレイヤーターンのフラグ
+     // プレイヤーターンのフラグ
 
     // プレイヤーとコンピュータの状態を表す列挙型
     enum class PlayerState {
@@ -45,5 +45,6 @@ public:
 
     static int P_life;
     static int E_life;
+    static bool isPlayerTurn;
 };
 
