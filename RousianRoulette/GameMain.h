@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractScene.h"
-#include "Player.h"
 #include "bullet.h"
 #include "Item.h"
 #include "Timer.h"

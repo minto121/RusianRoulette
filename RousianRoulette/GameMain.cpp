@@ -66,6 +66,8 @@ void GameMain::Draw() const
     TIMER->Draw();
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+    DrawString(200, 600, "Player", 0xffffff);
+    DrawString(200, 900, "Enemy", 0xffffff);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
@@ -99,9 +101,6 @@ void GameMain::Draw() const
 //  
 //}
 //
-
-
-
 void GameMain::Choice()
 
 {
@@ -157,8 +156,6 @@ void GameMain::Turn()
         //敵がプレイヤーを選択
         if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && isPlayerTurn == FALSE)
         {
-         
-
             if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
             {
                 P_life--;
