@@ -4,6 +4,8 @@
 #include"Title.h"
 #include"PadInput.h"
 #include"GameMain.h"
+#include "DrawRanking.h"
+#include "InputRanking.h"
 
 #define FRAMERATE 60.0 //�t���[�����[�g
 
