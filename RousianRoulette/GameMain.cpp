@@ -34,6 +34,7 @@ AbstractScene* GameMain::Update()
     ITEM->Update();
     TIMER->Update();
     Choice();
+    Turn();
 
   /*  if (isPlayerTurn) {
         BULLET->Update();
@@ -98,25 +99,15 @@ void GameMain::Draw() const
 //  
 //}
 //
-//void GameMain::Turn()
-//{
-//    TurnCount = bullet::FireC;
-//
-// /*   if (TurnCount % 2 == 0) {
-//        isPlayerTurn = TRUE;
-//    }
-//    else
-//    {
-//        isPlayerTurn = FALSE;
-//    }*/
-//     
-//}
+
+
 
 void GameMain::Choice()
+
 {
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
     {
-        
+
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
             E_life--;
@@ -134,7 +125,7 @@ void GameMain::Choice()
     //プレイヤーが自分を選択
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
-       
+
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
             P_life--;
@@ -146,35 +137,37 @@ void GameMain::Choice()
         {
             bullet::FireC++;
         }
-        
-    }
 
-    //ラウンドが進んだ時にライフをリセットする
-    if (E_life <= 0) {
-        Round++;
-        P_life = 2;
-        E_life = 2;
     }
+}
+
+    ////ラウンドが進んだ時にライフをリセットする
+    //if (E_life <= 0) {
+    //    Round++;
+    //    P_life = 2;
+    //    E_life = 2;
+    //}
 
 void GameMain::Turn()
 {
     TurnCount = bullet::FireC;
+
     if (isPlayerTurn == FALSE)
     {
-    //敵がプレイヤーを選択
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)&& isPlayerTurn == FALSE)
-    {
-        BULLET->Shot();
+        //敵がプレイヤーを選択
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && isPlayerTurn == FALSE)
+        {
+         
 
-        if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
-        {
-            P_life--;
-            isPlayerTurn = TRUE;
-        }
-        else 
-        {
-            isPlayerTurn = TRUE;
+            if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
+            {
+                P_life--;
+                isPlayerTurn = TRUE;
+            }
+            else
+            {
+                isPlayerTurn = TRUE;
+            }
         }
     }
-     */
 }

@@ -36,7 +36,6 @@ public:
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
 
-    void life();
     void Turn();
     void Choice();
 
