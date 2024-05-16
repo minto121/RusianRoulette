@@ -11,6 +11,8 @@ private:
     
     int Round;
     int TurnCount;
+    int CurX;
+    int CurY;
 
     bool isPlayerTurn; // プレイヤーターンのフラグ
 
@@ -37,6 +39,7 @@ public:
 
     void Turn();
     void Choice();
+    void Cursol();
 
     bullet* BULLET;
     Item* ITEM;

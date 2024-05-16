@@ -11,6 +11,12 @@
 int GameMain::E_life;
 int GameMain::P_life;
 
+enum class CURSOL
+{
+    ENEMY,
+    PLAYER
+};
+
 GameMain::GameMain()
 {
 	BULLET = new bullet;
@@ -21,6 +27,8 @@ GameMain::GameMain()
     Round = 1;
     TurnCount = 0;
     isPlayerTurn = TRUE;
+    CurX = 170;
+    CurY = 550;
 }
 
 GameMain::~GameMain()
@@ -33,8 +41,9 @@ AbstractScene* GameMain::Update()
     BULLET->Update();
     ITEM->Update();
     TIMER->Update();
-    Choice();
+    //Choice();
     Turn();
+    Cursol();
 
   /*  if (isPlayerTurn) {
         BULLET->Update();
@@ -64,10 +73,10 @@ void GameMain::Draw() const
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
+    //UI
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-    DrawString(200, 600, "Player", 0xffffff);
-    DrawString(200, 900, "Enemy", 0xffffff);
+    SetFontSize(24);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
@@ -84,68 +93,54 @@ void GameMain::Draw() const
     {
         DrawString(0, 180, "Enemy", 0xffffff);
     }
+
+    DrawBox(CurX, CurY, CurX + 200,CurY + 50 ,0xffffff,FALSE);
+
+    //プレイヤーか敵を選ぶ
+    SetFontSize(48);
+    DrawString(200, 550, "ENEMY", 0xffffff);
+    DrawString(200, 600, "PLAYER", 0xffffff);
 }
 
-//void GameMain::life()
-//{
-//  /*  if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-//    {
-//        E_life--;
-//    }*/
-//
-//    //if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-//    //{
-//    //    P_life--;
-//    //}
-//
-//  
-//}
-//
 void GameMain::Choice()
 
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-    {
+    ////プレイヤーが敵を選択
+    //if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    //{
 
-        if (bullet::Cylinder[bullet::FireC] == 1)
-        {
-            E_life--;
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
-        isPlayerTurn = !isPlayerTurn;
+    //    if (bullet::Cylinder[bullet::FireC] == 1)
+    //    {
+    //        E_life--;
+    //        bullet::Cylinder[bullet::FireC] = 0;
+    //        bullet::FireC++;
+    //    }
+    //    else if (bullet::Cylinder[bullet::FireC] == 0)
+    //    {
+    //        bullet::FireC++;
+    //    }
+    //    isPlayerTurn = !isPlayerTurn;
 
-    }
-
-    //プレイヤーが自分を選択
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-    {
-
-        if (bullet::Cylinder[bullet::FireC] == 1)
-        {
-            P_life--;
-            isPlayerTurn = !isPlayerTurn;
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
-
-    }
-}
-
-    ////ラウンドが進んだ時にライフをリセットする
-    //if (E_life <= 0) {
-    //    Round++;
-    //    P_life = 2;
-    //    E_life = 2;
     //}
+
+    ////プレイヤーが自分を選択
+    //if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    //{
+
+    //    if (bullet::Cylinder[bullet::FireC] == 1)
+    //    {
+    //        P_life--;
+    //        isPlayerTurn = !isPlayerTurn;
+    //        bullet::Cylinder[bullet::FireC] = 0;
+    //        bullet::FireC++;
+    //    }
+    //    else if (bullet::Cylinder[bullet::FireC] == 0)
+    //    {
+    //        bullet::FireC++;
+    //    }
+
+    //}
+}
 
 void GameMain::Turn()
 {
@@ -166,5 +161,61 @@ void GameMain::Turn()
                 isPlayerTurn = TRUE;
             }
         }
+    }
+}
+
+void GameMain::Cursol()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    {
+        switch (static_cast<CURSOL>(CurY))
+        {
+        case CURSOL::ENEMY:
+            if (bullet::Cylinder[bullet::FireC] == 1)
+            {
+                P_life--;
+                isPlayerTurn = !isPlayerTurn;
+                bullet::Cylinder[bullet::FireC] = 0;
+                bullet::FireC++;
+            }
+            else if (bullet::Cylinder[bullet::FireC] == 0)
+            {
+                bullet::FireC++;
+            }
+            break;
+        case CURSOL::PLAYER:
+            if (bullet::Cylinder[bullet::FireC] == 1)
+            {
+                E_life--;
+                bullet::Cylinder[bullet::FireC] = 0;
+                bullet::FireC++;
+            }
+            else if (bullet::Cylinder[bullet::FireC] == 0)
+            {
+                bullet::FireC++;
+            }
+            isPlayerTurn = !isPlayerTurn;
+        default:
+            break;
+        }
+    }
+
+
+    //上方向
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+    {
+        CurY -= 50;
+    }
+    //下方向
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+    {
+        CurY += 50;
+    }
+
+    if (CurY < 550) {
+        CurY = 600;
+    }
+    if (CurY > 600) {
+        CurY = 550;
     }
 }
