@@ -16,6 +16,7 @@ GameMain::GameMain()
 	BULLET = new bullet;
     ITEM = new Item;
     TIMER = new Timer;
+    ENEMY = new Enemy;
 	P_life = 2;
     E_life = 2;
     Round = 1;
@@ -33,7 +34,9 @@ AbstractScene* GameMain::Update()
     Turn();
     BULLET->Update();
     ITEM->Update();
+    ENEMY->Update();
     TIMER->Update();
+    
 
     //プレイヤーが負けた時の処理
     if (P_life <= 0) {
@@ -51,6 +54,7 @@ void GameMain::Draw() const
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
+    ENEMY->Draw();
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
@@ -73,7 +77,7 @@ void GameMain::Draw() const
 
 void GameMain::life()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)&& isPlayerTurn == TRUE)
     {
         
         if (bullet::Cylinder[bullet::FireC] == 1)
@@ -86,17 +90,19 @@ void GameMain::life()
         {
             bullet::FireC++;
         }
+        
         isPlayerTurn = !isPlayerTurn;
-
+        ENEMY->E_UI_TIME();
     }
 
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && isPlayerTurn == TRUE)
     {
        
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
             P_life--;
             isPlayerTurn = !isPlayerTurn;
+            ENEMY->E_UI_TIME();
             bullet::Cylinder[bullet::FireC] = 0;
             bullet::FireC++;
         }
@@ -109,9 +115,11 @@ void GameMain::life()
 
     //ラウンドが進んだ時にライフをリセットする
     if (E_life <= 0) {
+        BULLET->Reload();
         Round++;
         P_life = 2;
         E_life = 2;
+        isPlayerTurn = TRUE;
     }
 }
 
