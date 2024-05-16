@@ -47,5 +47,7 @@ public:
 
     static int P_life;
     static int E_life;
+    static int NowSelect;
+
 };
 

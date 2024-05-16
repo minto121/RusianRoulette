@@ -94,12 +94,13 @@ void GameMain::Draw() const
         DrawString(0, 180, "Enemy", 0xffffff);
     }
 
-    DrawBox(CurX, CurY, CurX + 200,CurY + 50 ,0xffffff,FALSE);
-
     //プレイヤーか敵を選ぶ
     SetFontSize(48);
     DrawString(200, 550, "ENEMY", 0xffffff);
     DrawString(200, 600, "PLAYER", 0xffffff);
+
+    DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
+    
 }
 
 void GameMain::Choice()
