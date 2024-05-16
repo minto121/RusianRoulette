@@ -1,7 +1,7 @@
 #include "bullet.h"
 #include "DxLib.h"
 #include "Padinput.h"
-
+#include "GameMain.h"
 
 int bullet::FireC;
 int bullet::Cylinder[6];
@@ -53,25 +53,14 @@ void bullet::N_Of_Bullet()
 
 void bullet::Reload()
 {
-	if (FireC == 6)
+	if (FireC == 6||GameMain::E_life == 0)
 	{
 		B_INIT();
 	}
 }
 
 
-void bullet::Shot()
-{
-	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X))
-	{
-		if (Cylinder[FireC] == 1)
-		{
-			Cylinder[FireC] = 0;
-			
-		}
-		FireC++;
-	}
-}
+
 
 void bullet::B_location()
 {
@@ -111,7 +100,7 @@ void bullet::B_location()
 
 void bullet::Update()
 {
-	Shot();
+	/*Shot();*/
 	Reload();
 }
 
@@ -124,6 +113,7 @@ void bullet::Draw() const
 	DrawFormatString(0, 360, 0xffffff, "B_Location:%d", Cylinder[3]);
 	DrawFormatString(0, 380, 0xffffff, "B_Location:%d", Cylinder[4]);
 	DrawFormatString(0, 400, 0xffffff, "B_Location:%d", Cylinder[5]);
+	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);
 }
 
 
