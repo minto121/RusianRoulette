@@ -13,6 +13,7 @@ private:
     int TurnCount;
     int CurX;
     int CurY;
+    int GM_Select;
 
     bool isPlayerTurn; // プレイヤーターンのフラグ
 
@@ -21,6 +22,9 @@ private:
         PLAYER,
         ENEMY
     };
+
+ 
+
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 public:
@@ -38,8 +42,10 @@ public:
     void Draw() const override;
 
     void Turn();
-    void Choice();
+   /* void Choice();*/
     void Cursol();
+    void E_Choice();
+    void P_Choice();
 
     bullet* BULLET;
     Item* ITEM;
