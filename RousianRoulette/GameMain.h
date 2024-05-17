@@ -28,6 +28,8 @@ private:
 
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
+
+    int Enemyimg;
 public:
 
     //�R���X�g���N�^

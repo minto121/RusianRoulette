@@ -4,6 +4,7 @@
 #include "PadInput.h"
 #include "DrawRanking.h"
 #include "ResultScene.h"
+#include "EndScene.h"
 
 enum class TITLE_MENU
 {
@@ -124,7 +125,7 @@ AbstractScene* Title::Update()
 			break;
 			//�G���h��ʂ�
 		case TITLE_MENU::GAME_END:
-			return nullptr;
+			return new EndScene;
 			//StopSoundMem(TitleBGM);
 			break;
 		default:

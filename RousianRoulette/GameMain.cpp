@@ -28,6 +28,9 @@ GameMain::GameMain()
     E_life = 2;
     Round = 1;
     TurnCount = 0;
+    //Turn = 1;
+   /* isPlayerTurn = TRUE;*/
+    Enemyimg = LoadGraph("Resources/images/sinigami2.png");
     isPlayerTurn = TRUE;
     CurX = 170;
     CurY = 550;
@@ -38,6 +41,7 @@ GameMain::GameMain()
 
 GameMain::~GameMain()
 {
+    DeleteGraph(Enemyimg);
 }
 
 AbstractScene* GameMain::Update()
@@ -74,6 +78,8 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+    DrawGraph(370, 100, Enemyimg, FALSE);
+
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
@@ -219,26 +225,23 @@ void GameMain::Cursol()
 
 void GameMain::E_Choice()
 {
-    if (bullet::Cylinder[bullet::FireC] == 1)
-    {
-        E_life--;
-        bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;
-    }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        bullet::FireC++;
-    }
+   
 
-    isPlayerTurn = !isPlayerTurn;
-    ENEMY->E_UI_TIME();
-
-}
         
-        
-
-void GameMain::P_Choice()
-{
+        if (bullet::Cylinder[bullet::FireC] == 1)
+        {
+            E_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
@@ -251,8 +254,35 @@ void GameMain::P_Choice()
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
         bullet::FireC++;
+            P_life--;
+            isPlayerTurn = !isPlayerTurn;
+            ENEMY->E_UI_TIME();
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
+            P_life--;
+            isPlayerTurn = !isPlayerTurn;
+            ENEMY->E_UI_TIME();
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
         
     }
 
+    //ラウンドが進んだ時にライフをリセットする
+    if (E_life <= 0) {
+        BULLET->Reload();
+        Round++;
+        P_life = 2;
+        E_life = 2;
+        isPlayerTurn = TRUE;
+    }
 }
 
