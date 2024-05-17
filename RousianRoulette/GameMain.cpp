@@ -17,11 +17,13 @@ enum class CURSOL
     C_PLAYER
 };
 
+bool GameMain::isPlayerTurn;
 GameMain::GameMain()
 {
 	BULLET = new bullet;
     ITEM = new Item;
     TIMER = new Timer;
+    ENEMY = new Enemy;
 	P_life = 2;
     E_life = 2;
     Round = 1;
@@ -44,6 +46,7 @@ AbstractScene* GameMain::Update()
   /*  life();*/
     BULLET->Update();
     ITEM->Update();
+    ENEMY->Update();
     TIMER->Update();
     //Choice();
     Turn();
@@ -75,6 +78,7 @@ void GameMain::Draw() const
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
+    ENEMY->Draw();
     //UI
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
@@ -223,6 +227,21 @@ void GameMain::E_Choice()
     }
     isPlayerTurn = !isPlayerTurn;
 }
+        
+        if (bullet::Cylinder[bullet::FireC] == 1)
+        {
+            E_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
+        
+        isPlayerTurn = !isPlayerTurn;
+        ENEMY->E_UI_TIME();
+    }
 
 void GameMain::P_Choice()
 {
@@ -236,6 +255,32 @@ void GameMain::P_Choice()
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
         bullet::FireC++;
+    }
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && isPlayerTurn == TRUE)
+    {
+       
+        if (bullet::Cylinder[bullet::FireC] == 1)
+        {
+            P_life--;
+            isPlayerTurn = !isPlayerTurn;
+            ENEMY->E_UI_TIME();
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+        else if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            bullet::FireC++;
+        }
+        
+    }
+
+    //ラウンドが進んだ時にライフをリセットする
+    if (E_life <= 0) {
+        BULLET->Reload();
+        Round++;
+        P_life = 2;
+        E_life = 2;
+        isPlayerTurn = TRUE;
     }
 }
 

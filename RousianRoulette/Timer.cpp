@@ -4,6 +4,8 @@
 
 
 int Timer::FPS;
+
+
 Timer::Timer()
 {
 	
@@ -28,7 +30,7 @@ void Timer::Draw() const
 void Timer::WaitTime()
 {
 	FPS++;
-	if (FPS == 400) 
+	if (FPS == 800) 
 	{
 		
 		FPS = 0;

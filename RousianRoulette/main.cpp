@@ -4,6 +4,8 @@
 #include"Title.h"
 #include"PadInput.h"
 #include"GameMain.h"
+#include "DrawRanking.h"
+#include "InputRanking.h"
 
 #define FRAMERATE 60.0 //�t���[�����[�g
 
@@ -31,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new /*Title*/GameMain());
+		sceneMng = new SceneManager((AbstractScene*)new Title/*GameMain*/());
 
 	}
 	catch (const char* err)

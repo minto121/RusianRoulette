@@ -3,6 +3,7 @@
 #include "bullet.h"
 #include "Item.h"
 #include "Timer.h"
+#include "Enemy.h"
 
 class GameMain :
     public AbstractScene
@@ -15,7 +16,7 @@ private:
     int CurY;
     int GM_Select;
 
-    bool isPlayerTurn; // プレイヤーターンのフラグ
+     // プレイヤーターンのフラグ
 
     // プレイヤーとコンピュータの状態を表す列挙型
     enum class PlayerState {
@@ -50,9 +51,11 @@ public:
     bullet* BULLET;
     Item* ITEM;
     Timer* TIMER;
+    Enemy* ENEMY;
 
     static int P_life;
     static int E_life;
+    static bool isPlayerTurn;
     static int NowSelect;
 
 };

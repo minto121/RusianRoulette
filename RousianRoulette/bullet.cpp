@@ -1,7 +1,7 @@
 #include "bullet.h"
 #include "DxLib.h"
 #include "Padinput.h"
-
+#include "GameMain.h"
 
 int bullet::FireC;
 int bullet::Cylinder[6];
@@ -53,7 +53,7 @@ void bullet::N_Of_Bullet()
 
 void bullet::Reload()
 {
-	if (FireC == 6)
+	if (FireC == 6||GameMain::E_life == 0)
 	{
 		B_INIT();
 	}
