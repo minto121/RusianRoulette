@@ -20,10 +20,12 @@ GameMain::GameMain()
     TurnCount = 0;
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
+    Enemyimg = LoadGraph("Resources/images/sinigami2.png");
 }
 
 GameMain::~GameMain()
 {
+    DeleteGraph(Enemyimg);
 }
 
 AbstractScene* GameMain::Update()
@@ -49,6 +51,8 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+    DrawGraph(370, 100, Enemyimg, FALSE);
+
 	BULLET->Draw();
     ITEM->Draw();
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
