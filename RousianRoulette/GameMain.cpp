@@ -65,7 +65,6 @@ AbstractScene* GameMain::Update()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     if (E_life <= 0) {
         Round++;
-        /*       P_life = 2;*/
         BULLET->B_INIT();
         isPlayerTurn = TRUE;
         E_life = 2;
@@ -82,11 +81,12 @@ void GameMain::Draw() const
     //UI
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-    SetFontSize(14);
+    SetFontSize(24);
     DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
     DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
     DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
     DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d",TurnCount);
+    DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d",GM_Select);
    /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
     DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
@@ -105,8 +105,14 @@ void GameMain::Draw() const
     DrawString(200, 550, "ENEMY", 0xffffff);
     DrawString(200, 600, "PLAYER", 0xffffff);
 
+    //int select_y = 400 + GM_Select * 80;
     DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
 
+
+    //�J�[�\���̕`��
+    int select_y = 550 + GM_Select * 80;
+    //DrawGraph(650, select_y, CursorImg, TRUE);
+    DrawCircle(170, select_y, 10, GetColor(0, 255, 0), TRUE);
    
 }
 
@@ -174,8 +180,6 @@ void GameMain::Turn()
 
 void GameMain::Cursol()
 {
-
-
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
     {
         switch (static_cast<CURSOL>(GM_Select))
@@ -201,7 +205,7 @@ void GameMain::Cursol()
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
     {
         CurY += 50;
-        GM_Select--;
+        GM_Select++;
         if (GM_Select > 1)GM_Select = 0;
     }
 
@@ -225,62 +229,30 @@ void GameMain::E_Choice()
     {
         bullet::FireC++;
     }
+
     isPlayerTurn = !isPlayerTurn;
+    ENEMY->E_UI_TIME();
+
 }
         
-        if (bullet::Cylinder[bullet::FireC] == 1)
-        {
-            E_life--;
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
         
-        isPlayerTurn = !isPlayerTurn;
-        ENEMY->E_UI_TIME();
-    }
 
 void GameMain::P_Choice()
 {
+
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
         P_life--;
         isPlayerTurn = !isPlayerTurn;
+        ENEMY->E_UI_TIME();
         bullet::Cylinder[bullet::FireC] = 0;
         bullet::FireC++;
     }
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
         bullet::FireC++;
-    }
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && isPlayerTurn == TRUE)
-    {
-       
-        if (bullet::Cylinder[bullet::FireC] == 1)
-        {
-            P_life--;
-            isPlayerTurn = !isPlayerTurn;
-            ENEMY->E_UI_TIME();
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
         
     }
 
-    //ラウンドが進んだ時にライフをリセットする
-    if (E_life <= 0) {
-        BULLET->Reload();
-        Round++;
-        P_life = 2;
-        E_life = 2;
-        isPlayerTurn = TRUE;
-    }
 }
 
