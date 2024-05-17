@@ -19,7 +19,7 @@ public:
 
 	void Reload();       
 
-	void Shot();         
+/*	void Shot();      */   
 
 	void B_location();   
 

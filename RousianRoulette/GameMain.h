@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractScene.h"
-#include "Player.h"
 #include "bullet.h"
 #include "Item.h"
 #include "Timer.h"
@@ -13,6 +12,9 @@ private:
     
     int Round;
     int TurnCount;
+    int CurX;
+    int CurY;
+    int GM_Select;
 
      // プレイヤーターンのフラグ
 
@@ -21,6 +23,9 @@ private:
         PLAYER,
         ENEMY
     };
+
+ 
+
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
@@ -39,8 +44,11 @@ public:
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
 
-    void life();
     void Turn();
+   /* void Choice();*/
+    void Cursol();
+    void E_Choice();
+    void P_Choice();
 
     bullet* BULLET;
     Item* ITEM;
@@ -50,5 +58,7 @@ public:
     static int P_life;
     static int E_life;
     static bool isPlayerTurn;
+    static int NowSelect;
+
 };
 
