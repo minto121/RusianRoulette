@@ -215,18 +215,8 @@ void GameMain::Cursol()
 
 void GameMain::E_Choice()
 {
-    if (bullet::Cylinder[bullet::FireC] == 1)
-    {
-        E_life--;
-        bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;
-    }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        bullet::FireC++;
-    }
-    isPlayerTurn = !isPlayerTurn;
-}
+   
+
         
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
@@ -245,17 +235,7 @@ void GameMain::E_Choice()
 
 void GameMain::P_Choice()
 {
-    if (bullet::Cylinder[bullet::FireC] == 1)
-    {
-        P_life--;
-        isPlayerTurn = !isPlayerTurn;
-        bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;
-    }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        bullet::FireC++;
-    }
+  
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && isPlayerTurn == TRUE)
     {
        
@@ -275,12 +255,6 @@ void GameMain::P_Choice()
     }
 
     //ラウンドが進んだ時にライフをリセットする
-    if (E_life <= 0) {
-        BULLET->Reload();
-        Round++;
-        P_life = 2;
-        E_life = 2;
-        isPlayerTurn = TRUE;
-    }
+    
 }
 
