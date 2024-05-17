@@ -2,9 +2,9 @@
 #include "Title.h"
 #include "GameMain.h"
 #include "PadInput.h"
+#include "DrawRanking.h"
+#include "ResultScene.h"
 
-
-//�^�C�g�����j���[
 enum class TITLE_MENU
 {
 	GAME_START = 0,
@@ -19,9 +19,7 @@ Title::Title()
 	Select = 0;
 	Once = TRUE;
 
-	//�t�H���g�̒ǉ�
-	MenuFont = CreateFontToHandle("HG�n�p�p�߯�ߑ�", 64, 8, DX_FONTTYPE_ANTIALIASING);
-
+	
 	////�^�C�g���摜�̓ǂݍ���
 	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
 	//{
@@ -58,13 +56,11 @@ Title::Title()
 
 Title::~Title()
 {
-	//�t�H���g�̍폜
-	DeleteFontToHandle(MenuFont);
 
-	StopSoundMem(TitleBGM);
-	//�T�E���h�̍폜
-	DeleteSoundMem(TitleBGM);
-	DeleteSoundMem(MenuSE);
+	//StopSoundMem(TitleBGM);
+	////�T�E���h�̍폜
+	//DeleteSoundMem(TitleBGM);
+	//DeleteSoundMem(MenuSE);
 }
 
 AbstractScene* Title::Update()
@@ -108,50 +104,57 @@ AbstractScene* Title::Update()
 		Once = TRUE;
 	}
 
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	//{
-	//	switch (static_cast<TITLE_MENU>(Select))
-	//	{
-	//		//�Q�[����ʂ�
-	//	case TITLE_MENU::GAME_START:
-
-	//		return new GameMain();
-	//		break;
-	//		//�����L���O��ʂ�
-	//	case TITLE_MENU::GAME_RANKING:
-	//		return new DrawRanking();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�w���v���
-	//	case TITLE_MENU::GAME_HELP:
-	//		return new Help();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�G���h��ʂ�
-	//	case TITLE_MENU::GAME_END:
-	//		return new End();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		switch (static_cast<TITLE_MENU>(Select))
+		{
+			//�Q�[����ʂ�
+		case TITLE_MENU::GAME_START:
+			return new GameMain();
+			break;
+			//�����L���O��ʂ�
+		case TITLE_MENU::GAME_RANKING:
+			return new DrawRankingScene(100);
+			//StopSoundMem(TitleBGM);
+			break;
+			//�w���v���
+		case TITLE_MENU::GAME_HELP:
+			return new GameMain();
+			//StopSoundMem(TitleBGM);
+			break;
+			//�G���h��ʂ�
+		case TITLE_MENU::GAME_END:
+			return nullptr;
+			//StopSoundMem(TitleBGM);
+			break;
+		default:
+			break;
+		}
+	}
 	return this;
 }
 
 void Title::Draw()const
 {
+	SetFontSize(64);
+
+	//DrawCircle(Select, Select, 10, GetColor(0, 255, 0), TRUE);
+
 	//�^�C�g���̕`��
 	DrawGraph(0, 0, TitleImg, FALSE);
-	DrawStringToHandle(150, 100, "��񂲂��Ƃ�", 0xffffff, MenuFont);
+	DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
+
+	SetFontSize(48);
 
 	//���j���[�̕`��
-	DrawStringToHandle(730, 240, "�����[��", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 320, "��񂫂�", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 400, "�ւ��", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 480, "�����", 0xffffff, MenuFont);
+	DrawFormatString(520, 380, 0xffffff, "START");
+	DrawFormatString(520, 460, 0xffffff, "RANKING");
+	DrawFormatString(520, 540, 0xffffff, "HELP");
+	DrawFormatString(520, 620, 0xffffff, "END");
 
 	//�J�[�\���̕`��
-	int select_y = 230 + Select * 80;
-	DrawGraph(650, select_y, CursorImg, TRUE);
+	int select_y = 400 + Select * 80;
+	//DrawGraph(650, select_y, CursorImg, TRUE);
+
+	DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
 }

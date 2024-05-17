@@ -1,32 +1,26 @@
 #pragma once
-#include"GameMain.h"
 class Item
-	
 {
 private:
-	
-	int CigarettesImg; //たばこ
-	int LoupeImg;		//ルーペ
-	int BeerImg;		//ビール
-	int BombImg;		//爆弾
-	int CursolImg;
-	int LocationX, LocationY;
-	static int ItemNo;
-	int Life;
-	bool isUseCigarettes;
-
+	int L_Check;
+	int UItime;
 	
 
 public:
-
-	//�R���X�g���N�^
 	Item();
 
-	//�f�X�g���N�^
 	~Item();
 
-	//�`��ȊO�̍X�V���������
 	void Update();
 
-	void Draw();
+	void Draw() const;
+
+	void DRAG();
+
+	void BOMB();
+
+	void LOUPE();
+
+	void ITEM_UI_TIME();
 };
+
