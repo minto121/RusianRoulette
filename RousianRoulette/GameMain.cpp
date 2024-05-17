@@ -28,6 +28,9 @@ GameMain::GameMain()
     E_life = 2;
     Round = 1;
     TurnCount = 0;
+    //Turn = 1;
+   /* isPlayerTurn = TRUE;*/
+    Enemyimg = LoadGraph("Resources/images/sinigami2.png");
     isPlayerTurn = TRUE;
     CurX = 170;
     CurY = 550;
@@ -38,6 +41,7 @@ GameMain::GameMain()
 
 GameMain::~GameMain()
 {
+    DeleteGraph(Enemyimg);
 }
 
 AbstractScene* GameMain::Update()
@@ -75,6 +79,8 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+    DrawGraph(370, 100, Enemyimg, FALSE);
+
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
