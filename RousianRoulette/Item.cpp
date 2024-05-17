@@ -1,62 +1,86 @@
-#include "DxLib.h" 
 #include "Item.h"
-#include"Padinput.h"
-
-
+#include "DxLib.h"
+#include <math.h>
+#include "GameMain.h"
+#include "PadInput.h"
+#include "Timer.h"
 Item::Item()
 {
-	CursolImg = LoadGraph("./resouce/image/cursor.png");
-	Life = 1;
-	int i = 0;
-	LocationX = 950;
-	LocationY = 540;
-	isUseCigarettes = false;
-	
+    L_Check = 0;
+    UItime = 0;
 }
 
 Item::~Item()
 {
+
 }
+
+void Item::DRAG()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
+    {
+        GameMain::P_life++;
+    }
+}
+
+void Item::BOMB()
+{
+    
+}
+
+void Item::LOUPE()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+    {
+       
+        Timer::FPS = 1;
+
+        if (bullet::Cylinder[bullet::FireC] == 0)
+        {
+            L_Check = 1;
+        }
+
+        else if (bullet::Cylinder[bullet::FireC] == 1)
+        {
+            L_Check = 2;
+        }
+        
+    }
+
+    
+}
+
+void Item::ITEM_UI_TIME()
+{
+    if (Timer::FPS == 0)
+    {
+        L_Check = 0;
+    }
+
+   
+}
+
 
 void Item::Update()
 {
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-		LocationY += 30;
-	}
-	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-		LocationY -= 30;
-	}
-
-
-	if (LocationY < 540) {
-		LocationY = 540;
-	}
-	else if (LocationY > 720) {
-		LocationY = 720;
-	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-		if (Life < 3) {
-			Life += 1;
-			isUseCigarettes = true;
-		}
-
-	}
+    DRAG();
+    LOUPE();
+    ITEM_UI_TIME();
 }
 
-void Item::Draw()
+void Item::Draw() const
 {
+    DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
+    if (L_Check == 1)
+    {
+        DrawString(70, 50, "0", 0xffffff, TRUE);
+    }
 
-	SetFontSize(40);
-	DrawString(1030, 500, "Your Item\n", 0xfffffff);
-	DrawString(1030, 540, "Cigarettes\n", 0xfffffff);
-	DrawString(1030, 580, "Loupe\n", 0xfffffff);
-	DrawString(1030, 620, "Beer\n", 0xfffffff);
-	DrawString(1030, 660, "Bomb\n", 0xfffffff);
-	DrawGraph(LocationX, LocationY, CursolImg, TRUE);
-	DrawFormatString(100, 500, 0xfffffff, "life%d", Life);
-	if (isUseCigarettes) {
-		SetFontSize(20);
-		DrawString(500, 660, "Used Cigarettes\n", 0xfffffff);
-	}
+    if (L_Check == 2)
+    {
+        DrawString(70, 50, "1", 0xffffff, TRUE);
+    }
 
+   
 }
+

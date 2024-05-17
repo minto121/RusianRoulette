@@ -45,14 +45,14 @@ Title::Title()
 	//{
 	//	throw "Resource/sounds/SE/select01.wav";
 	//}
-	////SE�̉��ʕύX
-	//ChangeVolumeSoundMem(110, MenuSE);
+	//SE�̉��ʕύX
+	/*ChangeVolumeSoundMem(110, MenuSE);*/
 
-	////BGM�̍Đ�
-	//if (CheckSoundMem(TitleBGM) == 0)
-	//{
-	//	PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
-	//}
+	//BGM�̍Đ�
+	if (CheckSoundMem(TitleBGM) == 0)
+	{
+		PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
+	}
 
 }
 
@@ -61,10 +61,10 @@ Title::~Title()
 	//�t�H���g�̍폜
 	DeleteFontToHandle(MenuFont);
 
-	StopSoundMem(TitleBGM);
-	//�T�E���h�̍폜
-	DeleteSoundMem(TitleBGM);
-	DeleteSoundMem(MenuSE);
+	//StopSoundMem(TitleBGM);
+	////�T�E���h�̍폜
+	//DeleteSoundMem(TitleBGM);
+	//DeleteSoundMem(MenuSE);
 }
 
 AbstractScene* Title::Update()
@@ -108,34 +108,34 @@ AbstractScene* Title::Update()
 		Once = TRUE;
 	}
 
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	//{
-	//	switch (static_cast<TITLE_MENU>(Select))
-	//	{
-	//		//�Q�[����ʂ�
-	//	case TITLE_MENU::GAME_START:
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		switch (static_cast<TITLE_MENU>(Select))
+		{
+			//�Q�[����ʂ�
+		case TITLE_MENU::GAME_START:
 
-	//		return new GameMain();
-	//		break;
-	//		//�����L���O��ʂ�
-	//	case TITLE_MENU::GAME_RANKING:
-	//		return new DrawRanking();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�w���v���
-	//	case TITLE_MENU::GAME_HELP:
-	//		return new Help();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//		//�G���h��ʂ�
-	//	case TITLE_MENU::GAME_END:
-	//		return new End();
-	//		//StopSoundMem(TitleBGM);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+			return new GameMain();
+			break;
+		//	//�����L���O��ʂ�
+		//case TITLE_MENU::GAME_RANKING:
+		//	return new DrawRanking();
+		//	//StopSoundMem(TitleBGM);
+		//	break;
+		//	//�w���v���
+		//case TITLE_MENU::GAME_HELP:
+		//	return new Help();
+		//	//StopSoundMem(TitleBGM);
+		//	break;
+		//	//�G���h��ʂ�
+		//case TITLE_MENU::GAME_END:
+		//	return new End();
+		//	//StopSoundMem(TitleBGM);
+		//	break;
+		default:
+			break;
+		}
+	}
 	return this;
 }
 
@@ -146,7 +146,7 @@ void Title::Draw()const
 	DrawStringToHandle(150, 100, "��񂲂��Ƃ�", 0xffffff, MenuFont);
 
 	//���j���[�̕`��
-	DrawStringToHandle(730, 240, "�����[��", 0xffffff, MenuFont);
+	DrawStringToHandle(730, 240, "Start", 0xffffff, MenuFont);
 	DrawStringToHandle(730, 320, "��񂫂�", 0xffffff, MenuFont);
 	DrawStringToHandle(730, 400, "�ւ��", 0xffffff, MenuFont);
 	DrawStringToHandle(730, 480, "�����", 0xffffff, MenuFont);
