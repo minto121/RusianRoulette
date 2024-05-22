@@ -16,6 +16,8 @@ private:
     int CurY;
     int GM_Select;
     int a;
+    bool WaitFlg;
+
      // プレイヤーターンのフラグ
 
     // プレイヤーとコンピュータの状態を表す列挙型
@@ -23,9 +25,6 @@ private:
         PLAYER,
         ENEMY
     };
-
- 
-
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
