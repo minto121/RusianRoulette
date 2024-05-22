@@ -15,7 +15,7 @@ private:
     int CurX;
     int CurY;
     int GM_Select;
-
+    int a;
      // プレイヤーターンのフラグ
 
     // プレイヤーとコンピュータの状態を表す列挙型

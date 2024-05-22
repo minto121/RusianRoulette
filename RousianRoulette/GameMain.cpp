@@ -36,7 +36,7 @@ GameMain::GameMain()
     CurY = 550;
 
     GM_Select = 0;
-
+    a = 0;
 }
 
 GameMain::~GameMain()
@@ -80,7 +80,7 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
     DrawGraph(370, 100, Enemyimg, FALSE);
-
+    SetFontSize(14);
 	BULLET->Draw();
     ITEM->Draw();
     TIMER->Draw();
@@ -96,6 +96,7 @@ void GameMain::Draw() const
    /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
     DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+    DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
 
     if (isPlayerTurn == TRUE)
     {
@@ -189,7 +190,7 @@ void GameMain::Cursol()
         case CURSOL::C_ENEMY:
             E_Choice();
             break;
-        case CURSOL::C_PLAYER:
+        case CURSOL::C_PLAYER: 
             P_Choice();
             break;
         default:
@@ -227,8 +228,13 @@ void GameMain::E_Choice()
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
             E_life--;
+            if (Item::Bomb == TRUE) 
+            {
+                E_life--;
+            }
             bullet::Cylinder[bullet::FireC] = 0;
             bullet::FireC++;
+
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
@@ -237,13 +243,12 @@ void GameMain::E_Choice()
         
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
+        Item::Bomb = FALSE;
     }
 
 void GameMain::P_Choice()
 {
   
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && isPlayerTurn == TRUE)
-    {
        
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
@@ -255,10 +260,13 @@ void GameMain::P_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
+            a = 1;
+            isPlayerTurn = TRUE;
             bullet::FireC++;
+           
         }
         
-    }
+   
 
     //ラウンドが進んだ時にライフをリセットする
     
