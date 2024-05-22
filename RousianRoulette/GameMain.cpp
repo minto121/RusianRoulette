@@ -6,6 +6,7 @@
 #include "bullet.h"
 #include "Title.h"
 #include "Timer.h"
+#include "Enemy.h"
 //#include "FpsController.h"
 
 int GameMain::E_life;
@@ -13,7 +14,7 @@ int GameMain::P_life;
 
 enum class CURSOL
 {
-    C_ENEMY,
+    C_ENEMY = 0,
     C_PLAYER
 };
 
@@ -32,8 +33,9 @@ GameMain::GameMain()
    /* isPlayerTurn = TRUE;*/
     Enemyimg = LoadGraph("Resources/images/sinigami2.png");
     isPlayerTurn = TRUE;
-    CurX = 170;
-    CurY = 550;
+    //CurX = 170;
+    //CurY = 550;
+    WaitFlg = FALSE;
 
     GM_Select = 0;
 
@@ -54,12 +56,41 @@ AbstractScene* GameMain::Update()
     TIMER->Update();
     //Choice();
     Turn();
-    Cursol();
-    GM_Select = 0;
+  /*  Cursol();*/
 
-  /*  if (isPlayerTurn) {
-        BULLET->Update();
-    }*/
+
+    if (WaitFlg == FALSE&&isPlayerTurn == TRUE)
+    {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            switch (static_cast<CURSOL>(GM_Select))
+            {
+            case CURSOL::C_ENEMY:
+                E_Choice();
+                break;
+            case CURSOL::C_PLAYER:
+                P_Choice();
+                break;
+            default:
+                break;
+            }
+        }
+        //上方向
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+        {
+            /*  CurY -= 50;*/
+            GM_Select--;
+            if (GM_Select < 0)GM_Select = 1;
+        }
+        //下方向
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+        {
+            /*CurY += 50;*/
+            GM_Select++;
+            if (GM_Select > 1)GM_Select = 0;
+        }
+    }
+
 
     //プレイヤーが負けた時の処理
     if (P_life <= 0) {
@@ -111,8 +142,10 @@ void GameMain::Draw() const
     DrawString(200, 550, "ENEMY", 0xffffff);
     DrawString(200, 600, "PLAYER", 0xffffff);
 
-    //int select_y = 400 + GM_Select * 80;
-    DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
+    int select_y = 570 + GM_Select * 50;
+    DrawCircle(170, select_y, 10, GetColor(255, 255, 255), TRUE);
+
+    //DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
    
 }
 
@@ -160,6 +193,7 @@ void GameMain::Turn()
 {
     TurnCount = bullet::FireC;
 
+
     if (isPlayerTurn == FALSE)
     {
         //敵がプレイヤーを選択
@@ -175,51 +209,16 @@ void GameMain::Turn()
                 isPlayerTurn = TRUE;
             }
         }
-    }
-}
-
-void GameMain::Cursol()
-{
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-    {
-        switch (static_cast<CURSOL>(GM_Select))
-        {
-        case CURSOL::C_ENEMY:
-            E_Choice();
-            break;
-        case CURSOL::C_PLAYER:
-            P_Choice();
-            break;
-        default:
-            break;
-        }
-    }
-    //上方向
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-    {
-        CurY -= 50;
-        GM_Select--;
-        if (GM_Select < 0)GM_Select = 1;
-    }
-    //下方向
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-    {
-        CurY += 50;
-        GM_Select++;
-        if (GM_Select > 1)GM_Select = 0;
-    }
-
-    if (CurY < 550) {
-        CurY = 600;
-    }
-    if (CurY > 600) {
-        CurY = 550;
+        WaitFlg = FALSE;
     }
 }
 
 void GameMain::E_Choice()
 {
-       
+    if (WaitFlg == FALSE)
+    {
+        WaitFlg = !WaitFlg;
+    }
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
             E_life--;
@@ -229,14 +228,19 @@ void GameMain::E_Choice()
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
             bullet::FireC++;
+           
         }
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
+        isPlayerTurn = !isPlayerTurn;
+        ENEMY->E_UI_TIME();
 }
 
 
 void GameMain::P_Choice()
 {
+    if (WaitFlg == FALSE)
+    {
+        WaitFlg = !WaitFlg;
+    }
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
@@ -246,19 +250,10 @@ void GameMain::P_Choice()
         bullet::Cylinder[bullet::FireC] = 0;
         bullet::FireC++;
     }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        bullet::FireC++;
-            P_life--;
-            isPlayerTurn = !isPlayerTurn;
-            ENEMY->E_UI_TIME();
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-    }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
+     else if (bullet::Cylinder[bullet::FireC] == 0)
+     {
+         bullet::FireC++;
+     }
         
 }
 

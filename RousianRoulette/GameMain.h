@@ -15,6 +15,7 @@ private:
     int CurX;
     int CurY;
     int GM_Select;
+    bool WaitFlg;
 
      // プレイヤーターンのフラグ
 
@@ -23,9 +24,6 @@ private:
         PLAYER,
         ENEMY
     };
-
- 
-
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
