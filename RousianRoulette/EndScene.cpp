@@ -30,7 +30,7 @@ void EndScene::Draw() const
 	DrawString(100, 50, "Thank you ", 0xffffff);
 	DrawString(260, 100, "for playing!!", 0xffffff);
 	SetFontSize(48);
-	DrawString(100, 420, "m'sの気持ち", 0xffffff);
+	DrawString(100, 420, "m's feelings", 0xffffff);
 	SetFontSize(24);
 	DrawString(100, 480, "matsuda tomohide", 0xffffff);
 	DrawString(100, 510, "matsutake taketo", 0xffffff);
