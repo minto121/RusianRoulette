@@ -100,8 +100,9 @@ AbstractScene* GameMain::Update()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     if (E_life <= 0) {
         Round++;
+        WaitFlg = FALSE;
         BULLET->B_INIT();
-        isPlayerTurn = TRUE;
+        isPlayerTurn =! isPlayerTurn;
         E_life = 2;
     }
 	return this;
@@ -227,8 +228,7 @@ void GameMain::E_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
-            bullet::FireC++;
-           
+            bullet::FireC++; 
         }
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
@@ -237,10 +237,10 @@ void GameMain::E_Choice()
 
 void GameMain::P_Choice()
 {
-    if (WaitFlg == FALSE)
+    /*if (WaitFlg == FALSE)
     {
-        WaitFlg = !WaitFlg;
-    }
+        WaitFlg =!WaitFlg;
+    }*/
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
@@ -253,7 +253,9 @@ void GameMain::P_Choice()
      else if (bullet::Cylinder[bullet::FireC] == 0)
      {
          bullet::FireC++;
+        
      }
+
         
 }
 
