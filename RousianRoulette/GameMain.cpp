@@ -8,6 +8,7 @@
 #include "Timer.h"
 //#include "FpsController.h"
 
+
 int GameMain::E_life;
 int GameMain::P_life;
 
@@ -30,7 +31,13 @@ GameMain::GameMain()
     TurnCount = 0;
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
-    Enemyimg = LoadGraph("Resources/images/sinigami2.png");
+    Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
+    Enemyimg[1] = LoadGraph("Resources/images/skeleton.png");
+    Enemyimg[2] = LoadGraph("Resources/images/zombie.png");
+    Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
+    Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
+    ShuffleEnemyNum = 0;
+    LastEnemyNum = -1;
     isPlayerTurn = TRUE;
     CurX = 170;
     CurY = 550;
@@ -41,7 +48,10 @@ GameMain::GameMain()
 
 GameMain::~GameMain()
 {
-    DeleteGraph(Enemyimg);
+    for (int i = 0; i < IMAGE_CNT - 1; i++)
+    {
+        DeleteGraph(Enemyimg[i]);
+    }
 }
 
 AbstractScene* GameMain::Update()
@@ -69,6 +79,13 @@ AbstractScene* GameMain::Update()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     if (E_life <= 0) {
         Round++;
+        do
+        {
+            ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
+        } while (ShuffleEnemyNum == LastEnemyNum);
+
+        LastEnemyNum = ShuffleEnemyNum;
+        
         /*       P_life = 2;*/
         BULLET->B_INIT();
         isPlayerTurn = TRUE;
@@ -79,7 +96,8 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
-    DrawGraph(370, 100, Enemyimg, FALSE);
+
+    DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
 
 	BULLET->Draw();
     ITEM->Draw();
