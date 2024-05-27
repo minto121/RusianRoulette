@@ -160,10 +160,10 @@
     <ClCompile Include="InputRanking.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Padinput.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,10 +177,10 @@
     <ClInclude Include="InputRanking.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Padinput.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
