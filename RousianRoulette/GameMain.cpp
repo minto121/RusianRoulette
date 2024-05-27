@@ -39,7 +39,7 @@ GameMain::GameMain()
 
     GM_Select = 0;
     a = 0;
-    ResultFlg = TRUE;
+    ResultFlg = FALSE;
 }
 
 GameMain::~GameMain()
@@ -107,14 +107,15 @@ AbstractScene* GameMain::Update()
         //}
 
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
-    if (E_life <= 0) {
-        Round++;
-        WaitFlg = FALSE;
-        BULLET->B_INIT();
-        isPlayerTurn =! isPlayerTurn;
-        E_life = 2;
+        if (E_life <= 0) {
+            Round++;
+            WaitFlg = FALSE;
+            BULLET->B_INIT();
+            isPlayerTurn = !isPlayerTurn;
+            E_life = 2;
+        }
+        return this;
     }
-	return this;
 }
 
 void GameMain::Draw() const
