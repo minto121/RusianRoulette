@@ -106,6 +106,7 @@ void bullet::Update()
 
 void bullet::Draw() const
 {
+	SetFontSize(14);
 	DrawFormatString(0, 280, 0xffffff, "Bullet:%d", Bullet);
 	DrawFormatString(0, 300, 0xffffff, "B_Location:%d", Cylinder[0]);
 	DrawFormatString(0, 320, 0xffffff, "B_Location:%d", Cylinder[1]);
