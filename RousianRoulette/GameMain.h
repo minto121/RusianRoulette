@@ -17,6 +17,7 @@ private:
     int GM_Select;
     int a;
     bool WaitFlg;
+    int ResultFlg;
 
      // プレイヤーターンのフラグ
 
@@ -48,6 +49,7 @@ public:
     void Cursol();
     void E_Choice();
     void P_Choice();
+    void Result();
 
     bullet* BULLET;
     Item* ITEM;
