@@ -4,10 +4,14 @@
 #include "GameMain.h"
 #include "PadInput.h"
 #include "Timer.h"
+
+int Item::Bomb;
+
 Item::Item()
 {
     L_Check = 0;
     UItime = 0;
+    Bomb = FALSE;
 }
 
 Item::~Item()
@@ -25,6 +29,10 @@ void Item::DRAG()
 
 void Item::BOMB()
 {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    {
+        Bomb = TRUE;
+    }
     
 } 
 
@@ -66,6 +74,7 @@ void Item::Update()
     DRAG();
     LOUPE();
     ITEM_UI_TIME();
+    BOMB();
 }
 
 void Item::Draw() const
@@ -81,6 +90,7 @@ void Item::Draw() const
         DrawString(70, 50, "1", 0xffffff, TRUE);
     }
 
+    DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);
    
 }
 

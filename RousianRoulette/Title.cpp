@@ -138,6 +138,7 @@ AbstractScene* Title::Update()
 void Title::Draw()const
 {
 	SetFontSize(64);
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "select:%d", Select);
 
 	//DrawCircle(Select, Select, 10, GetColor(0, 255, 0), TRUE);
 

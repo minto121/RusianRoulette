@@ -15,6 +15,9 @@ private:
     int CurX;
     int CurY;
     int GM_Select;
+    int a;
+    bool WaitFlg;
+    int ResultFlg;
 
      // プレイヤーターンのフラグ
 
@@ -23,9 +26,6 @@ private:
         PLAYER,
         ENEMY
     };
-
- 
-
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
@@ -49,6 +49,7 @@ public:
     void Cursol();
     void E_Choice();
     void P_Choice();
+    void Result();
 
     bullet* BULLET;
     Item* ITEM;

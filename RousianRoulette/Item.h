@@ -22,5 +22,7 @@ public:
 	void LOUPE();
 
 	void ITEM_UI_TIME();
+
+	static int Bomb;
 };
 
