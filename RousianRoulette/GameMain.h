@@ -8,9 +8,10 @@
 class GameMain :
     public AbstractScene
 {
+public:
+     int Round;
 private:
     
-    int Round;
     int TurnCount;
     int CurX;
     int CurY;

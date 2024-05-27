@@ -1,9 +1,13 @@
 #pragma once
-class Item
+#include "AbstractScene.h"
+
+	
+class Item:public AbstractScene
 {
 private:
 	int L_Check;
 	int UItime;
+	int JudgeCount[2];
 	
 
 public:
@@ -11,7 +15,7 @@ public:
 
 	~Item();
 
-	void Update();
+	AbstractScene* Update() override;
 
 	void Draw() const;
 
@@ -20,6 +24,8 @@ public:
 	void BOMB();
 
 	void LOUPE();
+
+	void JUDGE();
 
 	void ITEM_UI_TIME();
 };
