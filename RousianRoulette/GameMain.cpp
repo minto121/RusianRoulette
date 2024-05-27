@@ -7,6 +7,7 @@
 #include "Title.h"
 #include "Timer.h"
 #include "Enemy.h"
+#include "Item.h"
 //#include "FpsController.h"
 
 
@@ -117,31 +118,24 @@ AbstractScene* GameMain::Update()
         //}
 
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
-    if (E_life <= 0) {
-        Round++;
-        do
-        {
-            ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
-        } while (ShuffleEnemyNum == LastEnemyNum);
-
-        LastEnemyNum = ShuffleEnemyNum;
-        
-        /*       P_life = 2;*/
-        BULLET->B_INIT();
-        isPlayerTurn = TRUE;
-        E_life = 2;
-    }
-	return this;
-}
         if (E_life <= 0) {
             Round++;
-            WaitFlg = FALSE;
+            do
+            {
+                ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
+            } while (ShuffleEnemyNum == LastEnemyNum);
+
+            LastEnemyNum = ShuffleEnemyNum;
+
+            /*       P_life = 2;*/
             BULLET->B_INIT();
-            isPlayerTurn = !isPlayerTurn;
+            WaitFlg = FALSE;
+            isPlayerTurn = TRUE;
             E_life = 2;
         }
         return this;
     }
+    
 }
 
 void GameMain::Draw() const
@@ -165,7 +159,7 @@ void GameMain::Draw() const
     DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
     if (ResultFlg == FALSE) {
-        DrawGraph(370, 100, Enemyimg, FALSE);
+        DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
         SetFontSize(14);
         BULLET->Draw();
         ITEM->Draw();
