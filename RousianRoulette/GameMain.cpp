@@ -7,6 +7,7 @@
 #include "Title.h"
 #include "Timer.h"
 #include "Enemy.h"
+#include "Item.cpp"
 //#include "FpsController.h"
 
 int GameMain::E_life;
@@ -19,6 +20,7 @@ enum class CURSOL
 };
 
 bool GameMain::isPlayerTurn;
+
 GameMain::GameMain()
 {
 	BULLET = new bullet;

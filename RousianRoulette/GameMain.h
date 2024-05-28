@@ -12,8 +12,8 @@ private:
     
     int Round;
     int TurnCount;
-    int CurX;
-    int CurY;
+   /* int CurX;
+    int CurY;*/
     int GM_Select;
     int a;
     bool WaitFlg;
