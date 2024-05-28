@@ -5,6 +5,8 @@
 #include "DrawRanking.h"
 #include "ResultScene.h"
 #include "EndScene.h"
+#include "InputRanking.h"
+#include "HelpScene.h"
 
 enum class TITLE_MENU
 {
@@ -120,7 +122,7 @@ AbstractScene* Title::Update()
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new GameMain();
+			return new HelpScene();
 			//StopSoundMem(TitleBGM);
 			break;
 			//�G���h��ʂ�

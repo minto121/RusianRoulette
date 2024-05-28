@@ -35,9 +35,9 @@ GameMain::GameMain()
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
     Enemyimg[1] = LoadGraph("Resources/images/skeleton.png");
-    Enemyimg[2] = LoadGraph("Resources/images/zombie.png");
+    Enemyimg[2] = LoadGraph("Resources/images/mummy.png");
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
-    Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
+    Enemyimg[4] = LoadGraph("Resources/images/devil.png");
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     isPlayerTurn = TRUE;
