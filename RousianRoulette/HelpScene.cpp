@@ -35,14 +35,11 @@ AbstractScene* HelpScene::Update()
 void HelpScene::Draw() const
 {
 
-	// 文字コード設定をUTF-8に変更
-	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8);
-
 	SetFontSize(48);
 
 	DrawFormatString(100, 100, 0xffffff, "十字キーでコマンド選択");
-	DrawFormatString(100, 130, 0xffffff, "Aボタンで決定");
-	DrawFormatString(100, 160, 0xffffff, "Bボタンで戻る");
+	DrawFormatString(100, 150, 0xffffff, "Aボタンで決定");
+	DrawFormatString(100, 200, 0xffffff, "Bボタンで戻る");
 
 	SetFontSize(36);
 	DrawFormatString(350, 590, 0xffffff, "A button push to Game Start");
