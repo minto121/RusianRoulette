@@ -71,14 +71,42 @@ void Item::JUDGE()
     }
 }
 
+void Item::TOTEM()
+{
+    int Totem = GetRand(1);
+    if (GameMain::P_life == 0) {
+        if (Totem == 1) {
+            GameMain::P_life = 2;
+
+        }
+    }
+}
+
+void Item::C_BULLET()
+{
+    if (/*KEY_INPUT_SPACE*/PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+       
+        int i;
+        for (i = 0; i < 6; i++) {
+            if (bullet::Cylinder[i] == 0) {
+                bullet::Cylinder[i] = 1;
+            }
+            else if (bullet::Cylinder[i] == 1) {
+                bullet::Cylinder[i] = 0;
+            }
+        }
+        
+
+
+    }
+}
+
 void Item::ITEM_UI_TIME()
 {
     if (Timer::FPS == 0)
     {
         L_Check = 0;
     }
-
-   
 }
 
 
@@ -89,6 +117,8 @@ AbstractScene*Item::Update()
     LOUPE();
     BOMB();
     JUDGE();
+    TOTEM();
+    C_BULLET();
     ITEM_UI_TIME();
     return this;
 }
