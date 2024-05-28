@@ -5,12 +5,15 @@
 #include "Timer.h"
 #include "Enemy.h"
 
+#define IMAGE_CNT 5
+
 class GameMain :
     public AbstractScene
 {
+public:
+     int Round;
 private:
     
-    int Round;
     int TurnCount;
    /* int CurX;
     int CurY;*/
@@ -29,7 +32,10 @@ private:
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
-    int Enemyimg;
+    int Enemyimg[IMAGE_CNT];
+    int ShuffleEnemyNum;
+    int LastEnemyNum;
+
 public:
 
     //�R���X�g���N�^

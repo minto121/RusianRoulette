@@ -4,6 +4,8 @@
 #include "GameMain.h"
 #include "PadInput.h"
 #include "Timer.h"
+#include "Title.h"
+
 
 int Item::Bomb;
 
@@ -54,8 +56,23 @@ void Item::LOUPE()
         }
         
     }
+}
 
-    
+void Item::JUDGE()
+{
+    int Judge = GetRand(1);
+    if(PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+        if (Judge == 0) {
+            GameMain::P_life--;
+        }
+        else {
+            GameMain::E_life--;
+        }
+        
+        if (GameMain::E_life < 1) {
+            GameMain::P_life = 2;
+        }
+    }
 }
 
 void Item::ITEM_UI_TIME()
@@ -69,13 +86,18 @@ void Item::ITEM_UI_TIME()
 }
 
 
-void Item::Update()
+
+AbstractScene*Item::Update()
 {
     DRAG();
     LOUPE();
+    BOMB();
+    JUDGE();
     ITEM_UI_TIME();
     BOMB();
+    return this;
 }
+
 
 void Item::Draw() const
 {

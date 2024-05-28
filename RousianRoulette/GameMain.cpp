@@ -7,8 +7,9 @@
 #include "Title.h"
 #include "Timer.h"
 #include "Enemy.h"
-#include "Item.cpp"
+#include "Item.h"
 //#include "FpsController.h"
+
 
 int GameMain::E_life;
 int GameMain::P_life;
@@ -33,7 +34,13 @@ GameMain::GameMain()
     TurnCount = 0;
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
-    Enemyimg = LoadGraph("Resources/images/sinigami2.png");
+    Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
+    Enemyimg[1] = LoadGraph("Resources/images/skeleton.png");
+    Enemyimg[2] = LoadGraph("Resources/images/zombie.png");
+    Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
+    Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
+    ShuffleEnemyNum = 0;
+    LastEnemyNum = -1;
     isPlayerTurn = TRUE;
     //CurX = 170;
     //CurY = 550;
@@ -41,12 +48,15 @@ GameMain::GameMain()
 
     GM_Select = 0;
     a = 0;
-    ResultFlg = TRUE;
+    ResultFlg = FALSE;
 }
 
 GameMain::~GameMain()
 {
-    DeleteGraph(Enemyimg);
+    for (int i = 0; i < IMAGE_CNT - 1; i++)
+    {
+        DeleteGraph(Enemyimg[i]);
+    }
 }
 
 AbstractScene* GameMain::Update()
@@ -108,21 +118,49 @@ AbstractScene* GameMain::Update()
         //    return new Title;
         //}
 
-        //敵のHPがなくなるとラウンドが進み弾がリロードされる
+    //敵のHPがなくなるとラウンドが進み弾がリロードされる
         if (E_life <= 0) {
             Round++;
+            do
+            {
+                ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
+            } while (ShuffleEnemyNum == LastEnemyNum);
+
+            LastEnemyNum = ShuffleEnemyNum;
+
+            /*       P_life = 2;*/
             BULLET->B_INIT();
+            WaitFlg = FALSE;
             isPlayerTurn = TRUE;
             E_life = 2;
         }
+        return this;
     }
-	return this;
+    
 }
 
 void GameMain::Draw() const
 {
+
+    DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
+
+	BULLET->Draw();
+    ITEM->Draw();
+    TIMER->Draw();
+    ENEMY->Draw();
+    //UI
+	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+    SetFontSize(14);
+    DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
+    DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
+    DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
+    DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d",TurnCount);
+   /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
+    DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
+    /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
     if (ResultFlg == FALSE) {
-        DrawGraph(370, 100, Enemyimg, FALSE);
+        DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
         SetFontSize(14);
         BULLET->Draw();
         ITEM->Draw();
@@ -252,8 +290,7 @@ void GameMain::E_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
-            bullet::FireC++;
-           
+            bullet::FireC++; 
         }
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
@@ -263,10 +300,10 @@ void GameMain::E_Choice()
 
 void GameMain::P_Choice()
 {
-    if (WaitFlg == FALSE)
+    /*if (WaitFlg == FALSE)
     {
-        WaitFlg = !WaitFlg;
-    }
+        WaitFlg =!WaitFlg;
+    }*/
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
@@ -279,7 +316,9 @@ void GameMain::P_Choice()
      else if (bullet::Cylinder[bullet::FireC] == 0)
      {
          bullet::FireC++;
+        
      }
+
         
 }
 
