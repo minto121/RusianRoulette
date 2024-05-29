@@ -6,7 +6,7 @@
 
 HelpScene::HelpScene()
 {
-	//image = LoadGraph("Resources/images/HELP.png");
+	image = LoadGraph("Resources/images/HelpScene.png");
 	//select = 0;
 	//bgm = sound;
 	//TitleSE2 = LoadSoundMem("Resources/sounds/decision.wav");
@@ -14,7 +14,7 @@ HelpScene::HelpScene()
 
 HelpScene::~HelpScene()
 {
-
+	DeleteGraph(image);
 }
 
 AbstractScene* HelpScene::Update()
@@ -34,15 +34,16 @@ AbstractScene* HelpScene::Update()
 
 void HelpScene::Draw() const
 {
+	DrawGraph(0, 0, image, FALSE);
 
-	SetFontSize(48);
+	//SetFontSize(48);
 
-	DrawFormatString(100, 100, 0xffffff, "十字キーでコマンド選択");
-	DrawFormatString(100, 150, 0xffffff, "Aボタンで決定");
-	DrawFormatString(100, 200, 0xffffff, "Bボタンで戻る");
+	//DrawFormatString(100, 100, 0xffffff, "十字キーでコマンド選択");
+	//DrawFormatString(100, 150, 0xffffff, "Aボタンで決定");
+	//DrawFormatString(100, 200, 0xffffff, "Bボタンで戻る");
 
-	SetFontSize(36);
-	DrawFormatString(350, 590, 0xffffff, "A button push to Game Start");
-	DrawFormatString(350, 630, 0xffffff, "B button push to Title");
+	//SetFontSize(36);
+	//DrawFormatString(350, 590, 0xff0000, "A button push to Game Start");
+	//DrawFormatString(350, 630, 0x0000ff, "B button push to Title");
 	//DrawGraph(0, 0, image, 80FALSE);
 }
