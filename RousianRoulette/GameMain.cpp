@@ -142,23 +142,7 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 
-    DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
-
-	BULLET->Draw();
-    ITEM->Draw();
-    TIMER->Draw();
-    ENEMY->Draw();
-    //UI
-	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
-	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-    SetFontSize(14);
-    DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d",P_life);
-    DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d",E_life);
-    DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d",Round);
-    DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d",TurnCount);
-   /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
-    DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
-    /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+    
     if (ResultFlg == FALSE) {
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
         SetFontSize(14);
