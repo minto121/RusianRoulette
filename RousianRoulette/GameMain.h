@@ -18,6 +18,7 @@ private:
     int CurX;
     int CurY;
     int GM_Select;
+    int I_Select;
     int a;
     bool WaitFlg;
     int ResultFlg;
@@ -28,6 +29,18 @@ private:
     enum class PlayerState {
         PLAYER,
         ENEMY
+    };
+
+    enum class GameState
+    {
+        S_ACTION,
+        S_TARGET
+    };
+    
+    enum class action
+    {
+        ATACK,
+        ITEM
     };
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
@@ -52,10 +65,12 @@ public:
 
     void Turn();
    /* void Choice();*/
-    void Cursol();
+  /*  void Cursol();*/
     void E_Choice();
     void P_Choice();
+    //void I_Choice();
     void Result();
+    //void Action();
 
     bullet* BULLET;
     Item* ITEM;
