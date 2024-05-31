@@ -27,6 +27,10 @@ public:
 
 	void JUDGE();
 
+	void TOTEM();
+
+	void C_BULLET();
+
 	void ITEM_UI_TIME();
 
 	static int Bomb;
