@@ -35,7 +35,10 @@ private:
     int Enemyimg[IMAGE_CNT];
     int ShuffleEnemyNum;
     int LastEnemyNum;
-
+    int bullet_holes;
+    int bullet_holes2;
+    int bh_flg;
+    int bh2_flg;
 public:
 
     //�R���X�g���N�^
