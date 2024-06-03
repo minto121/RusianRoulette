@@ -25,6 +25,7 @@ enum class CURSOL
 };
 
 bool GameMain::isPlayerTurn;
+
 GameMain::GameMain()
 {
 	BULLET = new bullet;
@@ -42,6 +43,8 @@ GameMain::GameMain()
     Enemyimg[2] = LoadGraph("Resources/images/zombie.png");
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
     Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
+    bullet_holes = LoadGraph("Resources/images/k0100_1.png");
+    bullet_holes2 = LoadGraph("Resources/images/b2.png");
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     isPlayerTurn = TRUE;
@@ -53,6 +56,8 @@ GameMain::GameMain()
     I_Select = 0;
     a = 0;
     ResultFlg = FALSE;
+    bh_flg = FALSE;
+    bh2_flg = FALSE;
 }
 
 GameMain::~GameMain()
@@ -84,6 +89,11 @@ AbstractScene* GameMain::Update()
         Turn();
         /*  Cursol();*/
 
+        if (Timer::FPS == 200)
+        {
+            bh_flg = FALSE;
+            bh2_flg = FALSE;
+        }
 
         if (WaitFlg == FALSE && isPlayerTurn == TRUE)
         {
@@ -146,8 +156,16 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+
+    
     if (ResultFlg == FALSE) {
+       
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
+        if (bh_flg == TRUE)
+        {
+            DrawGraph(370, 50, bullet_holes, TRUE);
+        }
+       
         SetFontSize(14);
         BULLET->Draw();
         ITEM->Draw();
@@ -193,7 +211,10 @@ void GameMain::Draw() const
 
         //DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
     }
-
+    if (bh2_flg == TRUE&& ResultFlg == FALSE)
+    {
+        DrawGraph(-120, -140, bullet_holes2, TRUE);
+    }
     if (ResultFlg == TRUE) {
         DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
         DrawString(480, 650, "Press_A_Button", 0xffffff);
@@ -273,6 +294,7 @@ void GameMain::E_Choice()
     }
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
+            bh_flg = TRUE;
             E_life--;
             if (Item::Bomb == TRUE) 
             {
@@ -288,8 +310,9 @@ void GameMain::E_Choice()
         }
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
+       
         Item::Bomb = FALSE;
-    }
+}
 
 
 void GameMain::P_Choice()
@@ -301,6 +324,7 @@ void GameMain::P_Choice()
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
+        bh2_flg = TRUE;
         P_life--;
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
