@@ -100,7 +100,7 @@ AbstractScene* GameMain::Update()
             bh2_flg = FALSE;
         }
 
-        if (Timer::FPS == 750)
+        if (Timer::FPS == 700)
         {
             ShotFlg = FALSE;
             ActionFlg = TRUE;
