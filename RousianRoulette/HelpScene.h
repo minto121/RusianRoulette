@@ -4,6 +4,10 @@ class HelpScene : public AbstractScene
 {
 private:
 	int image;
+	int Bgm;
+
+	int ASE;
+	int BSE;
 
 public:
 	HelpScene();

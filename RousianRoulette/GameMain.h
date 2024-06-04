@@ -36,6 +36,8 @@ private:
     int ShuffleEnemyNum;
     int LastEnemyNum;
 
+    int GMBgm;
+
 public:
 
     //�R���X�g���N�^

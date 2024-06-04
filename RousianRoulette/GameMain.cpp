@@ -40,6 +40,7 @@ GameMain::GameMain()
     Enemyimg[4] = LoadGraph("Resources/images/devil.png");
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
+    GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
     isPlayerTurn = TRUE;
     //CurX = 170;
     //CurY = 550;
@@ -56,6 +57,7 @@ GameMain::~GameMain()
     {
         DeleteGraph(Enemyimg[i]);
     }
+    DeleteSoundMem(GMBgm);
 }
 
 AbstractScene* GameMain::Update()
@@ -67,7 +69,8 @@ AbstractScene* GameMain::Update()
     }
     if (ResultFlg == FALSE)
     {
-
+        ChangeVolumeSoundMem(75, GMBgm);
+        PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
 
         /*  life();*/
         BULLET->Update();
@@ -140,6 +143,7 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+    
 
     DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
 
@@ -160,6 +164,7 @@ void GameMain::Draw() const
     /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
     if (ResultFlg == FALSE) {
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
+
         SetFontSize(14);
         BULLET->Draw();
         ITEM->Draw();
@@ -203,6 +208,8 @@ void GameMain::Draw() const
         DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
         DrawString(480, 650, "Press_A_Button", 0xffffff);
         DrawString(550, 50, "Result", 0xffffff);
+
+        StopSoundMem(GMBgm);
     }
 }
 

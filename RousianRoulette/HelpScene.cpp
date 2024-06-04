@@ -4,29 +4,42 @@
 #include"GameMain.h"
 #include"Title.h"
 
+Title title;
+
 HelpScene::HelpScene()
 {
 	image = LoadGraph("Resources/images/HelpScene.png");
-	//select = 0;
-	//bgm = sound;
-	//TitleSE2 = LoadSoundMem("Resources/sounds/decision.wav");
+	Bgm = LoadSoundMem("Resources/sounds/I like.wav");
+	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
+	BSE = LoadSoundMem("Resources/sounds/cancel.mp3");
 }
 
 HelpScene::~HelpScene()
 {
 	DeleteGraph(image);
+	DeleteSoundMem(Bgm);
+	DeleteSoundMem(ASE);
+	DeleteSoundMem(BSE);
 }
 
 AbstractScene* HelpScene::Update()
 {
+
+	ChangeVolumeSoundMem(100, Bgm);
+	PlaySoundMem(Bgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1) {
 
+		PlaySoundMem(ASE, DX_PLAYTYPE_BACK, FALSE);
 		return new GameMain();
-
+		StopSoundMem(Bgm);
 	}
 	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) == 1)
 	{
+		PlaySoundMem(BSE, DX_PLAYTYPE_BACK, FALSE);
 		return new Title();
+		StopSoundMem(Bgm);
+
 	}
 
 	return this;
