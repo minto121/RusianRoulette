@@ -54,8 +54,7 @@ private:
     int LastEnemyNum;
     int bullet_holes;
     int bullet_holes2;
-    int bh_flg;
-    int bh2_flg;
+    
 public:
 
     //�R���X�g���N�^
@@ -88,6 +87,7 @@ public:
     static int E_life;
     static bool isPlayerTurn;
     static int NowSelect;
-
+    static int bh_flg;
+    static int bh2_flg;
 };
 

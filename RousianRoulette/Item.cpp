@@ -124,7 +124,7 @@ AbstractScene*Item::Update()
     TOTEM();
     //C_BULLET();
     ITEM_UI_TIME();
-    BOMB();
+   
     return this;
 }
 

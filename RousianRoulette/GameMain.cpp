@@ -13,6 +13,8 @@
 
 int GameMain::E_life;
 int GameMain::P_life;
+int GameMain::bh_flg;
+int GameMain::bh2_flg;
 
 enum class CURSOL
 {
@@ -79,7 +81,7 @@ AbstractScene* GameMain::Update()
     {
         return new Title;
     }
-    if (ResultFlg == FALSE)
+    if (ResultFlg == FALSE&&P_life>0)
     {
         /*  life();*/
         BULLET->Update();
@@ -92,7 +94,7 @@ AbstractScene* GameMain::Update()
         /*  Cursol();*/
         Action();
 
-        if (Timer::FPS == 200)
+        if (Timer::FPS == 200|| Timer::FPS == 799)
         {
             bh_flg = FALSE;
             bh2_flg = FALSE;
@@ -473,7 +475,17 @@ void GameMain::ITEM_Choice()
 
 void GameMain::Result()
 {
-    if (P_life <= 0) 
+    
+    if (P_life <= 0&&a==0)
+    {
+        Timer::FPS = 0;
+        a = 1;
+    }
+    if (a == 1)
+    {
+        Timer::FPS++;
+    }
+    if (P_life <= 0&&Timer::FPS ==200) 
     {
         ResultFlg = TRUE;
     }
