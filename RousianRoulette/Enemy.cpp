@@ -6,6 +6,8 @@
 #include "Timer.h"
 #include <math.h>
 
+int Enemy::E_WaitFlg;
+
 Enemy::Enemy()
 {
 	E_Choice = 0;

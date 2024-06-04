@@ -19,8 +19,12 @@ private:
     int CurY;*/
     int GM_Select;
     int I_Select;
+    int A_Select;
     int a;
     bool WaitFlg;
+    bool ShotFlg;
+    bool ActionFlg;
+    bool ItemFlg;
     int ResultFlg;
 
      // プレイヤーターンのフラグ
@@ -33,13 +37,13 @@ private:
 
     enum class GameState
     {
-        S_ACTION,
+        S_ITEM,
         S_TARGET
     };
     
     enum class action
     {
-        ATACK,
+        SHOT,
         ITEM
     };
 
@@ -71,9 +75,9 @@ public:
   /*  void Cursol();*/
     void E_Choice();
     void P_Choice();
-    //void I_Choice();
+    void ITEM_Choice();
     void Result();
-    //void Action();
+    void Action();
 
     bullet* BULLET;
     Item* ITEM;

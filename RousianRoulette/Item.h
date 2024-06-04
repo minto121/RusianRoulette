@@ -29,7 +29,7 @@ public:
 
 	void TOTEM();
 
-	void C_BULLET();
+	//void C_BULLET();
 
 	void ITEM_UI_TIME();
 
