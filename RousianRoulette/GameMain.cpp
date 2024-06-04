@@ -13,6 +13,8 @@
 
 int GameMain::E_life;
 int GameMain::P_life;
+int GameMain::bh_flg;
+int GameMain::bh2_flg;
 
 enum class CURSOL
 {
@@ -83,7 +85,7 @@ AbstractScene* GameMain::Update()
         Turn();
         /*  Cursol();*/
 
-        if (Timer::FPS == 200)
+        if (Timer::FPS == 200|| Timer::FPS == 799)
         {
             bh_flg = FALSE;
             bh2_flg = FALSE;

@@ -68,10 +68,11 @@ void Enemy::E_AI()
 
 			if (bullet::Cylinder[bullet::FireC] == 1)
 			{
+				GameMain::bh2_flg = TRUE;
 				GameMain::P_life--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
-
+				
 			}
 
 			else if (bullet::Cylinder[bullet::FireC] == 0)
@@ -92,10 +93,12 @@ void Enemy::E_AI()
 			
 			if (bullet::Cylinder[bullet::FireC] == 1)
 			{
+				
+				GameMain::bh_flg = TRUE;
 				GameMain::E_life--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
-				
+				E_UI[1] = FALSE;
 			}
 
 			else if (bullet::Cylinder[bullet::FireC] == 0)
@@ -110,6 +113,7 @@ void Enemy::E_AI()
 			}
 
 			E_Shot_Self = FALSE;
+			
 			break;
 
 		}
