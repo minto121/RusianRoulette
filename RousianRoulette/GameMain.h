@@ -69,7 +69,7 @@ public:
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
 
-    void Turn();
+    //void Turn();
    /* void Choice();*/
   /*  void Cursol();*/
     void E_Choice();

@@ -89,8 +89,8 @@ AbstractScene* GameMain::Update()
         ENEMY->Update();
         TIMER->Update();
         //Choice();
-        //I_Choice();
-        Turn();
+        ////I_Choice();
+        //Turn();
         /*  Cursol();*/
         Action();
 
@@ -98,6 +98,12 @@ AbstractScene* GameMain::Update()
         {
             bh_flg = FALSE;
             bh2_flg = FALSE;
+        }
+
+        if (Timer::FPS == 750)
+        {
+            ShotFlg = FALSE;
+            ActionFlg = TRUE;
         }
 
     /*    if (ShotFlg == TRUE)
@@ -110,11 +116,6 @@ AbstractScene* GameMain::Update()
                     {
                     case CURSOL::C_ENEMY:
                         E_Choice();
-                        if (Timer::FPS == 600)
-                        {
-                            ShotFlg = FALSE;
-                            ActionFlg = TRUE;
-                        }
 
                         break;
                     case CURSOL::C_PLAYER:
@@ -235,6 +236,7 @@ void GameMain::Draw() const
         if (ItemFlg == TRUE)
         {
         //アイテム
+        SetFontSize(48);
         DrawString(750, 550, "DRAG", 0xffffff);
         DrawString(750, 600, "BOMB", 0xffffff);
 
@@ -294,29 +296,29 @@ void GameMain::Draw() const
 //    }
 //}
 
-void GameMain::Turn()
-{
-    TurnCount = bullet::FireC;
-
-
-    if (isPlayerTurn == FALSE)
-    {
-        //敵がプレイヤーを選択
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && isPlayerTurn == FALSE)
-        {
-            if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
-            {
-                P_life--;
-                isPlayerTurn = TRUE;
-            }
-            else
-            {
-                isPlayerTurn = TRUE;
-            }
-        }
-        WaitFlg = FALSE;
-    }
-}
+//void GameMain::Turn()
+//{
+//    TurnCount = bullet::FireC;
+//
+//
+//    if (isPlayerTurn == FALSE)
+//    {
+//        //敵がプレイヤーを選択
+//        if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && isPlayerTurn == FALSE)
+//        {
+//            if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
+//            {
+//                P_life--;
+//                isPlayerTurn = TRUE;
+//            }
+//            else
+//            {
+//                isPlayerTurn = TRUE;
+//            }
+//        }
+//        WaitFlg = FALSE;
+//    }
+//}
 
 void GameMain::Action()
 {
@@ -328,6 +330,7 @@ void GameMain::Action()
             case action::SHOT:
                 ActionFlg = FALSE;
                 ShotFlg = TRUE;
+
                 break;
             case action::ITEM:
                 ActionFlg = FALSE;
@@ -370,7 +373,8 @@ void GameMain::E_Choice()
                 E_life--;
             }
             bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
+            bullet::FireC++; 
+          
 
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
@@ -379,7 +383,6 @@ void GameMain::E_Choice()
         }
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
-    
         Item::Bomb = FALSE;
 
 }
