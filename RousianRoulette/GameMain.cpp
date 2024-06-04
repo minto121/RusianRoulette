@@ -72,7 +72,7 @@ AbstractScene* GameMain::Update()
     {
         return new Title;
     }
-    if (ResultFlg == FALSE)
+    if (ResultFlg == FALSE&&P_life>0)
     {
 
 
@@ -332,7 +332,17 @@ void GameMain::P_Choice()
 
 void GameMain::Result()
 {
-    if (P_life <= 0) 
+    
+    if (P_life <= 0&&a==0)
+    {
+        Timer::FPS = 0;
+        a = 1;
+    }
+    if (a == 1)
+    {
+        Timer::FPS++;
+    }
+    if (P_life <= 0&&Timer::FPS ==200) 
     {
         ResultFlg = TRUE;
     }
