@@ -26,6 +26,7 @@ bool GameMain::isPlayerTurn;
 
 GameMain::GameMain()
 {
+    P_UI_INIT();
 	BULLET = new bullet;
     ITEM = new Item;
     TIMER = new Timer;
@@ -46,16 +47,22 @@ GameMain::GameMain()
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     isPlayerTurn = TRUE;
-    //CurX = 170;
-    //CurY = 550;
+   
     WaitFlg = FALSE;
+    WaitFlg2 = FALSE;
+
+    CurX = 170;
+    CurY = 570;
 
     GM_Select = 0;
     a = 0;
     ResultFlg = FALSE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
+
+   
 }
+
 
 GameMain::~GameMain()
 {
@@ -64,6 +71,7 @@ GameMain::~GameMain()
         DeleteGraph(Enemyimg[i]);
     }
 }
+
 
 AbstractScene* GameMain::Update()
 {
@@ -75,7 +83,14 @@ AbstractScene* GameMain::Update()
     if (ResultFlg == FALSE&&P_life>0)
     {
 
+        if (Timer::FPS == 30) {
+            WaitFlg2 = TRUE;
 
+        }
+        if (isPlayerTurn == FALSE && Timer::FPS == 750)
+        {
+            P_UI_INIT();
+        }
         /*  life();*/
         BULLET->Update();
         ITEM->Update();
@@ -83,6 +98,10 @@ AbstractScene* GameMain::Update()
         TIMER->Update();
         //Choice();
         Turn();
+        if (isPlayerTurn == TRUE)
+        {
+            P_UI();
+        }
         /*  Cursol();*/
 
         if (Timer::FPS == 200|| Timer::FPS == 799)
@@ -90,8 +109,8 @@ AbstractScene* GameMain::Update()
             bh_flg = FALSE;
             bh2_flg = FALSE;
         }
-
-        if (WaitFlg == FALSE && isPlayerTurn == TRUE)
+        
+        if (WaitFlg == FALSE && isPlayerTurn == TRUE&& P_Ui[1] == TRUE&& P_Ui[0] == FALSE)
         {
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
             {
@@ -143,12 +162,14 @@ AbstractScene* GameMain::Update()
             BULLET->B_INIT();
             WaitFlg = FALSE;
             isPlayerTurn = TRUE;
+            P_UI_INIT();
             E_life = 2;
         }
         return this;
     }
     
 }
+
 
 void GameMain::Draw() const
 {
@@ -192,11 +213,26 @@ void GameMain::Draw() const
 
         //プレイヤーか敵を選ぶ
         SetFontSize(48);
-        DrawString(200, 550, "ENEMY", 0xffffff);
-        DrawString(200, 600, "PLAYER", 0xffffff);
 
-        int select_y = 570 + GM_Select * 50;
-        DrawCircle(170, select_y, 10, GetColor(255, 255, 255), TRUE);
+
+        if (P_Ui[0] == TRUE)
+        {
+            DrawString(200, 550, "SHOT", 0xffffff);
+            DrawString(200, 600, "ITEM", 0xffffff);
+            DrawCircle(CurX, CurY, 10, 0xffffff, TRUE);
+        }
+
+        if (P_Ui[1] == TRUE)
+        {
+            DrawString(200, 550, "ENEMY", 0xffffff);
+            DrawString(200, 600, "PLAYER", 0xffffff);
+        }
+        if (P_Ui[1] == TRUE)
+        {
+            int select_y = 570 + GM_Select * 50;
+            DrawCircle(170, select_y, 10, GetColor(255, 255, 255), TRUE);
+        }
+      
 
         //DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
     }
@@ -211,45 +247,8 @@ void GameMain::Draw() const
     }
 }
 
-//void GameMain::Choice()
-//
-//{
-//    //プレイヤーが敵を選択
-//    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-//    {
-//
-//        if (bullet::Cylinder[bullet::FireC] == 1)
-//        {
-//            E_life--;
-//            bullet::Cylinder[bullet::FireC] = 0;
-//            bullet::FireC++;
-//        }
-//        else if (bullet::Cylinder[bullet::FireC] == 0)
-//        {
-//            bullet::FireC++;
-//        }
-//        isPlayerTurn = !isPlayerTurn;
-//
-//    }
-//
-//    //プレイヤーが自分を選択
-//    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-//    {
-//
-//        if (bullet::Cylinder[bullet::FireC] == 1)
-//        {
-//            P_life--;
-//            isPlayerTurn = !isPlayerTurn;
-//            bullet::Cylinder[bullet::FireC] = 0;
-//            bullet::FireC++;
-//        }
-//        else if (bullet::Cylinder[bullet::FireC] == 0)
-//        {
-//            bullet::FireC++;
-//        }
-//
-//    }
-//}
+
+
 
 void GameMain::Turn()
 {
@@ -274,6 +273,7 @@ void GameMain::Turn()
         WaitFlg = FALSE;
     }
 }
+
 
 void GameMain::E_Choice()
 {
@@ -347,5 +347,69 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
     
+}
+
+
+void GameMain::P_UI()
+{
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    {
+        P_UI_INIT();
+    }
+    if (P_Ui_flg[0] == TRUE)
+    {
+        P_Ui[0] = TRUE;
+       
+    }
+    if (P_Ui_flg[1] == TRUE)
+    {
+        P_Ui[2] = TRUE;
+       
+    }
+    if (P_Ui[0] == TRUE&& PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)
+        && CurX == 170 && CurY == 570)
+    {
+        P_Ui_flg[0] = FALSE;
+        P_Ui_flg[1] = TRUE;
+        CurX = 170;
+        CurY = 620;
+    }
+
+    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)
+        && CurX == 170 && CurY == 620)
+    {
+        P_Ui_flg[1] = FALSE;
+        P_Ui_flg[0] = TRUE;
+        CurX = 170;
+        CurY = 570;
+    }
+
+
+   
+    if (P_Ui_flg[0] == TRUE&& PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && WaitFlg2 == TRUE)
+    {
+        P_Ui[1] = TRUE;
+        P_Ui[0] = FALSE;
+        P_Ui_flg[0] = FALSE;
+    }
+
+}
+
+void GameMain::P_UI_INIT()
+{
+    P_Ui_flg[0] = TRUE;
+    CurX = 170;
+    CurY = 570;
+    for (int i = 1; i < 5; i++)
+    {
+        P_Ui_flg[i] = FALSE;
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        P_Ui[i] = FALSE;
+    }
+
+
 }
 

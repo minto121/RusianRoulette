@@ -15,11 +15,12 @@ public:
 private:
     
     int TurnCount;
-   /* int CurX;
-    int CurY;*/
+    int CurX;
+    int CurY;
     int GM_Select;
     int a;
     bool WaitFlg;
+    bool WaitFlg2;
     int ResultFlg;
 
      // プレイヤーターンのフラグ
@@ -37,7 +38,9 @@ private:
     int LastEnemyNum;
     int bullet_holes;
     int bullet_holes2;
-    
+    int P_Ui_flg[5];
+    int P_Ui[5];
+
 public:
 
     //�R���X�g���N�^
@@ -58,7 +61,8 @@ public:
     void E_Choice();
     void P_Choice();
     void Result();
-
+    void P_UI();
+    void P_UI_INIT();
     bullet* BULLET;
     Item* ITEM;
     Timer* TIMER;
