@@ -37,6 +37,7 @@ private:
     int LastEnemyNum;
 
     int GMBgm;
+    int SelectSE;
 
 public:
 

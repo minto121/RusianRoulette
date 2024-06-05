@@ -41,6 +41,7 @@ GameMain::GameMain()
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
+    SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
     isPlayerTurn = TRUE;
     //CurX = 170;
     //CurY = 550;
@@ -58,6 +59,7 @@ GameMain::~GameMain()
         DeleteGraph(Enemyimg[i]);
     }
     DeleteSoundMem(GMBgm);
+    DeleteSoundMem(SelectSE);
 }
 
 AbstractScene* GameMain::Update()
@@ -101,6 +103,8 @@ AbstractScene* GameMain::Update()
             //上方向
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
             {
+                PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
+
                 /*  CurY -= 50;*/
                 GM_Select--;
                 if (GM_Select < 0)GM_Select = 1;
@@ -108,6 +112,8 @@ AbstractScene* GameMain::Update()
             //下方向
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
             {
+                PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
+
                 /*CurY += 50;*/
                 GM_Select++;
                 if (GM_Select > 1)GM_Select = 0;
