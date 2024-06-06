@@ -222,6 +222,17 @@ void GameMain::Draw() const
             DrawCircle(CurX, CurY, 10, 0xffffff, TRUE);
         }
 
+        if (P_Ui[2] == TRUE)
+        {
+            DrawString(200, 530, "DRAG:", 0xffffff);
+            DrawString(550, 530, "BOMB:", 0xffffff);
+            DrawString(900, 530, "LOUPE:", 0xffffff);
+            DrawString(200, 650, "JUDGE:", 0xffffff);
+            DrawString(550, 650, "TOTEM:", 0xffffff);
+            DrawString(900, 650, "C_BULLET:", 0xffffff);
+            DrawCircle(CurX, CurY, 10, 0xffffff, TRUE);
+        }
+
         if (P_Ui[1] == TRUE)
         {
             DrawString(200, 550, "ENEMY", 0xffffff);
@@ -363,7 +374,7 @@ void GameMain::P_UI()
     }
     if (P_Ui_flg[1] == TRUE)
     {
-        P_Ui[2] = TRUE;
+       
        
     }
     if (P_Ui[0] == TRUE&& PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)
@@ -375,7 +386,7 @@ void GameMain::P_UI()
         CurY = 620;
     }
 
-    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)
+    if (P_Ui_flg[1] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)
         && CurX == 170 && CurY == 620)
     {
         P_Ui_flg[1] = FALSE;
@@ -384,7 +395,7 @@ void GameMain::P_UI()
         CurY = 570;
     }
 
-
+   
    
     if (P_Ui_flg[0] == TRUE&& PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && WaitFlg2 == TRUE)
     {
@@ -393,7 +404,36 @@ void GameMain::P_UI()
         P_Ui_flg[0] = FALSE;
     }
 
+
+    if (P_Ui_flg[1] == TRUE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && WaitFlg2 == TRUE)
+    {
+
+        P_Ui[2] = TRUE;
+        P_Ui[0] = FALSE;
+        P_Ui_flg[0] = FALSE;
+        CurX = 170;
+        CurY = 550;
+        P_Ui_flg[1] = FALSE;
+    }
+
+    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)&& CurX != 870)
+    {
+        CurX += 350;
+    }
+    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX != 170)
+    {
+        CurX -= 350;
+    }
+    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurY != 670)
+    {
+        CurY += 120;
+    }
+    if (P_Ui[2] == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY != 570)
+    {
+        CurY -= 120;
+    }
 }
+
 
 void GameMain::P_UI_INIT()
 {
