@@ -173,6 +173,89 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
+    //if (ResultFlg == FALSE) {
+
+    //    DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
+    //    if (bh_flg == TRUE)
+    //    {
+    //        DrawGraph(370, 50, bullet_holes, TRUE);
+    //    }
+    //    //白枠
+    //    DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+    //    DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+
+
+    //    SetFontSize(36);
+    //    DrawString(30, 20, "PLAYER", 0xFFFF00, TRUE);
+    //    DrawString(69, 60, "LIFE", 0xffffff, TRUE);
+    //    DrawFormatString(160, 40, GetColor(255, 255, 255), "  :  %d", P_life);
+
+    //    DrawString(985, 20, "ENEMY", 0xfa2000, TRUE);
+    //    DrawString(1004, 60, "LIFE", 0xffffff, TRUE);
+    //    DrawFormatString(1100, 40, GetColor(255, 255, 255), "  :  %d", E_life);
+
+
+
+    //    BULLET->Draw();
+    //    /*  ITEM->Draw();*/
+    //   /*   TIMER->Draw();*/
+    //    ENEMY->Draw();
+    //    //UI
+    //    DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+    //    DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+
+
+
+
+    //    //SetFontSize(24);
+    //    //DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
+    //    //DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
+    //    //DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
+    //    //DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
+    //    //DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
+    //    ///* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
+    //    // DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
+    //    // /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+    //    //DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
+
+
+    //    DrawString(1130, 170, "ROUND", 0xffffff);
+    //    DrawFormatString(1170, 220, GetColor(255, 255, 255), "%d", Round);
+
+    //    DrawString(1145, 400, "TURN", 0xffffff);
+    //    if (isPlayerTurn == TRUE)
+    //    {
+    //        DrawString(1130, 350, "PLAYER", 0xFFFF00);
+    //    }
+    //    else
+    //    {
+    //        DrawString(1135, 350, "ENEMY", 0xfa2000);
+    //    }
+
+    //}
+    //if (bh2_flg == TRUE && ResultFlg == FALSE)
+    //{
+    //    DrawGraph(-120, -140, bullet_holes2, TRUE);
+    //}
+    //if (ResultFlg == TRUE) {
+    //    DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
+    //    DrawString(480, 650, "Press_A_Button", 0xffffff);
+    //    DrawString(550, 50, "Result", 0xffffff);
+    //}
+
+
+
+
+
+
+
 
 
     if (ResultFlg == FALSE) {
@@ -183,32 +266,49 @@ void GameMain::Draw() const
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
 
-        SetFontSize(14);
-        BULLET->Draw();
-        ITEM->Draw();
-        TIMER->Draw();
-        ENEMY->Draw();
+
+
+      //白枠
+    DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+    DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+    DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+    DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
+    DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+    DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+    DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+
+
+    SetFontSize(36);
+    DrawString(30, 20, "PLAYER", 0xFFFF00, TRUE);
+    DrawString(69, 60, "LIFE", 0xffffff, TRUE);
+    DrawFormatString(160, 40, GetColor(255, 255, 255), "  :  %d", P_life);
+
+    DrawString(985, 20, "ENEMY", 0xfa2000, TRUE);
+    DrawString(1004, 60, "LIFE", 0xffffff, TRUE);
+    DrawFormatString(1100, 40, GetColor(255, 255, 255), "  :  %d", E_life);
+
+
+
+
+    BULLET->Draw();
+    /*  ITEM->Draw();*/
+   /*   TIMER->Draw();*/
+    ENEMY->Draw();
         //UI
         DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
         DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-        SetFontSize(24);
-        DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
-        DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
-        DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
-        DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
-        DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
-        /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
-         DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
-         /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
-        DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
-
+        DrawString(1130, 170, "ROUND", 0xffffff);
+        DrawFormatString(1170, 220, GetColor(255, 255, 255), "%d", Round);
+        DrawString(1145, 400, "TURN", 0xffffff);
         if (isPlayerTurn == TRUE)
         {
-            DrawString(0, 160, "Pleyer", 0xffffff);
+            DrawString(1130, 350, "PLAYER", 0xFFFF00);
         }
         else
         {
-            DrawString(0, 180, "Enemy", 0xffffff);
+            DrawString(1135, 350, "ENEMY", 0xfa2000);
         }
 
         //プレイヤーか敵を選ぶ
@@ -245,7 +345,7 @@ void GameMain::Draw() const
         }
 
 
-        //DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
+ 
     }
     if (bh2_flg == TRUE && ResultFlg == FALSE)
     {
