@@ -183,29 +183,38 @@ void GameMain::Draw() const
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
-       
-        SetFontSize(14);
-        BULLET->Draw();
-        ITEM->Draw();
-        TIMER->Draw();
-        ENEMY->Draw();
-        //UI
-        DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
-        DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-
         //白枠
         DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
         DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
         DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
         DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
-        DrawBox(170, 105, 180, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
         DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
         DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
         DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
         DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+
+
         SetFontSize(36);
-        DrawFormatString(45, 40, GetColor(255, 255, 255), "PLAYER LIFE:%d", P_life);
-        DrawFormatString(1000, 40, GetColor(255, 255, 255), "ENEMY LIFE:%d", E_life);
+        DrawString(30, 20, "PLAYER", 0xFFFF00, TRUE);
+        DrawString(69, 60, "LIFE", 0xffffff, TRUE);
+        DrawFormatString(160, 40, GetColor(255, 255, 255), "  :  %d", P_life);
+
+        DrawString(985, 20, "ENEMY", 0xfa2000, TRUE);
+        DrawString(1004, 60, "LIFE", 0xffffff, TRUE);
+        DrawFormatString(1100, 40, GetColor(255, 255, 255), "  :  %d", E_life);
+       
+
+
+        BULLET->Draw();
+      /*  ITEM->Draw();*/
+     /*   TIMER->Draw();*/
+        ENEMY->Draw();
+        //UI
+        DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+        DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+
+       
 
 
         //SetFontSize(24);
@@ -226,11 +235,11 @@ void GameMain::Draw() const
         DrawString(1145, 400, "TURN", 0xffffff);
         if (isPlayerTurn == TRUE)
         {
-            DrawString(1130, 350, "Player", 0xffffff);
+            DrawString(1130, 350, "PLAYER", 0xFFFF00);
         }
         else
         {
-            DrawString(1135, 350, "Enemy", 0xffffff);
+            DrawString(1135, 350, "ENEMY", 0xfa2000);
         }
 
         if (ActionFlg == TRUE)
@@ -389,6 +398,7 @@ void GameMain::E_Choice()
         {
             bh_flg = TRUE;
             E_life--;
+            bullet::Last_Bullet--;
             if (Item::Bomb == TRUE) 
             {
                 E_life--;
@@ -420,6 +430,7 @@ void GameMain::P_Choice()
     {
         bh2_flg = TRUE;
         P_life--;
+        bullet::Last_Bullet--;
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
         bullet::Cylinder[bullet::FireC] = 0;

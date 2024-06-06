@@ -2,8 +2,8 @@
 class bullet
 {
 private:
-	  
-	
+	int RandBox;
+	int Bullet;
 public:
 	bullet();
 
@@ -23,9 +23,10 @@ public:
 
 	void B_location();   
 
-	int Bullet;
+	
 	static int Cylinder[6];
 	static int FireC;
-	int RandBox;
+	
+	static int Last_Bullet;
 };
 
