@@ -86,24 +86,24 @@ void Item::TOTEM()
     }
 }
 
-void Item::C_BULLET()
-{
-    if (/*KEY_INPUT_SPACE*/PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
-       
-        int i;
-        for (i = 0; i < 6; i++) {
-            if (bullet::Cylinder[i] == 0) {
-                bullet::Cylinder[i] = 1;
-            }
-            else if (bullet::Cylinder[i] == 1) {
-                bullet::Cylinder[i] = 0;
-            }
-        }
-        
-
-
-    }
-}
+//void Item::C_BULLET()
+//{
+//    if (/*KEY_INPUT_SPACE*/PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+//       
+//        int i;
+//        for (i = 0; i < 6; i++) {
+//            if (bullet::Cylinder[i] == 0) {
+//                bullet::Cylinder[i] = 1;
+//            }
+//            else if (bullet::Cylinder[i] == 1) {
+//                bullet::Cylinder[i] = 0;
+//            }
+//        }
+//        
+//
+//
+//    }
+//}
 
 void Item::ITEM_UI_TIME()
 {
@@ -122,7 +122,7 @@ AbstractScene*Item::Update()
     BOMB();
     JUDGE();
     TOTEM();
-    C_BULLET();
+    //C_BULLET();
     ITEM_UI_TIME();
    
     return this;

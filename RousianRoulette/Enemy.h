@@ -6,11 +6,13 @@ private:
 	int E_Choice;
 	int E_Shot_P;
 	int E_Shot_Self;
-	int E_WaitFlg;
+
 	int E_UI[2];
 
 
 public:
+	static int E_WaitFlg;
+
 	Enemy();
 
 	~Enemy();

@@ -18,6 +18,8 @@ private:
     int CurX;
     int CurY;
     int GM_Select;
+    int I_Select;
+    int A_Select;
     int a;
     bool WaitFlg;
     bool WaitFlg2;

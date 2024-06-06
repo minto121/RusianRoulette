@@ -8,8 +8,8 @@
 #include "Timer.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "ResultScene.h"
 //#include "FpsController.h"
-
 
 int GameMain::E_life;
 int GameMain::P_life;
@@ -19,7 +19,11 @@ int GameMain::bh2_flg;
 enum class CURSOL
 {
     C_ENEMY = 0,
-    C_PLAYER
+    C_PLAYER,
+    DRAG,
+    BOMB,
+    LOUPE,
+    JUDGE
 };
 
 bool GameMain::isPlayerTurn;
@@ -55,6 +59,8 @@ GameMain::GameMain()
     CurY = 570;
 
     GM_Select = 0;
+    I_Select = 0;
+    A_Select = 0;
     a = 0;
     ResultFlg = FALSE;
     bh_flg = FALSE;
@@ -103,6 +109,7 @@ AbstractScene* GameMain::Update()
             P_UI();
         }
         /*  Cursol();*/
+        Action();
 
         if (Timer::FPS == 200|| Timer::FPS == 799)
         {
@@ -112,35 +119,50 @@ AbstractScene* GameMain::Update()
         
         if (WaitFlg == FALSE && isPlayerTurn == TRUE&& P_Ui[1] == TRUE&& P_Ui[0] == FALSE)
         {
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            ShotFlg = FALSE;
+            ActionFlg = TRUE;
+        }
+
+    /*    if (ShotFlg == TRUE)
+        {*/
+            if (WaitFlg == FALSE && isPlayerTurn == TRUE&&ShotFlg == TRUE&&Timer::FPS>1)
             {
-                switch (static_cast<CURSOL>(GM_Select))
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
                 {
-                case CURSOL::C_ENEMY:
-                    E_Choice();
-                    break;
-                case CURSOL::C_PLAYER:
-                    P_Choice();
-                    break;
-                default:
-                    break;
+                    switch (static_cast<CURSOL>(GM_Select))
+                    {
+                    case CURSOL::C_ENEMY:
+                        E_Choice();
+
+                        break;
+                    case CURSOL::C_PLAYER:
+                        P_Choice();
+                        break;
+                    default:
+                        break;
+                    }
+                }
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+                {
+                    ShotFlg = FALSE;
+                    ActionFlg = TRUE;
+                }
+                //上方向
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+                {
+                    /*  CurY -= 50;*/
+                    GM_Select--;
+                    if (GM_Select < 0)GM_Select = 1;
+                }
+                //下方向
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+                {
+                    /*CurY += 50;*/
+                    GM_Select++;
+                    if (GM_Select > 1)GM_Select = 0;
                 }
             }
-            //上方向
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-            {
-                /*  CurY -= 50;*/
-                GM_Select--;
-                if (GM_Select < 0)GM_Select = 1;
-            }
-            //下方向
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-            {
-                /*CurY += 50;*/
-                GM_Select++;
-                if (GM_Select > 1)GM_Select = 0;
-            }
-        }
+        //}
 
 
         ////プレイヤーが負けた時の処理
@@ -158,7 +180,7 @@ AbstractScene* GameMain::Update()
 
             LastEnemyNum = ShuffleEnemyNum;
 
-            /*       P_life = 2;*/
+            /*P_life = 2;*/
             BULLET->B_INIT();
             WaitFlg = FALSE;
             isPlayerTurn = TRUE;
@@ -173,8 +195,6 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
-
-    
     if (ResultFlg == FALSE) {
        
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
@@ -182,33 +202,73 @@ void GameMain::Draw() const
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
+        //白枠
+        DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+        DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+        DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+        DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+        DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+
+
+        SetFontSize(36);
+        DrawString(30, 20, "PLAYER", 0xFFFF00, TRUE);
+        DrawString(69, 60, "LIFE", 0xffffff, TRUE);
+        DrawFormatString(160, 40, GetColor(255, 255, 255), "  :  %d", P_life);
+
+        DrawString(985, 20, "ENEMY", 0xfa2000, TRUE);
+        DrawString(1004, 60, "LIFE", 0xffffff, TRUE);
+        DrawFormatString(1100, 40, GetColor(255, 255, 255), "  :  %d", E_life);
        
-        SetFontSize(14);
+
+
         BULLET->Draw();
-        ITEM->Draw();
-        TIMER->Draw();
+      /*  ITEM->Draw();*/
+     /*   TIMER->Draw();*/
         ENEMY->Draw();
         //UI
         DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
         DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-        SetFontSize(24);
-        DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
-        DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
-        DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
-        DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
-        DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
-        /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
-         DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
-         /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
-        DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
 
+       
+
+
+        //SetFontSize(24);
+        //DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
+        //DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
+        //DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
+        //DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
+        //DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
+        ///* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
+        // DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
+        // /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+        //DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
+
+
+        DrawString(1130, 170, "ROUND", 0xffffff);
+        DrawFormatString(1170, 220, GetColor(255, 255, 255), "%d", Round);
+
+        DrawString(1145, 400, "TURN", 0xffffff);
         if (isPlayerTurn == TRUE)
         {
-            DrawString(0, 160, "Pleyer", 0xffffff);
+            DrawString(1130, 350, "PLAYER", 0xFFFF00);
         }
         else
         {
-            DrawString(0, 180, "Enemy", 0xffffff);
+            DrawString(1135, 350, "ENEMY", 0xfa2000);
+        }
+
+        if (ActionFlg == TRUE)
+        {
+            SetFontSize(48);
+            DrawString(200, 550, "SHOT", 0xffffff);
+            DrawString(750, 550, "ITEM", 0xffffff);
+
+            int select = 200 + A_Select * 500;
+            DrawCircle(select, 570, 10, GetColor(255, 255, 255), TRUE);
         }
 
         //プレイヤーか敵を選ぶ
@@ -261,10 +321,29 @@ void GameMain::Draw() const
 
 
 
-void GameMain::Turn()
-{
-    TurnCount = bullet::FireC;
-
+//void GameMain::Turn()
+//{
+//    TurnCount = bullet::FireC;
+//
+//
+//    if (isPlayerTurn == FALSE)
+//    {
+//        //敵がプレイヤーを選択
+//        if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && isPlayerTurn == FALSE)
+//        {
+//            if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
+//            {
+//                P_life--;
+//                isPlayerTurn = TRUE;
+//            }
+//            else
+//            {
+//                isPlayerTurn = TRUE;
+//            }
+//        }
+//        WaitFlg = FALSE;
+//    }
+//}
 
     if (isPlayerTurn == FALSE)
     {
@@ -296,12 +375,14 @@ void GameMain::E_Choice()
         {
             bh_flg = TRUE;
             E_life--;
+            bullet::Last_Bullet--;
             if (Item::Bomb == TRUE) 
             {
                 E_life--;
             }
             bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
+            bullet::FireC++; 
+          
 
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
@@ -310,8 +391,8 @@ void GameMain::E_Choice()
         }
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
-       
         Item::Bomb = FALSE;
+
 }
 
 
@@ -326,6 +407,7 @@ void GameMain::P_Choice()
     {
         bh2_flg = TRUE;
         P_life--;
+        bullet::Last_Bullet--;
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();
         bullet::Cylinder[bullet::FireC] = 0;
@@ -338,6 +420,68 @@ void GameMain::P_Choice()
      }
 
         
+}
+
+void GameMain::ITEM_Choice()
+{
+    if (ItemFlg == TRUE) {
+        if (WaitFlg == FALSE && isPlayerTurn == TRUE)
+        {
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                switch (static_cast<CURSOL>(I_Select))
+                {
+                case CURSOL::DRAG:
+                    ITEM->DRAG();
+                    break;
+                case CURSOL::BOMB:
+                    ITEM->BOMB();
+                    break;
+                case CURSOL::LOUPE:
+                    ITEM->LOUPE();
+                    break;
+                case CURSOL::JUDGE:
+                    ITEM->JUDGE();
+                    break;
+                default:
+                    break;
+                }
+            }
+            //上方向
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+            {
+                /*  CurY -= 50;*/
+                I_Select--;
+                if (I_Select < 0)I_Select = 1;
+            }
+            //下方向
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+            {
+                /*CurY += 50;*/
+                I_Select++;
+                if (I_Select > 1)I_Select = 0;
+            }
+            //左方向
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+            {
+                /*  CurY -= 50;*/
+                //I_Select--;
+                if (I_Select == 0)
+                {
+                    I_Select = 3;
+                }
+                /*  if (I_Select < 0)I_Select = 1;*/
+            }
+            //右方向
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+            {
+                /*CurY += 50;*/
+                I_Select++;
+                /* if (I_Select > 1)I_Select = 0;*/
+            }
+          
+        }
+    }
 }
 
 

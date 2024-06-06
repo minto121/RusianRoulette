@@ -5,6 +5,7 @@
 
 int bullet::FireC;
 int bullet::Cylinder[6];
+int bullet::Last_Bullet;
 
 bullet::bullet()
 {
@@ -26,6 +27,7 @@ void bullet::B_INIT()
 	}
 	FireC = 0;
 	RandBox = 0;
+	Last_Bullet = 0;
 	N_Of_Bullet();
 	B_location();
 
@@ -48,6 +50,7 @@ void bullet::N_Of_Bullet()
 		Bullet = 4;
 		break;
 	}
+	Last_Bullet = Bullet;
 }
 
 
@@ -115,6 +118,11 @@ void bullet::Draw() const
 	DrawFormatString(0, 380, 0xffffff, "B_Location:%d", Cylinder[4]);
 	DrawFormatString(0, 400, 0xffffff, "B_Location:%d", Cylinder[5]);
 	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);
+
+	SetFontSize(32);
+	DrawFormatString(15, 200, 0xffffff, "LAST : %d", Last_Bullet);
+	DrawString(80, 240, "BULLET", 0xffffff, TRUE);
+	
 }
 
 
