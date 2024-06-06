@@ -9,6 +9,9 @@ private:
 	int UItime;
 	int JudgeCount[2];
 	
+	int BombSE;
+	int DragSE;
+	int LoupeSE;
 
 public:
 	Item();

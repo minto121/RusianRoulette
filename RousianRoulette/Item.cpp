@@ -14,17 +14,24 @@ Item::Item()
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
+
+    BombSE = LoadSoundMem("Resources/sounds/Explosion.mp3");
+    DragSE = LoadSoundMem("Resources/sounds/Drag.mp3");
+    LoupeSE = LoadSoundMem("Resources/sounds/glass.mp3");
 }
 
 Item::~Item()
 {
-
+    DeleteSoundMem(BombSE);
+    DeleteSoundMem(DragSE);
+    DeleteSoundMem(LoupeSE);
 }
 
 void Item::DRAG()
 {
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
     {
+        PlaySoundMem(DragSE, DX_PLAYTYPE_BACK);
         GameMain::P_life++;
     }
 }
@@ -34,6 +41,8 @@ void Item::BOMB()
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
     {
         Bomb = TRUE;
+        ChangeVolumeSoundMem(155, BombSE);
+        PlaySoundMem(BombSE, DX_PLAYTYPE_BACK);
     }
     
 } 
@@ -42,7 +51,8 @@ void Item::LOUPE()
 {
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
     {
-       
+        PlaySoundMem(LoupeSE, DX_PLAYTYPE_BACK);
+
         Timer::FPS = 1;
 
         if (bullet::Cylinder[bullet::FireC] == 0)
