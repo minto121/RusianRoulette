@@ -192,24 +192,45 @@ void GameMain::Draw() const
         //UI
         DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
         DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-        SetFontSize(24);
-        DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
-        DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
-        DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
-        DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
-        DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
-        /* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
-         DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
-         /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
-        DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
 
+        //白枠
+        DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+        DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+        DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+        DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+        DrawBox(170, 105, 180, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+        DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+        SetFontSize(36);
+        DrawFormatString(45, 40, GetColor(255, 255, 255), "PLAYER LIFE:%d", P_life);
+        DrawFormatString(1000, 40, GetColor(255, 255, 255), "ENEMY LIFE:%d", E_life);
+
+
+        //SetFontSize(24);
+        //DrawFormatString(0, 100, GetColor(255, 255, 255), "P_life:%d", P_life);
+        //DrawFormatString(0, 120, GetColor(255, 255, 255), "E_life:%d", E_life);
+        //DrawFormatString(0, 140, GetColor(255, 255, 255), "Round:%d", Round);
+        //DrawFormatString(0, 200, GetColor(255, 255, 255), "TurnCount:%d", TurnCount);
+        //DrawFormatString(0, 220, GetColor(255, 255, 255), "GM_select:%d", GM_Select);
+        ///* DrawFormatString(0, 160, GetColor(255, 255, 255), "Turn:%d",P_Turn);
+        // DrawFormatString(0, 180, GetColor(255, 255, 255), "Turn:%d",E_Turn);*/
+        // /*DrawFormatString(0, 130, GetColor(255, 255, 255), "Turn:%d",Trun);*/
+        //DrawFormatString(0, 0, GetColor(255, 255, 255), "a:%d", a);
+
+
+        DrawString(1130, 170, "ROUND", 0xffffff);
+        DrawFormatString(1170, 220, GetColor(255, 255, 255), "%d", Round);
+
+        DrawString(1145, 400, "TURN", 0xffffff);
         if (isPlayerTurn == TRUE)
         {
-            DrawString(0, 160, "Pleyer", 0xffffff);
+            DrawString(1130, 350, "Player", 0xffffff);
         }
         else
         {
-            DrawString(0, 180, "Enemy", 0xffffff);
+            DrawString(1135, 350, "Enemy", 0xffffff);
         }
 
         if (ActionFlg == TRUE)
