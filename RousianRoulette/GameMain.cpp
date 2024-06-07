@@ -58,7 +58,7 @@ GameMain::GameMain()
 
     GM_Select = 0;
     a = 0;
-    ResultFlg = FALSE;
+    ResultFlg = TRUE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
 
@@ -78,9 +78,9 @@ GameMain::~GameMain()
 AbstractScene* GameMain::Update()
 {
    /* R -= 500;*/
-    ITEM->Update();
+  
     Result();
-    
+    ITEM->Update();
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] == 0)
     {
         return new Title();
@@ -177,7 +177,7 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 
-   /* if (ResultFlg == FALSE) {*/
+    if (ResultFlg == FALSE) {
 
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
         if (bh_flg == TRUE)
@@ -265,7 +265,7 @@ void GameMain::Draw() const
 
 
  
-  /*  }*/
+    }
    
     
     
@@ -275,15 +275,13 @@ void GameMain::Draw() const
     }
 
     if (ResultFlg == TRUE) {
-        DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+      
         DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
         DrawString(550, 50, "Result", 0xffffff);
         DrawString(480, 650, "Press_A_Button", 0xffffff);
 
     }
-    if (ResultFlg == TRUE  && Item::itemtable[4] == 1  ) {
-        DrawBox(540, 560, 740, 660, 0xffffff, TRUE);
-    }
+    
    
    
    /* DrawCircle(640, 360, R, GetColor(255, 255, 255), TRUE);*/
@@ -391,11 +389,11 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
-   /* if (ResultFlg == TRUE &&Item::itemtable[4] ==1&&
+    if (ResultFlg == TRUE &&Item::itemtable[4] ==1&&
         PAD_INPUT::OnButton(XINPUT_BUTTON_START))
     {
         Item::TotemFlg = TRUE;
-    }*/
+    }
    
     
 }

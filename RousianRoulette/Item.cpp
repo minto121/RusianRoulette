@@ -16,12 +16,12 @@ Item::Item()
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
-   
-   /* for (int a = 0; a <= 5; a++) 
+    itemtable[1] = 1;
+    for (int a = 0; a <= 5; a++) 
     {
         itemtable[a] = 0;
-    }*/
-    itemtable[1] = 1;
+    }
+  
 }
 
 Item::~Item()
@@ -146,6 +146,10 @@ AbstractScene*Item::Update()
 void Item::Draw() const
 {
   
+    if (GameMain::ResultFlg == TRUE && itemtable[4] == 1) {
+        DrawBox(540, 560, 740, 660, 0xffffff, TRUE);
+    }
+
    /* if (TotemFlg == TRUE) {
 
     }*/
