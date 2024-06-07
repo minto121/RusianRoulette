@@ -8,9 +8,14 @@
 
 
 int Item::Bomb;
+int Item::itemlist[6];
 
 Item::Item()
 {
+
+    for (int x = 0; x <= 5; x++) {
+        itemlist[x] = 0;
+    }
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
@@ -23,7 +28,8 @@ Item::~Item()
 
 void Item::DRAG()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
+
+    if (itemlist[0] ==1&& PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
     {
         GameMain::P_life++;
     }
@@ -31,7 +37,7 @@ void Item::DRAG()
 
 void Item::BOMB()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    if (itemlist[1] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
     {
         Bomb = TRUE;
     }
@@ -40,7 +46,7 @@ void Item::BOMB()
 
 void Item::LOUPE()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+    if (itemlist[2] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
     {
        
         Timer::FPS = 1;
@@ -60,8 +66,9 @@ void Item::LOUPE()
 
 void Item::JUDGE()
 {
-    int Judge = GetRand(1);
-    if(PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+    
+    if(itemlist[3] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+        int Judge = GetRand(1);
         if (Judge == 0) {
             GameMain::P_life--;
         }
@@ -77,18 +84,19 @@ void Item::JUDGE()
 
 void Item::TOTEM()
 {
-    int Totem = GetRand(1);
-    if (GameMain::P_life == 0) {
+    
+    if (itemlist[4] == 1 && GameMain::P_life == 0) {
+        int Totem = GetRand(1);
         if (Totem == 1) {
             GameMain::P_life = 2;
-
+            itemlist[4] == 0;
         }
     }
 }
 
 void Item::C_BULLET()
 {
-    if (/*KEY_INPUT_SPACE*/PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+    if (itemlist[5] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
        
         int i;
         for (i = 0; i < 6; i++) {

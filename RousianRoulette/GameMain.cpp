@@ -16,6 +16,7 @@ int GameMain::P_life;
 int GameMain::bh_flg;
 int GameMain::bh2_flg;
 
+
 enum class CURSOL
 {
     C_ENEMY = 0,
@@ -56,7 +57,7 @@ GameMain::GameMain()
 
     GM_Select = 0;
     a = 0;
-    ResultFlg = FALSE;
+    ResultFlg = TRUE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
 
@@ -80,6 +81,9 @@ AbstractScene* GameMain::Update()
     {
         return new Title;
     }
+
+
+
     if (ResultFlg == FALSE&&P_life>0)
     {
 

@@ -7,7 +7,7 @@ class Item:public AbstractScene
 private:
 	int L_Check;
 	int UItime;
-	int JudgeCount[2];
+
 	
 
 public:
@@ -34,5 +34,6 @@ public:
 	void ITEM_UI_TIME();
 
 	static int Bomb;
+	static int itemlist[6];
 };
 

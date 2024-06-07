@@ -74,5 +74,6 @@ public:
     static int NowSelect;
     static int bh_flg;
     static int bh2_flg;
+    
 };
 
