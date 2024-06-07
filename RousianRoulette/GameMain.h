@@ -13,7 +13,7 @@ class GameMain :
 public:
      int Round;
 private:
-    
+    int R;
     int TurnCount;
     int CurX;
     int CurY;
@@ -23,7 +23,7 @@ private:
     int a;
     bool WaitFlg;
     bool WaitFlg2;
-    int ResultFlg;
+   
 
      // プレイヤーターンのフラグ
 
@@ -76,5 +76,6 @@ public:
     static int NowSelect;
     static int bh_flg;
     static int bh2_flg;
+    static int ResultFlg;
 };
 

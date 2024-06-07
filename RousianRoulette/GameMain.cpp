@@ -15,6 +15,7 @@ int GameMain::E_life;
 int GameMain::P_life;
 int GameMain::bh_flg;
 int GameMain::bh2_flg;
+int GameMain::ResultFlg;
 
 enum class CURSOL
 {
@@ -26,7 +27,7 @@ bool GameMain::isPlayerTurn;
 
 GameMain::GameMain()
 {
-  
+  /*  R = 2000;*/
     P_UI_INIT();
     BULLET = new bullet;
     ITEM = new Item;
@@ -76,12 +77,15 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-   
+   /* R -= 500;*/
+    ITEM->Update();
     Result();
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE)
+    
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] == 0)
     {
-        return new Title;
+        return new Title();
     }
+   
     if (ResultFlg == FALSE && P_life > 0)
     {
 
@@ -95,7 +99,7 @@ AbstractScene* GameMain::Update()
         }
         /*  life();*/
         BULLET->Update();
-        ITEM->Update();
+      
         ENEMY->Update();
         TIMER->Update();
         //Choice();
@@ -145,10 +149,7 @@ AbstractScene* GameMain::Update()
         }
 
 
-        ////プレイヤーが負けた時の処理
-        //if (P_life <= 0) {
-        //    return new Title;
-        //}
+       
 
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
         if (E_life <= 0) {
@@ -176,7 +177,7 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw() const
 {
 
-    if (ResultFlg == FALSE) {
+   /* if (ResultFlg == FALSE) {*/
 
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
         if (bh_flg == TRUE)
@@ -211,7 +212,7 @@ void GameMain::Draw() const
 
 
     BULLET->Draw();
-    /*  ITEM->Draw();*/
+  
    /*   TIMER->Draw();*/
     ENEMY->Draw();
         //UI
@@ -264,17 +265,30 @@ void GameMain::Draw() const
 
 
  
-    }
+  /*  }*/
+   
+    
+    
     if (bh2_flg == TRUE && ResultFlg == FALSE)
     {
         DrawGraph(-120, -140, bullet_holes2, TRUE);
     }
+
     if (ResultFlg == TRUE) {
+        DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
         DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
-        DrawString(480, 650, "Press_A_Button", 0xffffff);
         DrawString(550, 50, "Result", 0xffffff);
+        DrawString(480, 650, "Press_A_Button", 0xffffff);
+
+    }
+    if (ResultFlg == TRUE  && Item::itemtable[4] == 1  ) {
+        DrawBox(540, 560, 740, 660, 0xffffff, TRUE);
     }
    
+   
+   /* DrawCircle(640, 360, R, GetColor(255, 255, 255), TRUE);*/
+    ITEM->Draw();
+    
 }
 
 
@@ -377,6 +391,13 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
+   /* if (ResultFlg == TRUE &&Item::itemtable[4] ==1&&
+        PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+    {
+        Item::TotemFlg = TRUE;
+    }*/
+   
+    
 }
 
 

@@ -7,7 +7,7 @@ class Item:public AbstractScene
 private:
 	int L_Check;
 	int UItime;
-	int JudgeCount[2];
+	/*int JudgeCount[2];*/
 	
 
 public:
@@ -29,10 +29,12 @@ public:
 
 	void TOTEM();
 
-	//void C_BULLET();
+	void C_BULLET();
 
 	void ITEM_UI_TIME();
 
 	static int Bomb;
+	static int TotemFlg;
+	static int itemtable[6];
 };
 

@@ -8,12 +8,20 @@
 
 
 int Item::Bomb;
+int Item::TotemFlg;
+int Item::itemtable[6];
 
 Item::Item()
 {
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
+   
+   /* for (int a = 0; a <= 5; a++) 
+    {
+        itemtable[a] = 0;
+    }*/
+    itemtable[1] = 1;
 }
 
 Item::~Item()
@@ -23,7 +31,8 @@ Item::~Item()
 
 void Item::DRAG()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
+
+    if (itemtable[0] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
     {
         GameMain::P_life++;
     }
@@ -31,7 +40,7 @@ void Item::DRAG()
 
 void Item::BOMB()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    if (itemtable[1] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
     {
         Bomb = TRUE;
     }
@@ -40,7 +49,7 @@ void Item::BOMB()
 
 void Item::LOUPE()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+    if (itemtable[2] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
     {
        
         Timer::FPS = 1;
@@ -61,7 +70,7 @@ void Item::LOUPE()
 void Item::JUDGE()
 {
     int Judge = GetRand(1);
-    if(PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+    if(itemtable[3] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
         if (Judge == 0) {
             GameMain::P_life--;
         }
@@ -77,33 +86,38 @@ void Item::JUDGE()
 
 void Item::TOTEM()
 {
-    int Totem = GetRand(1);
-    if (GameMain::P_life == 0) {
+   
+    if (TotemFlg == TRUE)
+    {
+        int Totem = GetRand(1);
+
         if (Totem == 1) {
             GameMain::P_life = 2;
-
+            GameMain::ResultFlg = FALSE;
         }
+        itemtable[4] = 0;
+        TotemFlg = FALSE;
     }
 }
 
-//void Item::C_BULLET()
-//{
-//    if (/*KEY_INPUT_SPACE*/PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
-//       
-//        int i;
-//        for (i = 0; i < 6; i++) {
-//            if (bullet::Cylinder[i] == 0) {
-//                bullet::Cylinder[i] = 1;
-//            }
-//            else if (bullet::Cylinder[i] == 1) {
-//                bullet::Cylinder[i] = 0;
-//            }
-//        }
-//        
-//
-//
-//    }
-//}
+void Item::C_BULLET()
+{
+    if (itemtable[5] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+       
+        int i;
+        for (i = 0; i < 6; i++) {
+            if (bullet::Cylinder[i] == 0) {
+                bullet::Cylinder[i] = 1;
+            }
+            else if (bullet::Cylinder[i] == 1) {
+                bullet::Cylinder[i] = 0;
+            }
+        }
+        
+
+
+    }
+}
 
 void Item::ITEM_UI_TIME()
 {
@@ -122,7 +136,7 @@ AbstractScene*Item::Update()
     BOMB();
     JUDGE();
     TOTEM();
-    //C_BULLET();
+    C_BULLET();
     ITEM_UI_TIME();
    
     return this;
@@ -131,18 +145,22 @@ AbstractScene*Item::Update()
 
 void Item::Draw() const
 {
-    DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
-    if (L_Check == 1)
-    {
-        DrawString(70, 50, "0", 0xffffff, TRUE);
-    }
+  
+   /* if (TotemFlg == TRUE) {
 
-    if (L_Check == 2)
-    {
-        DrawString(70, 50, "1", 0xffffff, TRUE);
-    }
+    }*/
 
-    DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);
-   
+    /* DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
+   if (L_Check == 1)
+   {
+       DrawString(70, 50, "0", 0xffffff, TRUE);
+   }
+
+   if (L_Check == 2)
+   {
+       DrawString(70, 50, "1", 0xffffff, TRUE);
+   }
+
+   DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
 }
 
