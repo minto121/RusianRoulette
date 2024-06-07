@@ -15,7 +15,8 @@ int GameMain::E_life;
 int GameMain::P_life;
 int GameMain::bh_flg;
 int GameMain::bh2_flg;
-int GameMain::ResultFlg;
+int GameMain::PushFlgUI;
+int GameMain::FreezUI;
 
 enum class CURSOL
 {
@@ -52,6 +53,7 @@ GameMain::GameMain()
 
     WaitFlg = FALSE;
     WaitFlg2 = FALSE;
+    WaitFlg3 = FALSE;
 
     CurX = 170;
     CurY = 570;
@@ -61,8 +63,10 @@ GameMain::GameMain()
     ResultFlg = TRUE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
-
-
+    PushFlg = FALSE;
+    PushFlgUI = 0;
+    Flash = 0;
+    FreezUI = FALSE;
 }
 
 
@@ -77,16 +81,58 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-   /* R -= 500;*/
   
-    Result();
-    ITEM->Update();
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] == 0)
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
     {
         return new Title();
     }
-   
-    if (ResultFlg == FALSE && P_life > 0)
+
+    if (PushFlg == TRUE) {
+      
+       
+            Flash++;
+            if (Flash == 120)
+            {
+                Flash = 0;
+            }
+       
+    }
+
+
+    Result();
+
+
+    ITEM->Update();
+
+
+
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
+        && Item::itemtable[4] == 0&&Item::Freez == FALSE)
+    {
+        return new Title();
+    }
+    
+
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && ResultFlg == TRUE && Item::itemtable[4] == 1)
+    {
+        if (WaitFlg3 == FALSE)
+        {
+           PushFlgUI =GetRand(5);
+          
+        }
+        WaitFlg3 = TRUE;
+        PushFlg = TRUE;
+    }
+
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
+        && Item::itemtable[4] == 0 && Item::Freez == TRUE)
+    {
+        FreezUI = TRUE;
+
+    }
+
+
+    if (ResultFlg == FALSE && P_life > 0&& FreezUI == FALSE)
     {
 
         if (Timer::FPS == 30) {
@@ -176,7 +222,7 @@ AbstractScene* GameMain::Update()
 
 void GameMain::Draw() const
 {
-
+   
     if (ResultFlg == FALSE) {
 
         DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
@@ -263,30 +309,76 @@ void GameMain::Draw() const
             DrawCircle(170, select_y, 10, GetColor(255, 255, 255), TRUE);
         }
 
-
+        if (bh2_flg == TRUE && ResultFlg == FALSE)
+        {
+            DrawGraph(-120, -140, bullet_holes2, TRUE);
+        }
  
     }
    
     
     
-    if (bh2_flg == TRUE && ResultFlg == FALSE)
-    {
-        DrawGraph(-120, -140, bullet_holes2, TRUE);
-    }
+   
 
+    SetFontSize(48);
     if (ResultFlg == TRUE) {
-      
-        DrawFormatString(550, 350, GetColor(255, 255, 255), "Round:%d", Round);
+
+       
+        DrawFormatString(550, 300, GetColor(255, 255, 255), "Round:%d", Round);
         DrawString(550, 50, "Result", 0xffffff);
         DrawString(480, 650, "Press_A_Button", 0xffffff);
 
     }
+
+
+
+
+    if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 && PushFlgUI != 1 
+        || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 80&& PushFlg == TRUE && Item::itemtable[4] == 1) {
+        DrawBox(440, 440, 810, 580, 0xADD8E6, TRUE);
+        DrawString(570, 390, "PUSH", 0xFFFF00);
+    }
+    if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI != 1|| 
+        Item::TotemRand == 0&& PushFlgUI == 1&&PushFlg == TRUE && Item::itemtable[4] == 1)
+    {
+        DrawBox(460, 460, 790, 560, 0xffffff, TRUE);
+        DrawTriangle(570, 470, 570, 550, 690, 510, 0xFF0000, TRUE);
+        DrawString(560, 490, "START", 0x0000FF);
+    }
+
+
+
+
+    if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 &&
+        PushFlgUI == 1 && Item::TotemRand == 1)
+    {
+        DrawBox(80, 80, 1200, 640, 0xADD8E6, TRUE);
+        SetFontSize(72);
+        DrawString(540, 0, "PUSH", 0xFFFF00);
+    }
+
+    if (PushFlg == TRUE && Item::itemtable[4] == 1&&PushFlgUI == 1 
+        && Item::TotemRand == 1)
+    {
+        DrawBox(150, 150, 1130, 570, 0xffffff, TRUE);
+        DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
+        SetFontSize(72);
+        DrawString(530, 320, "START", 0x0000FF);
+    }
+
+
+
+   
+
+
+
+
+    
     
    
    
-   /* DrawCircle(640, 360, R, GetColor(255, 255, 255), TRUE);*/
     ITEM->Draw();
-    
+   
 }
 
 
@@ -389,12 +481,38 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
-    if (ResultFlg == TRUE &&Item::itemtable[4] ==1&&
+    if (PushFlg == TRUE &&Item::itemtable[4] ==1&&
         PAD_INPUT::OnButton(XINPUT_BUTTON_START))
     {
+        P_life = 2;
         Item::TotemFlg = TRUE;
+        Item::itemtable[4] = 0;
+        WaitFlg3 = FALSE;
+        PushFlg = FALSE;
     }
-   
+    if (Item::R4 == 450)
+    {
+        isPlayerTurn = TRUE;
+        bh2_flg = FALSE;
+        ResultFlg = FALSE;
+        PushFlg = FALSE;
+        PushFlgUI = 0;
+        Flash = 0;
+        FreezUI = FALSE;
+        
+    }
+    if (Item::R3 == 450)
+    {
+        isPlayerTurn = TRUE;
+        bh2_flg = FALSE;
+        ResultFlg = FALSE;
+        PushFlg = FALSE;
+        PushFlgUI = 0;
+        Flash = 0;
+        Item:: Freez = FALSE;
+        FreezUI = FALSE;
+        ITEM->INIT();
+    }
     
 }
 
