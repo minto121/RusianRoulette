@@ -47,6 +47,10 @@ GameMain::GameMain()
     Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
     bullet_holes = LoadGraph("Resources/images/k0100_1.png");
     bullet_holes2 = LoadGraph("Resources/images/b2.png");
+    P_LifeImg = LoadGraph("Resources/images/P_Life.png");
+    E_LifeImg = LoadGraph("Resources/images/E_Life.png");
+    BackGRImg = LoadGraph("Resources/images/BG.png");
+
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     isPlayerTurn = TRUE;
@@ -61,7 +65,7 @@ GameMain::GameMain()
     GM_Select = 0;
     a = 0;
    
-    ResultFlg = FALSE;
+    ResultFlg = TRUE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
     PushFlg = FALSE;
@@ -228,8 +232,8 @@ void GameMain::Draw() const
 {
    
     if (ResultFlg == FALSE) {
-
-        DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);
+        DrawGraph(0, 0, BackGRImg, TRUE);
+       /* DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);*/
         if (bh_flg == TRUE)
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
@@ -238,33 +242,56 @@ void GameMain::Draw() const
         ENEMY->Draw();
 
 
-      //白枠
-    DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
-    DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
-    DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
-    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
-    DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
-    DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
-    DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
-    DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
-    DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
-    DrawBox(1090, 180, 1280, 190, GetColor(255, 255, 255), TRUE);
-    DrawBox(1090, 300, 1280, 310, GetColor(255, 255, 255), TRUE);
-    DrawBox(1090, 375, 1280, 385, GetColor(255, 255, 255), TRUE);
-    //UI
-    DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
-    DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+    //  //白枠
+    //DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+    //DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+    //DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+    //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+    //DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
+    //DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+    //DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+    //DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+    //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+    //DrawBox(1090, 180, 1280, 190, GetColor(255, 255, 255), TRUE);
+    //DrawBox(1090, 300, 1280, 310, GetColor(255, 255, 255), TRUE);
+    //DrawBox(1090, 375, 1280, 385, GetColor(255, 255, 255), TRUE);
+    //DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+    //DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+    //DrawBox(380, 500, 390, 710, GetColor(255, 255, 255), TRUE);
+    //DrawBox(800, 500, 810, 710, GetColor(255, 255, 255), TRUE);
+    //DrawBox(0, 560, 1280, 570, GetColor(255, 255, 255), TRUE);
 
 
-    SetFontSize(36);
+    //SetFontSize(36);
    
-    DrawString(1145, 130, "LIFE", 0xFF0000);
-    DrawString(1145, 325, "LIFE", 0xFFFF00);
+    ////Life
+    //DrawString(1140, 130, "ENEMY", 0xFF0000);
+    //DrawString(1130, 325, "PLAYER", 0xFFFF00);
+    //DrawGraph(1110, 225, E_LifeImg, TRUE);
+    //DrawGraph(1110, 420, P_LifeImg, TRUE);
+    //DrawFormatString(1180, 227, 0xffffff, ": ", E_life);
+    //DrawFormatString(1180, 422, 0xffffff, ":", P_life);
 
 
- 
-      
-       
+    //SetFontSize(48);
+
+    ////Round
+    //DrawString(40, 35, "ROUND :", 0xE6E6FA);
+
+    //   //Turn
+    //DrawString(1130, 35, ":TURN", 0xEE82EE);
+
+    ////Action
+   
+    //DrawString(80, 610, "SHOT", 0xFF0000);
+    //DrawString(250, 610, "ITEM", 0x87CEFA);
+    //DrawString(620, 580, "PLAYER", 0xFFFF00);
+    //DrawString(620, 655, "ENEMY", 0xFF0000);
+    //SetFontSize(42);
+    //DrawString(120, 515, "ACTION", 0xFFFF00);
+    //DrawString(475, 515, "SHOT TIME!!", 0xFF0000);
+    //DrawString(950, 515, "ITEM LIST", 0x87CEFA);
+   
       /*  if (isPlayerTurn == TRUE)
         {
             DrawString(1130, 350, "PLAYER", 0xFFFF00);
@@ -274,11 +301,14 @@ void GameMain::Draw() const
             DrawString(1135, 350, "ENEMY", 0xfa2000);
         }*/
 
+    
+
+
         //プレイヤーか敵を選ぶ
-        SetFontSize(48);
+       
 
 
-        if (P_Ui[0] == TRUE)
+        /*if (P_Ui[0] == TRUE)
         {
             DrawString(200, 550, "SHOT", 0xffffff);
             DrawString(200, 600, "ITEM", 0xffffff);
@@ -310,7 +340,7 @@ void GameMain::Draw() const
         if (bh2_flg == TRUE && ResultFlg == FALSE)
         {
             DrawGraph(-120, -140, bullet_holes2, TRUE);
-        }
+        }*/
  
     }
    
@@ -355,7 +385,7 @@ void GameMain::Draw() const
     if (PushFlg == TRUE && Item::itemtable[4] == 1&&PushFlgUI == 1 
         && Item::TotemRand == 1)
     {
-        DrawBox(150, 150, 1130, 570, 0xffffff, TRUE);
+        DrawBox(150, 150, 1130, 570, 0xFFFF00, TRUE);
         DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
         SetFontSize(72);
         DrawString(530, 320, "START", 0x0000FF);

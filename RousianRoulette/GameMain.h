@@ -43,12 +43,15 @@ private:
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
     int Enemyimg[IMAGE_CNT];
+    int E_LifeImg;
+    int P_LifeImg;
     int ShuffleEnemyNum;
     int LastEnemyNum;
     int bullet_holes;
     int bullet_holes2;
     int P_Ui_flg[5];
     int P_Ui[5];
+    int BackGRImg;
 
 public:
 

@@ -24,7 +24,8 @@ private:
 	int HukkatuSE3;
 	int HukkatuSE4;
 	int ResultBgm;
-	int BgmW;
+	
+	
 
 public:
 	Item();

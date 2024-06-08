@@ -4,6 +4,8 @@ class bullet
 private:
 	int RandBox;
 	int Bullet;
+	int Bullet_img;
+	int Shot_Ui_Img;
 public:
 	bullet();
 

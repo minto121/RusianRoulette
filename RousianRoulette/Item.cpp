@@ -37,8 +37,8 @@ void Item::INIT()
     T_Bullet[7] = LoadGraph("Resources/images/Mizuiro.png");
     T_Bullet[8] = LoadGraph("Resources/images/Orange.png");
     T_Bullet[9] = LoadGraph("Resources/images/Gray.png");
-
-
+   
+    
 
     FreezSE = LoadSoundMem("Resources/SE/Freez.mp3");
     RedBulletSE = LoadSoundMem("Resources/SE/RedBullet.mp3");
@@ -71,7 +71,7 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
-    BgmW = 0;
+   
 }
 
 
@@ -319,29 +319,29 @@ void Item::ITEM_UI_TIME()
     if (GameMain::FreezUI == TRUE)
     {
 
-        if (R != 0) {
+        if (R != -100) {
             R -= 100;
 
         }
 
 
-        if (R == 0) {
-            R = 0;
+        if (R == -100) {
+            R = -100;
 
         }
 
 
-        if (R2 != 0) {
+        if (R2 != -100) {
             R2 -= 2;
 
         }
 
 
-        if (R2 == 0) {
-            R2 = 0;
+        if (R2 == -100) {
+            R2 = -100;
 
         }
-        if (R2 == 0 && R == 0) {
+        if (R2 == -100 && R == -100) {
             R3++;
             T_RevivalAnim = TRUE;
         }
@@ -603,7 +603,13 @@ void Item::Draw() const
         }
        
     }
-
+  /*  SetFontSize(28);
+    DrawString(860, 600, "DRAG:", 0xffff00, TRUE);
+    DrawString(990, 600, "LOUPE:", 0x87CEFA, TRUE);
+    DrawString(1130, 600, "JUDGE:", 0xFF0000, TRUE);
+    DrawString(860, 650, "BOMB:", 0xFF0000, TRUE);
+    DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
+    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/

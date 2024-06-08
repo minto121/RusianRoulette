@@ -21,6 +21,8 @@ bullet::~bullet()
 
 void bullet::B_INIT()
 {
+	Bullet_img = LoadGraph("Resources/images/Bullet.png");
+	Shot_Ui_Img = LoadGraph("Resources/images/BulletUI.png");
 	Bullet = 0;
 	for (int x = 0; x <= 5; x++) {
 		Cylinder[x] = 0;
@@ -110,18 +112,26 @@ void bullet::Update()
 void bullet::Draw() const
 {
 	SetFontSize(14);
-	DrawFormatString(0, 280, 0xffffff, "Bullet:%d", Bullet);
+	/*DrawFormatString(0, 280, 0xffffff, "Bullet:%d", Bullet);
 	DrawFormatString(0, 300, 0xffffff, "B_Location:%d", Cylinder[0]);
 	DrawFormatString(0, 320, 0xffffff, "B_Location:%d", Cylinder[1]);
 	DrawFormatString(0, 340, 0xffffff, "B_Location:%d", Cylinder[2]);
 	DrawFormatString(0, 360, 0xffffff, "B_Location:%d", Cylinder[3]);
 	DrawFormatString(0, 380, 0xffffff, "B_Location:%d", Cylinder[4]);
 	DrawFormatString(0, 400, 0xffffff, "B_Location:%d", Cylinder[5]);
-	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);
+	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);*/
 
 	SetFontSize(32);
-	DrawFormatString(15, 200, 0xffffff, "LAST : %d", Last_Bullet);
-	DrawString(80, 240, "BULLET", 0xffffff, TRUE);
+	/*DrawFormatString(15, 200, 0xffffff, "LAST : %d", Last_Bullet);
+	DrawString(80, 240, "BULLET", 0xffffff, TRUE);*/
+
+	//DrawGraph(15, 140, Bullet_img, TRUE);
+	//DrawGraph(15, 200, Bullet_img, TRUE);
+	//DrawGraph(15, 260, Bullet_img, TRUE);
+	//DrawGraph(15, 320, Bullet_img, TRUE);
+	//DrawGraph(15, 380, Bullet_img, TRUE);
+	//DrawGraph(15, 440, Bullet_img, TRUE);
+	///*DrawGraph(20, 110, Shot_Ui_Img, TRUE);*/
 	
 }
 
