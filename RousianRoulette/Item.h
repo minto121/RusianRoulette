@@ -8,7 +8,7 @@ private:
 	int L_Check;
 	int UItime;
 	/*int JudgeCount[2];*/
-	int T_Bullet[6];
+	int T_Bullet[10];
 	int T_UIRand;
 	int T_UI;
 	int T_RevivalAnim;
@@ -16,10 +16,13 @@ private:
 	int R2;
 	int FreezSE;
 	int FreezSE2;
+	int FreezSE3;
 	int RedBulletSE;
 	int WhiteBulletSE;
 	int HukkatuSE;
 	int HukkatuSE2;
+	int HukkatuSE3;
+	int HukkatuSE4;
 	int ResultBgm;
 	int BgmW;
 

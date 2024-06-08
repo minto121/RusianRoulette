@@ -60,7 +60,8 @@ GameMain::GameMain()
 
     GM_Select = 0;
     a = 0;
-    ResultFlg = TRUE;
+   
+    ResultFlg = FALSE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
     PushFlg = FALSE;
@@ -117,18 +118,21 @@ AbstractScene* GameMain::Update()
     {
         if (WaitFlg3 == FALSE)
         {
-           PushFlgUI =GetRand(5);
+           PushFlgUI = GetRand(5);
           
         }
         WaitFlg3 = TRUE;
         PushFlg = TRUE;
     }
 
+    
+
+
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
         && Item::itemtable[4] == 0 && Item::Freez == TRUE)
     {
         FreezUI = TRUE;
-
+       
     }
 
 
@@ -230,7 +234,8 @@ void GameMain::Draw() const
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
-
+        BULLET->Draw();
+        ENEMY->Draw();
 
 
       //白枠
@@ -243,38 +248,31 @@ void GameMain::Draw() const
     DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
     DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
     DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+    DrawBox(1090, 180, 1280, 190, GetColor(255, 255, 255), TRUE);
+    DrawBox(1090, 300, 1280, 310, GetColor(255, 255, 255), TRUE);
+    DrawBox(1090, 375, 1280, 385, GetColor(255, 255, 255), TRUE);
+    //UI
+    DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+    DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
 
 
     SetFontSize(36);
-    DrawString(30, 20, "PLAYER", 0xFFFF00, TRUE);
-    DrawString(69, 60, "LIFE", 0xffffff, TRUE);
-    DrawFormatString(160, 40, GetColor(255, 255, 255), "  :  %d", P_life);
-
-    DrawString(985, 20, "ENEMY", 0xfa2000, TRUE);
-    DrawString(1004, 60, "LIFE", 0xffffff, TRUE);
-    DrawFormatString(1100, 40, GetColor(255, 255, 255), "  :  %d", E_life);
+   
+    DrawString(1145, 130, "LIFE", 0xFF0000);
+    DrawString(1145, 325, "LIFE", 0xFFFF00);
 
 
-
-
-    BULLET->Draw();
-  
-   /*   TIMER->Draw();*/
-    ENEMY->Draw();
-        //UI
-        DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
-        DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-        DrawString(1130, 170, "ROUND", 0xffffff);
-        DrawFormatString(1170, 220, GetColor(255, 255, 255), "%d", Round);
-        DrawString(1145, 400, "TURN", 0xffffff);
-        if (isPlayerTurn == TRUE)
+ 
+      
+       
+      /*  if (isPlayerTurn == TRUE)
         {
             DrawString(1130, 350, "PLAYER", 0xFFFF00);
         }
         else
         {
             DrawString(1135, 350, "ENEMY", 0xfa2000);
-        }
+        }*/
 
         //プレイヤーか敵を選ぶ
         SetFontSize(48);
@@ -316,7 +314,7 @@ void GameMain::Draw() const
  
     }
    
-    
+ 
     
    
 
@@ -331,8 +329,6 @@ void GameMain::Draw() const
     }
 
 
-
-
     if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 && PushFlgUI != 1 
         || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 80&& PushFlg == TRUE && Item::itemtable[4] == 1) {
         DrawBox(440, 440, 810, 580, 0xADD8E6, TRUE);
@@ -345,7 +341,6 @@ void GameMain::Draw() const
         DrawTriangle(570, 470, 570, 550, 690, 510, 0xFF0000, TRUE);
         DrawString(560, 490, "START", 0x0000FF);
     }
-
 
 
 
@@ -481,17 +476,9 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
-    if (PushFlg == TRUE &&Item::itemtable[4] ==1&&
-        PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+    if (Item::R4 == 460)
     {
-        P_life = 2;
-        Item::TotemFlg = TRUE;
         Item::itemtable[4] = 0;
-        WaitFlg3 = FALSE;
-        PushFlg = FALSE;
-    }
-    if (Item::R4 == 450)
-    {
         isPlayerTurn = TRUE;
         bh2_flg = FALSE;
         ResultFlg = FALSE;
@@ -499,9 +486,21 @@ void GameMain::Result()
         PushFlgUI = 0;
         Flash = 0;
         FreezUI = FALSE;
-        
+
     }
-    if (Item::R3 == 450)
+
+
+    if (PushFlg == TRUE &&Item::itemtable[4] ==1&&
+        PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+    {
+        P_life = 2;
+        Item::TotemFlg = TRUE;
+       
+        WaitFlg3 = FALSE;
+        PushFlg = FALSE;
+    }
+    
+    if (Item::R3 == 460)
     {
         isPlayerTurn = TRUE;
         bh2_flg = FALSE;
@@ -511,7 +510,9 @@ void GameMain::Result()
         Flash = 0;
         Item:: Freez = FALSE;
         FreezUI = FALSE;
+        Item::itemtable[4] = 0;
         ITEM->INIT();
+       
     }
     
 }

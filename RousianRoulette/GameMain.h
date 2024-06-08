@@ -18,7 +18,7 @@ private:
     /*int PushFlgUI;*/
     int Flash;
 
-
+   
     int R;
     int TurnCount;
     int CurX;
