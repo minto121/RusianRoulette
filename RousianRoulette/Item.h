@@ -7,8 +7,24 @@ class Item:public AbstractScene
 private:
 	int L_Check;
 	int UItime;
-
-	
+	/*int JudgeCount[2];*/
+	int T_Bullet[10];
+	int T_UIRand;
+	int T_UI;
+	int T_RevivalAnim;
+	int R;
+	int R2;
+	int FreezSE;
+	int FreezSE2;
+	int FreezSE3;
+	int RedBulletSE;
+	int WhiteBulletSE;
+	int HukkatuSE;
+	int HukkatuSE2;
+	int HukkatuSE3;
+	int HukkatuSE4;
+	int ResultBgm;
+	int BgmW;
 
 public:
 	Item();
@@ -18,6 +34,8 @@ public:
 	AbstractScene* Update() override;
 
 	void Draw() const;
+
+	void INIT();
 
 	void DRAG();
 
@@ -33,7 +51,17 @@ public:
 
 	void ITEM_UI_TIME();
 
+	void SOUND();
+
 	static int Bomb;
-	static int itemlist[6];
+	static int TotemFlg;
+	static int TotemRand;
+	static int itemtable[6];
+	static int WaitTime;
+	static int WaitTime2;
+	static int Freez;
+	static int R3;
+	static int R4;
+	
 };
 
