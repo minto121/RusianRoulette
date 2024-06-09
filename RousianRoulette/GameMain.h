@@ -25,7 +25,8 @@ private:
     int CurY;
     int CurX2;
     int CurY2;
-
+    int CurX3;
+    int CurY3;
    
     int GM_Select;
     int I_Select;

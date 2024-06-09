@@ -17,6 +17,7 @@ private:
 	int FreezSE;
 	int FreezSE2;
 	int FreezSE3;
+	int FreezSE4;
 	int RedBulletSE;
 	int WhiteBulletSE;
 	int HukkatuSE;

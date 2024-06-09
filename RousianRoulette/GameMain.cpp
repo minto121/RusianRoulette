@@ -50,7 +50,7 @@ GameMain::GameMain()
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
     Enemyimg[4] = LoadGraph("Resources/images/ghost.png");
     bullet_holes = LoadGraph("Resources/images/k0100_1.png");
-    bullet_holes2 = LoadGraph("Resources/images/b2.png");
+    bullet_holes2 = LoadGraph("Resources/images/White.png");
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
@@ -71,7 +71,7 @@ GameMain::GameMain()
     GM_Select = 0;
     a = 0;
    
-    ResultFlg = FALSE;
+    ResultFlg = TRUE/*FALSE*/;
     bh_flg = FALSE;
     bh2_flg = FALSE;
     PushFlg = FALSE;
@@ -128,7 +128,7 @@ AbstractScene* GameMain::Update()
     {
         if (WaitFlg3 == FALSE)
         {
-           PushFlgUI = GetRand(5);
+           PushFlgUI = 5/*GetRand(5)*/;
           
         }
         WaitFlg3 = TRUE;
@@ -326,8 +326,9 @@ void GameMain::Draw() const
         }
         if (P_Ui[2] == TRUE)
         {
-          
+            DrawGraph(CurX3, CurY3, CursolImg[2], TRUE);
             DrawLine(190, 700, 375, 700, 0xFFFF00);
+           
         }
 
           /*  if (isPlayerTurn == TRUE)
@@ -346,7 +347,10 @@ void GameMain::Draw() const
 
 
 
-      
+        if (bh2_flg == TRUE)
+        {
+            DrawGraph(-150, -600, bullet_holes2, TRUE);
+        }
 
 
     }
@@ -356,10 +360,10 @@ void GameMain::Draw() const
     SetFontSize(48);
         if (ResultFlg == TRUE) {
 
-
-            DrawFormatString(550, 300, GetColor(255, 255, 255), "Round:%d", Round);
-            DrawString(550, 50, "Result", 0xffffff);
-            DrawString(480, 650, "Press_A_Button", 0xffffff);
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawFormatString(420, 300, GetColor(255, 255, 255), "TOTAL:  %d   ROUND", Round);
+            DrawString(550, 50, "RESULT", 0xffffff);
+            DrawString(460, 650, "PRESS_A_BUTTON", 0xffffff);
 
         }
 
@@ -367,14 +371,16 @@ void GameMain::Draw() const
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 && PushFlgUI != 1
             || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 80 && PushFlg == TRUE && Item::itemtable[4] == 1) {
             DrawBox(440, 440, 810, 580, 0xADD8E6, TRUE);
-            DrawString(570, 390, "PUSH", 0xFFFF00);
+            DrawString(565, 390, "PUSH!", 0xFFFF00);
+            DrawString(555, 590, "START!", 0xFFFF00);
+           
         }
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI != 1 ||
             Item::TotemRand == 0 && PushFlgUI == 1 && PushFlg == TRUE && Item::itemtable[4] == 1)
         {
             DrawBox(460, 460, 790, 560, 0xffffff, TRUE);
             DrawTriangle(570, 470, 570, 550, 690, 510, 0xFF0000, TRUE);
-            DrawString(560, 490, "START", 0x0000FF);
+           
         }
 
 
@@ -382,9 +388,11 @@ void GameMain::Draw() const
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 &&
             PushFlgUI == 1 && Item::TotemRand == 1)
         {
-            DrawBox(80, 80, 1200, 640, 0xADD8E6, TRUE);
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawBox(80, 80, 1200, 640, 0xFF0000, TRUE);
             SetFontSize(72);
-            DrawString(540, 0, "PUSH", 0xFFFF00);
+            DrawString(520, 0, "PUSH!!", 0xFFFF00);
+            DrawString(500, 640, "START!!", 0xFFFF00);
         }
 
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI == 1
@@ -393,15 +401,15 @@ void GameMain::Draw() const
             DrawBox(150, 150, 1130, 570, 0xFFFF00, TRUE);
             DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
             SetFontSize(72);
-            DrawString(530, 320, "START", 0x0000FF);
+           
         }
 
 
 
 
-        ITEM->Draw();
+     
 
-  
+        ITEM->Draw();
 
     
     
@@ -601,6 +609,30 @@ void GameMain::P_UI()
             CurY2 = 575;
         }
     }
+
+    if (P_Ui[2] == TRUE)
+    {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) &&CurY3 == 590)
+        {         
+            CurY3 = 640;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
+        {
+            CurY3 = 590;
+        }
+
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)&&CurX3!=1100)
+        {
+            CurX3 += 135;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
+        {
+            CurX3 -= 135;
+        }
+       
+
+    }
+       
 }
 
 
@@ -610,6 +642,9 @@ void GameMain::P_UI_INIT()
    
     CurX2 = 555;
     CurY2 = 575;
+    CurX3 = 830;
+    CurY3 = 590;
+
 
     for (int i = 1; i < 5; i++)
     {

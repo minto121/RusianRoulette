@@ -50,6 +50,7 @@ void Item::INIT()
     ResultBgm = LoadSoundMem("Resources/SE/result.mp3");
     FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
     FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
+    FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
 
     R = 1000;
     R2 = 50;
@@ -141,7 +142,7 @@ void Item::TOTEM()
     if (itemtable[4] == 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = GetRand(1);
+            TotemRand = 1/*GetRand(1)*/;
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -421,7 +422,10 @@ void Item::SOUND()
     {
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
     }
-    
+    if (GameMain::FreezUI == TRUE && R == 900)
+    {
+        PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
+    }
     
    
 }
@@ -453,10 +457,12 @@ void Item::Draw() const
     if (TotemFlg == TRUE) {
         if (T_UI == 1 && R4 < 400)
         {
+            DrawCircle(640, 340, 100, 0x000000);
             DrawGraph(-150, -600, T_Bullet[0], TRUE);
         }
         if (T_UI == 2 && R4 < 400)
         {
+            DrawCircle(640, 340, 100, 0x000000);
             DrawGraph(-150, -600, T_Bullet[1], TRUE);
         }
 
@@ -521,6 +527,7 @@ void Item::Draw() const
                 DrawGraph(250, -870, T_Bullet[3], TRUE);
                 DrawGraph(-560, -400, T_Bullet[4], TRUE);
                 DrawGraph(210, -900, T_Bullet[5], TRUE);
+                DrawCircle(640, 340, 150, 0x000000);
                 DrawGraph(-150, -600, T_Bullet[0], TRUE);
                    
             }
@@ -598,18 +605,19 @@ void Item::Draw() const
             DrawGraph(250, -870, T_Bullet[3], TRUE);
             DrawGraph(-560, -400, T_Bullet[4], TRUE);
             DrawGraph(210, -900, T_Bullet[5], TRUE);
+            DrawCircle(640, 340, 150, 0x000000);
             DrawGraph(-150, -600, T_Bullet[0], TRUE);
 
         }
        
     }
-    SetFontSize(28);
+   /* SetFontSize(28);
     DrawString(860, 600, "DRAG:", 0xffff00, TRUE);
     DrawString(990, 600, "LOUPE:", 0x87CEFA, TRUE);
     DrawString(1130, 600, "JUDGE:", 0xFF0000, TRUE);
     DrawString(860, 650, "BOMB:", 0xFF0000, TRUE);
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
-    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);
+    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/
