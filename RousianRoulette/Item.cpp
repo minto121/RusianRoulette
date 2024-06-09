@@ -603,13 +603,13 @@ void Item::Draw() const
         }
        
     }
-  /*  SetFontSize(28);
+    SetFontSize(28);
     DrawString(860, 600, "DRAG:", 0xffff00, TRUE);
     DrawString(990, 600, "LOUPE:", 0x87CEFA, TRUE);
     DrawString(1130, 600, "JUDGE:", 0xFF0000, TRUE);
     DrawString(860, 650, "BOMB:", 0xFF0000, TRUE);
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
-    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
+    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);
 
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/

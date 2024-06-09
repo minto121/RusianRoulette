@@ -23,6 +23,10 @@ private:
     int TurnCount;
     int CurX;
     int CurY;
+    int CurX2;
+    int CurY2;
+
+   
     int GM_Select;
     int I_Select;
     int A_Select;
@@ -52,6 +56,7 @@ private:
     int P_Ui_flg[5];
     int P_Ui[5];
     int BackGRImg;
+    int CursolImg[3];
 
 public:
 

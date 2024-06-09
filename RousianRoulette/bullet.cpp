@@ -125,13 +125,13 @@ void bullet::Draw() const
 	/*DrawFormatString(15, 200, 0xffffff, "LAST : %d", Last_Bullet);
 	DrawString(80, 240, "BULLET", 0xffffff, TRUE);*/
 
-	//DrawGraph(15, 140, Bullet_img, TRUE);
-	//DrawGraph(15, 200, Bullet_img, TRUE);
-	//DrawGraph(15, 260, Bullet_img, TRUE);
-	//DrawGraph(15, 320, Bullet_img, TRUE);
-	//DrawGraph(15, 380, Bullet_img, TRUE);
-	//DrawGraph(15, 440, Bullet_img, TRUE);
-	///*DrawGraph(20, 110, Shot_Ui_Img, TRUE);*/
+	DrawGraph(15, 140, Bullet_img, TRUE);
+	DrawGraph(15, 200, Bullet_img, TRUE);
+	DrawGraph(15, 260, Bullet_img, TRUE);
+	DrawGraph(15, 320, Bullet_img, TRUE);
+	DrawGraph(15, 380, Bullet_img, TRUE);
+	DrawGraph(15, 440, Bullet_img, TRUE);
+	/*DrawGraph(20, 110, Shot_Ui_Img, TRUE);*/
 	
 }
 
