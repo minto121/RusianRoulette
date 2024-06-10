@@ -42,6 +42,7 @@ GameMain::GameMain()
     LastEnemyNum = -1;
     GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
     SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
+    ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
     isPlayerTurn = TRUE;
     //CurX = 170;
     //CurY = 550;
@@ -60,6 +61,7 @@ GameMain::~GameMain()
     }
     DeleteSoundMem(GMBgm);
     DeleteSoundMem(SelectSE);
+    DeleteSoundMem(ShotSE);
 }
 
 AbstractScene* GameMain::Update()
@@ -79,7 +81,7 @@ AbstractScene* GameMain::Update()
         ITEM->Update();
         ENEMY->Update();
         TIMER->Update();
-        //Choice();
+        //Choice(); 
         Turn();
         /*  Cursol();*/
 
@@ -271,6 +273,7 @@ void GameMain::Turn()
         {
             if (bullet::Cylinder[bullet::FireC] == 1 && isPlayerTurn == FALSE)
             {
+                PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
                 P_life--;
                 isPlayerTurn = TRUE;
             }
@@ -291,6 +294,7 @@ void GameMain::E_Choice()
     }
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
+            PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
             E_life--;
             if (Item::Bomb == TRUE) 
             {
@@ -319,6 +323,7 @@ void GameMain::P_Choice()
 
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
+        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         P_life--;
         isPlayerTurn = !isPlayerTurn;
         ENEMY->E_UI_TIME();

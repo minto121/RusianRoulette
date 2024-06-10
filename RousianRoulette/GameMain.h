@@ -39,6 +39,8 @@ private:
     int GMBgm;
     int SelectSE;
 
+    int ShotSE;
+
 public:
 
     //�R���X�g���N�^
