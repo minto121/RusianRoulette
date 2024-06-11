@@ -47,6 +47,14 @@ private:
         ITEM
     };
 
+    enum class item
+    {
+        DRAG,
+        BOMB,
+        LOUPE,
+        JUDGE
+    };
+
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
     int Enemyimg[IMAGE_CNT];

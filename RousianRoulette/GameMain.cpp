@@ -20,11 +20,8 @@ enum class CURSOL
 {
     C_ENEMY = 0,
     C_PLAYER,
-    DRAG,
-    BOMB,
-    LOUPE,
-    JUDGE
 };
+
 
 bool GameMain::isPlayerTurn;
 
@@ -100,11 +97,7 @@ AbstractScene* GameMain::Update()
             bh2_flg = FALSE;
         }
 
-        if (Timer::FPS == 750)
-        {
-            ShotFlg = FALSE;
-            ActionFlg = TRUE;
-        }
+   
 
     /*    if (ShotFlg == TRUE)
         {*/
@@ -116,7 +109,6 @@ AbstractScene* GameMain::Update()
                     {
                     case CURSOL::C_ENEMY:
                         E_Choice();
-
                         break;
                     case CURSOL::C_PLAYER:
                         P_Choice();
@@ -171,6 +163,10 @@ AbstractScene* GameMain::Update()
         }
         return this;
     }
+    //else if (ENEMY->E_UI[2] == FALSE)
+    //{
+    //    ActionFlg = TRUE;
+    //}
     
 }
 
@@ -183,6 +179,8 @@ void GameMain::Draw() const
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
+
+     
        
         SetFontSize(14);
         BULLET->Draw();
@@ -242,6 +240,9 @@ void GameMain::Draw() const
 
         DrawString(900, 550, "LOOPE", 0xffffff);
         DrawString(900, 600, "JUDGE", 0xffffff);
+
+        int i_select = 570 + I_Select * 50;
+        DrawCircle(i_select, i_select, 10, GetColor(255, 255, 255), TRUE);
         }
         //DrawBox(CurX, CurY, CurX + 200, CurY + 50, 0xffffff, FALSE);
     }
@@ -330,7 +331,6 @@ void GameMain::Action()
             case action::SHOT:
                 ActionFlg = FALSE;
                 ShotFlg = TRUE;
-
                 break;
             case action::ITEM:
                 ActionFlg = FALSE;
@@ -420,18 +420,18 @@ void GameMain::ITEM_Choice()
         {
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
             {
-                switch (static_cast<CURSOL>(I_Select))
+                switch (static_cast<item>(I_Select))
                 {
-                case CURSOL::DRAG:
+                case item::DRAG:
                     ITEM->DRAG();
                     break;
-                case CURSOL::BOMB:
+                case item::BOMB:
                     ITEM->BOMB();
                     break;
-                case CURSOL::LOUPE:
+                case item::LOUPE:
                     ITEM->LOUPE();
                     break;
-                case CURSOL::JUDGE:
+                case item::JUDGE:
                     ITEM->JUDGE();
                     break;
                 default:

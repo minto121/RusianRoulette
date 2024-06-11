@@ -7,7 +7,7 @@
 #include <math.h>
 
 int Enemy::E_WaitFlg;
-
+//int Enemy::E_UI[];
 Enemy::Enemy()
 {
 	E_Choice = 0;
@@ -148,12 +148,12 @@ void Enemy::Draw() const
 {
 	if (E_UI[0] == TRUE) 
 	{
-		DrawString(50, 180, "ENEMY: SHOT PLAYER", 0xffffff, TRUE);
+		DrawString(200, 550, "ENEMY: SHOT PLAYER", 0xffffff, TRUE);
 	}
 
 	if (E_UI[1] == TRUE)
 	{
-		DrawString(50, 180, "ENEMY: SHOT SELF", 0xffffff, TRUE);
+		DrawString(200, 550, "ENEMY: SHOT SELF", 0xffffff, TRUE);
 	}
 	
 }
