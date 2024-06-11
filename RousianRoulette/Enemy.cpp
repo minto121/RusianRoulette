@@ -72,6 +72,7 @@ void Enemy::E_AI()
 			{
 				GameMain::bh2_flg = TRUE;
 				GameMain::P_life--;
+				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
 				
@@ -98,6 +99,7 @@ void Enemy::E_AI()
 				
 				GameMain::bh_flg = TRUE;
 				GameMain::E_life--;
+				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
 				E_UI[1] = FALSE;
@@ -146,14 +148,17 @@ void Enemy::Update()
 
 void Enemy::Draw() const
 {
+	SetFontSize(36);
 	if (E_UI[0] == TRUE) 
 	{
-		DrawString(200, 550, "ENEMY: SHOT PLAYER", 0xffffff, TRUE);
+		DrawString(450, 40, "ENEMY", 0xfa2000, TRUE);
+		DrawString(560, 40, ": SHOT PLAYER!!", 0xffffff, TRUE);
 	}
 
 	if (E_UI[1] == TRUE)
 	{
-		DrawString(200, 550, "ENEMY: SHOT SELF", 0xffffff, TRUE);
+		DrawString(460, 40, "ENEMY", 0xfa2000, TRUE);
+		DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
 	}
 	
 }
