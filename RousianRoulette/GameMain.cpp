@@ -74,7 +74,7 @@ GameMain::GameMain()
     GM_Select = 0;
     a = 0;
    
-    ResultFlg = TRUE/*FALSE*/;
+    ResultFlg = /*TRUE*/FALSE;
     bh_flg = FALSE;
     bh2_flg = FALSE;
     PushFlg = FALSE;
@@ -596,14 +596,14 @@ void GameMain::P_UI()
             CurY = 576;
         }
         if (CurX == 180 && CurY == 576 && WaitFlg2 == TRUE
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
         {
             P_Ui[1] = TRUE;
             P_Ui[0] = FALSE;
         }
 
         if (CurX == 180 && CurY == 645 && WaitFlg2 == TRUE
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
         {
             P_Ui[2] = TRUE;
             P_Ui[0] = FALSE;
@@ -621,6 +621,16 @@ void GameMain::P_UI()
         {
             CurX2 = 555;
             CurY2 = 575;
+        }
+        if (CurX2 == 555 && CurY2 == 575 
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            E_Choice();
+        }
+        if (CurX2 == 555 && CurY2 == 650
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            P_Choice();
         }
     }
 

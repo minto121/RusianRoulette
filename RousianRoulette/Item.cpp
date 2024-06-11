@@ -21,7 +21,7 @@ Item::Item()
 {
    
     INIT();
-    itemtable[4] = 1;
+   /* itemtable[4] = 1;*/
 }
 
 
