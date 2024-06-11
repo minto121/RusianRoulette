@@ -58,6 +58,9 @@ GameMain::GameMain()
     CursolImg[1] = LoadGraph("resouce/image/cursor2.png");
     CursolImg[2] = LoadGraph("resouce/image/cursor4.png");
 
+    PushSE = LoadSoundMem("Resources/SE/Push.mp3");
+    PushSE2 = LoadSoundMem("Resources/SE/Push2.mp3");
+
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     isPlayerTurn = TRUE;
@@ -78,6 +81,7 @@ GameMain::GameMain()
     PushFlgUI = 0;
     Flash = 0;
     FreezUI = FALSE;
+    PushSEflg = FALSE;
 }
 
 
@@ -106,7 +110,14 @@ AbstractScene* GameMain::Update()
             {
                 Flash = 0;
             }
-       
+            if (Flash == 1&& PushFlgUI != 1&& PushSEflg == FALSE) {
+                PlaySoundMem(PushSE, DX_PLAYTYPE_BACK);
+                PushSEflg = TRUE;
+            }
+            if (Flash == 1 && PushFlgUI == 1 && PushSEflg == FALSE) {
+                PlaySoundMem(PushSE2, DX_PLAYTYPE_BACK);
+                PushSEflg = TRUE;
+            }
     }
 
 
@@ -131,8 +142,10 @@ AbstractScene* GameMain::Update()
            PushFlgUI = 5/*GetRand(5)*/;
           
         }
+        PushSEflg = FALSE;
         WaitFlg3 = TRUE;
         PushFlg = TRUE;
+        
     }
 
     
@@ -399,6 +412,7 @@ void GameMain::Draw() const
             && Item::TotemRand == 1)
         {
             DrawBox(150, 150, 1130, 570, 0xFFFF00, TRUE);
+            DrawBox(250, 250, 1030, 490, 0x0000FF, TRUE);
             DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
             SetFontSize(72);
            

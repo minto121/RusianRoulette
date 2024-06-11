@@ -58,7 +58,9 @@ private:
     int P_Ui[5];
     int BackGRImg;
     int CursolImg[3];
-
+    int PushSE;
+    int PushSE2;
+    int PushSEflg;
 public:
 
     //�R���X�g���N�^

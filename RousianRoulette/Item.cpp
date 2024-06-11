@@ -51,6 +51,7 @@ void Item::INIT()
     FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
     FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
     FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
+    
 
     R = 1000;
     R2 = 50;
@@ -414,6 +415,7 @@ void Item::SOUND()
     {
         PlaySoundMem(FreezSE2, DX_PLAYTYPE_BACK);
     }
+   
     /*if (T_RevivalAnim == TRUE && R3 == 450 || T_RevivalAnim == TRUE && R4 == 450)
     {
         StopSoundMem(HukkatuSE);
@@ -422,7 +424,7 @@ void Item::SOUND()
     {
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
     }
-    if (GameMain::FreezUI == TRUE && R == 900)
+    if (GameMain::FreezUI == TRUE && R == 700)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
     }
@@ -469,6 +471,7 @@ void Item::Draw() const
         if (GameMain::FreezUI == FALSE) {
             if (T_RevivalAnim == TRUE && R4 >= 300 && R4 < 315)
             {
+              
                 DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
                 DrawGraph(-150, -600, T_Bullet[0], TRUE);
             }
