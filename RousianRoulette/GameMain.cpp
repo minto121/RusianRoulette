@@ -88,9 +88,10 @@ void GameMain::INIT()
     WaitFlg = FALSE;
     WaitFlg2 = FALSE;
     WaitFlg3 = FALSE;
+    WaitFlg4 = FALSE;
 
 
-    ResultFlg = FALSE;
+    ResultFlg = TRUE;
     GM_Select = 0;
     a = 0;
     E_life = 2;
@@ -136,7 +137,7 @@ AbstractScene* GameMain::Update()
            /* flash++;*/
            
                 Flash++;
-                if (Flash == 120)
+                if (Flash == 60)
                 {
                     Flash = 0;
                 }
@@ -158,7 +159,7 @@ AbstractScene* GameMain::Update()
                 }
                 if (flash >= 1)
                 {
-                    if (Flash % 30 ==0)
+                    if (Flash % 5 ==0)
                     {
                         flash += 1;
                         PlaySoundMem(UraBotanSE, TRUE);
@@ -187,11 +188,11 @@ AbstractScene* GameMain::Update()
         }
     
 
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] == 1)
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] == 1 &&WaitFlg4 == FALSE)
         {
             if (WaitFlg3 == FALSE)
             {
-               PushFlgUI = GetRand(5);
+               PushFlgUI = 5/*GetRand(5)*/;
           
             }
       
@@ -486,8 +487,8 @@ void GameMain::Draw() const
         }
 
 
-        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 && PushFlgUI != 1
-            || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 80 && PushFlg == TRUE && Item::itemtable[4] == 1) {
+        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 40 && PushFlgUI != 1
+            || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 40 && PushFlg == TRUE && Item::itemtable[4] == 1) {
             DrawBox(460, 440, 830, 580, 0xADD8E6, TRUE);
             DrawString(585, 390, "PUSH!", 0xFFFF00);
             DrawString(575, 590, "START!", 0xFFFF00);
@@ -503,11 +504,11 @@ void GameMain::Draw() const
 
 
 
-        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 80 &&
+        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 40 &&
             PushFlgUI == 1 && Item::TotemRand == 1)
         {
             DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            DrawBox(80, 80, 1200, 640, 0xFFFF00, TRUE);
+            DrawBox(80, 80, 1200, 640, 0xADD8E6, TRUE);
             SetFontSize(72);
             DrawString(520, 0, "PUSH!!", 0xFFFF00);
             DrawString(500, 640, "START!!", 0xFFFF00);
@@ -516,7 +517,7 @@ void GameMain::Draw() const
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI == 1
             && Item::TotemRand == 1)
         {
-            DrawBox(150, 150, 1130, 570, 0x0000FF, TRUE);
+            DrawBox(150, 150, 1130, 570, 0xFFFF00, TRUE);
            
             DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
           
@@ -641,7 +642,7 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
-    if (Item::R4 == 460)
+    if (Item::R4 == 150)
     {
         Item::itemtable[4] = 0;
         PushSEflg = FALSE;
@@ -662,14 +663,17 @@ void GameMain::Result()
     if (PushFlg == TRUE &&Item::itemtable[4] ==1&&
         PAD_INPUT::OnButton(XINPUT_BUTTON_START))
     {
+        WaitFlg3 = FALSE;
+        WaitFlg4 = TRUE;
+        PushFlg = FALSE;
         P_life = 2;
         Item::TotemFlg = TRUE;
        
-        WaitFlg3 = FALSE;
-        PushFlg = FALSE;
+    
+       
     }
     
-    if (Item::R3 == 460)
+    if (Item::R3 == 150)
     {
         isPlayerTurn = TRUE;
         bh2_flg = FALSE;
@@ -768,7 +772,7 @@ void GameMain::P_UI()
        
 
     }
-       
+    
 }
 
 

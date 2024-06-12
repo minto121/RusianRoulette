@@ -15,7 +15,7 @@ bullet::bullet()
 
 bullet::~bullet()
 {
-
+	
 }
 
 
