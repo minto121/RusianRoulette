@@ -91,7 +91,7 @@ void GameMain::INIT()
     WaitFlg3 = FALSE;
 
 
-    ResultFlg = FALSE;
+    ResultFlg = TRUE;
     GM_Select = 0;
     a = 0;
     E_life = 2;
