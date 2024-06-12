@@ -327,29 +327,29 @@ void Item::ITEM_UI_TIME()
     {
 
 
-        if (R != -200) {
+        if (R != -1000) {
             R -= 400;
 
         }
 
 
-        if (R == -200) {
-            R = -200;
+        if (R == -1000) {
+            R = -1000;
 
         }
 
 
-        if (R2 != -50) {
-            R2 -= 40;
+        if (R2 != -150) {
+            R2 -= 4;
 
         }
 
 
-        if (R2 == -50) {
-            R2 = -50;
+        if (R2 == -150) {
+            R2 = -150;
 
         }
-        if (R2 == -50 && R == -200) {
+        if (R2 == -150 && R == -1000) {
         
             R3++;
             T_RevivalAnim = TRUE;
@@ -453,11 +453,13 @@ void Item::SOUND()
     {
         StopSoundMem(HukkatuSippaSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
+       
     }
-    if (GameMain::FreezUI == TRUE && R == 750)
+    /*if (GameMain::FreezUI == TRUE && R == 1000)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
-    }
+    }*/
+   
     
    
 }
