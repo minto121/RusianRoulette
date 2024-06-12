@@ -16,12 +16,14 @@ int Item::WaitTime2;
 int Item::Freez;
 int Item::R3;
 int Item::R4;
+int Item::ReRound[2];
 
 Item::Item()
 {
-   
+    ReRound[0] = FALSE;
+    ReRound[1] = FALSE;
     INIT();
-   /* itemtable[4] = 1;*/
+    itemtable[4] = 1;
 }
 
 
@@ -47,12 +49,14 @@ void Item::INIT()
     HukkatuSE2 = LoadSoundMem("Resources/SE/Hukkatu1.mp3");
     HukkatuSE3 = LoadSoundMem("Resources/SE/Hukkatu3.mp3");
     HukkatuSE4 = LoadSoundMem("Resources/SE/Hukkatu4.mp3");
-    ResultBgm = LoadSoundMem("Resources/SE/result.mp3");
+    HukkatuSE5 = LoadSoundMem("Resources/SE/Hukkatu5.mp3");
+   
+   
     FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
     FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
     FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
-    
-
+    HukkatuSippaSE = LoadSoundMem("Resources/SE/TotemShippai.mp3");
+   
     R = 1000;
     R2 = 50;
     R3 = 0;
@@ -65,7 +69,7 @@ void Item::INIT()
     {
         itemtable[a] = 0;
     }
-   
+    itemtable[4] = 1;
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -296,7 +300,8 @@ void Item::ITEM_UI_TIME()
 
         }
     }
-
+   
+   
     if (Freez==TRUE)
     {
         if (WaitTime == FALSE)
@@ -321,6 +326,7 @@ void Item::ITEM_UI_TIME()
     if (GameMain::FreezUI == TRUE)
     {
 
+
         if (R != -100) {
             R -= 100;
 
@@ -344,9 +350,13 @@ void Item::ITEM_UI_TIME()
 
         }
         if (R2 == -100 && R == -100) {
+        
             R3++;
             T_RevivalAnim = TRUE;
         }
+
+       
+       
         if (R3 == 461) {
 
            
@@ -373,17 +383,33 @@ void Item::SOUND()
     {
         PlaySoundMem(RedBulletSE, DX_PLAYTYPE_BACK);
     }
+
+
+    if (TotemRand == 0 && R4 == 300 || TotemRand == 1 && R4 == 300 && Freez == TRUE)
+    {
+        PlaySoundMem(HukkatuSippaSE, TRUE);
+     
+    }
+
+
     if (T_RevivalAnim == TRUE && R3 == 300 || T_RevivalAnim == TRUE && R3 == 315
         || T_RevivalAnim == TRUE && R3 == 330|| T_RevivalAnim == TRUE && R3 == 345 
         || T_RevivalAnim == TRUE && R3 == 360 || T_RevivalAnim == TRUE && R3 == 375
         || T_RevivalAnim == TRUE && R3 == 390 || T_RevivalAnim == TRUE && R3 == 405
         || T_RevivalAnim == TRUE && R3 == 420 || T_RevivalAnim == TRUE && R3 == 435)
     {
+      
         PlaySoundMem(HukkatuSE3, DX_PLAYTYPE_BACK);
+        
+     
     }
     if (T_RevivalAnim == TRUE && R3 == 450 || T_RevivalAnim == TRUE && R4 == 450)
     {
+       
         PlaySoundMem(HukkatuSE4, DX_PLAYTYPE_BACK);
+       
+      
+      
     }
     if (T_RevivalAnim == TRUE && R3 == 450)
     {
@@ -401,6 +427,7 @@ void Item::SOUND()
         || T_RevivalAnim == TRUE && R4 == 435)
     {
         PlaySoundMem(HukkatuSE, DX_PLAYTYPE_BACK);
+        PlaySoundMem(HukkatuSE5, DX_PLAYTYPE_BACK);
     }
 
 
@@ -408,7 +435,9 @@ void Item::SOUND()
         GameMain::FreezUI == FALSE && T_RevivalAnim == TRUE && R4 == 300)
     {
         PlaySoundMem(HukkatuSE2, DX_PLAYTYPE_BACK);
+       
     }
+  
 
     if (GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R3 == 300 ||
         GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R4 == 300)
@@ -422,6 +451,7 @@ void Item::SOUND()
     }*/
     if (GameMain::FreezUI == TRUE&&R == 1000 && R2 == 50)
     {
+        StopSoundMem(HukkatuSippaSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
     }
     if (GameMain::FreezUI == TRUE && R == 700)
@@ -447,6 +477,15 @@ AbstractScene*Item::Update()
     C_BULLET();
     ITEM_UI_TIME();
    
+    if (TotemRand == 1&&Freez == FALSE)
+    {
+        ReRound[0] = TRUE;
+    }
+    if (TotemRand == 1 && Freez == TRUE)
+    {
+        ReRound[1] = TRUE;
+    }
+
     return this;
 }
 
@@ -460,12 +499,12 @@ void Item::Draw() const
         if (T_UI == 1 && R4 < 400)
         {
             DrawCircle(640, 340, 100, 0x000000);
-            DrawGraph(-150, -600, T_Bullet[0], TRUE);
+            DrawGraph(-150, -650, T_Bullet[0], TRUE);
         }
         if (T_UI == 2 && R4 < 400)
         {
             DrawCircle(640, 340, 100, 0x000000);
-            DrawGraph(-150, -600, T_Bullet[1], TRUE);
+            DrawGraph(-150, -650, T_Bullet[1], TRUE);
         }
 
         if (GameMain::FreezUI == FALSE) {

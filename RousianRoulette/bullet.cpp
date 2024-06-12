@@ -23,6 +23,7 @@ void bullet::B_INIT()
 {
 	Bullet_img = LoadGraph("Resources/images/Bullet.png");
 	Shot_Ui_Img = LoadGraph("Resources/images/BulletUI.png");
+	BulletCur_Img = LoadGraph("Resources/images/BulletCur.png");
 	Bullet = 0;
 	for (int x = 0; x <= 5; x++) {
 		Cylinder[x] = 0;
@@ -131,8 +132,55 @@ void bullet::Draw() const
 	DrawGraph(15, 320, Bullet_img, TRUE);
 	DrawGraph(15, 380, Bullet_img, TRUE);
 	DrawGraph(15, 440, Bullet_img, TRUE);*/
-	/*DrawGraph(20, 110, Shot_Ui_Img, TRUE);*/
-	
+	if (FireC == 1 || FireC == 2||FireC == 3 || FireC == 4 || FireC == 5 || FireC == 6)
+	{
+		DrawGraph(20, 110, Shot_Ui_Img, TRUE);
+	}
+	if (FireC == 2 || FireC == 3 || FireC == 4 || FireC == 5 || FireC == 6)
+	{
+		DrawGraph(20, 170, Shot_Ui_Img, TRUE);
+	}
+	if (FireC == 3 || FireC == 4 || FireC == 5 || FireC == 6)
+	{
+		DrawGraph(20, 230, Shot_Ui_Img, TRUE);
+	}
+	if ( FireC == 4 || FireC == 5 || FireC == 6)
+	{
+		DrawGraph(20, 290, Shot_Ui_Img, TRUE);
+	}
+	if (FireC == 5 || FireC == 6)
+	{
+		DrawGraph(20, 350, Shot_Ui_Img, TRUE);
+	}
+	if (FireC == 6)
+	{
+		DrawGraph(20, 410, Shot_Ui_Img, TRUE);
+	}
+
+	if (FireC == 0)
+	{
+		DrawGraph(35, 135, BulletCur_Img, TRUE);
+	}
+	if (FireC == 1 )
+	{
+		DrawGraph(35, 195, BulletCur_Img, TRUE);
+	}
+	if (FireC == 2 )
+	{
+		DrawGraph(35, 255, BulletCur_Img, TRUE);
+	}
+	if (FireC == 3 )
+	{
+		DrawGraph(35, 315, BulletCur_Img, TRUE);
+	}
+	if (FireC == 4 )
+	{
+		DrawGraph(35, 375, BulletCur_Img, TRUE);
+	}
+	if (FireC == 5)
+	{
+		DrawGraph(35, 435, BulletCur_Img, TRUE);
+	}
 }
 
 

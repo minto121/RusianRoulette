@@ -18,7 +18,8 @@ private:
     /*int PushFlgUI;*/
     int Flash;
 
-   
+    int RoundImg;
+    int RoundUiflg;
     int R;
     int TurnCount;
     int CurX;
@@ -61,6 +62,13 @@ private:
     int PushSE;
     int PushSE2;
     int PushSEflg;
+    int ResultBackImg[7];
+    int ResultBgm;
+    int  ResultBgmFlg;
+    int RoundBackImg1;
+    int RoundBackImg2;
+    int flash;
+    int UraBotanSE;
 public:
 
     //�R���X�g���N�^
@@ -75,6 +83,7 @@ public:
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
 
+    void INIT();
     void Turn();
    /* void Choice();*/
     void Cursol();
@@ -83,6 +92,8 @@ public:
     void Result();
     void P_UI();
     void P_UI_INIT();
+    void ROUND_UI();
+
     bullet* BULLET;
     Item* ITEM;
     Timer* TIMER;
