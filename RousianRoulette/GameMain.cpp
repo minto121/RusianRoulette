@@ -32,7 +32,7 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 1;
-    ResultFlg = /*FALSE*/TRUE;
+    ResultFlg = FALSE/*TRUE*/;
     INIT();
 }
 

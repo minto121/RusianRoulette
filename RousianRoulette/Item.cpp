@@ -147,7 +147,7 @@ void Item::TOTEM()
     if (itemtable[4] == 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = 1/*GetRand(1)*/;
+            TotemRand = GetRand(1);
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -339,17 +339,17 @@ void Item::ITEM_UI_TIME()
         }
 
 
-        if (R2 != -150) {
-            R2 -= 4;
+        if (R2 != -310) {
+            R2 -= 6;
 
         }
 
 
-        if (R2 == -150) {
-            R2 = -150;
+        if (R2 == -310) {
+            R2 = -310;
 
         }
-        if (R2 == -150 && R == -1000) {
+        if (R2 == -310 && R == -1000) {
         
             R3++;
             T_RevivalAnim = TRUE;
@@ -455,10 +455,10 @@ void Item::SOUND()
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
        
     }
-    /*if (GameMain::FreezUI == TRUE && R == 1000)
+    if (GameMain::FreezUI == TRUE && R == 600)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
-    }*/
+    }
    
     
    
