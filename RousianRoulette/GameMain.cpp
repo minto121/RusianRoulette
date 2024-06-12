@@ -61,7 +61,7 @@ GameMain::GameMain()
     GM_Select = 0;
     a = 0;
    
-    ResultFlg = FALSE;
+    ResultFlg = true;
     bh_flg = FALSE;
     bh2_flg = FALSE;
     PushFlg = FALSE;
@@ -118,7 +118,7 @@ AbstractScene* GameMain::Update()
     {
         if (WaitFlg3 == FALSE)
         {
-           PushFlgUI = GetRand(5);
+           PushFlgUI = 5/*GetRand(5)*/;
           
         }
         WaitFlg3 = TRUE;
