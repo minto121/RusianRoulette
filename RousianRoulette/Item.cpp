@@ -494,7 +494,7 @@ AbstractScene*Item::Update()
 
 void Item::Draw() const
 {
-
+   
 
 
     if (TotemFlg == TRUE) {

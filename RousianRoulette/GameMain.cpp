@@ -8,7 +8,7 @@
 #include "Timer.h"
 #include "Enemy.h"
 #include "Item.h"
-//#include "FpsController.h"
+#include "FpsControl.h"
 
 
 int GameMain::E_life;
@@ -192,7 +192,7 @@ AbstractScene* GameMain::Update()
         {
             if (WaitFlg3 == FALSE)
             {
-               PushFlgUI = 5/*GetRand(5)*/;
+               PushFlgUI = GetRand(5);
           
             }
       
@@ -308,17 +308,25 @@ void GameMain::Draw() const
 {
     if (RoundUiflg == TRUE)
     {
-        DrawBox(0, 0, 1280, 720, 0x00FFFF, TRUE);
-        DrawString(550, 80, "Round", 0x000000, TRUE);
+        SetFontSize(72);
+        if (Item::ReRound[0] == FALSE && Item::ReRound[1] == FALSE)
+        {
+            
+            DrawBox(0, 0, 1280, 720, 0x00FFFF, TRUE);
+            DrawString(420, 140,"NEXT ROUND", 0xFF0000,TRUE);
+            DrawFormatString(480, 200, 0xFF0000, "%d", Round);
+        }
         if (Item::ReRound[0] == TRUE)
         {
             DrawGraph(0, 0, RoundBackImg1, TRUE);
-            DrawString(550, 80, "Round", 0x00FFFF, TRUE);
+            DrawString(420, 140, "NEXT ROUND", 0x00FFFF, TRUE);
+            DrawFormatString(480, 200, 0x00FFFF, "%d", Round);
         }
         if (Item::ReRound[1] == TRUE)
         {
             DrawGraph(0, 0, RoundBackImg2, TRUE);
-            DrawString(550, 80, "Round", 0x8A2BE2, TRUE);
+            DrawFormatString(400, 140, 0x8A2BE2, "NEXT ROUND : %d ", Round);
+            
         }
        
         
