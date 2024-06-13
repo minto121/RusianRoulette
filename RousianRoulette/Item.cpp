@@ -39,8 +39,8 @@ void Item::INIT()
     T_Bullet[7] = LoadGraph("Resources/images/Mizuiro.png");
     T_Bullet[8] = LoadGraph("Resources/images/Orange.png");
     T_Bullet[9] = LoadGraph("Resources/images/Gray.png");
-   
-    
+
+
 
     FreezSE = LoadSoundMem("Resources/SE/Freez.mp3");
     RedBulletSE = LoadSoundMem("Resources/SE/RedBullet.mp3");
@@ -50,13 +50,13 @@ void Item::INIT()
     HukkatuSE3 = LoadSoundMem("Resources/SE/Hukkatu3.mp3");
     HukkatuSE4 = LoadSoundMem("Resources/SE/Hukkatu4.mp3");
     HukkatuSE5 = LoadSoundMem("Resources/SE/Hukkatu5.mp3");
-   
-   
+
+
     FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
     FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
     FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
     HukkatuSippaSE = LoadSoundMem("Resources/SE/TotemShippai.mp3");
-   
+
     R = 1000;
     R2 = 50;
     R3 = 0;
@@ -77,11 +77,6 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
-   
-}
-
-
-
 
     BombSE = LoadSoundMem("Resources/sounds/Explosion.mp3");
     DragSE = LoadSoundMem("Resources/sounds/Drag.mp3");
