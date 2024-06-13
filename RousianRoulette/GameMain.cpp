@@ -147,7 +147,7 @@ AbstractScene* GameMain::Update()
                 ResultBgmFlg = FALSE;
             }
             if (PushFlg == TRUE) {
-                /* flash++;*/
+                 flash++;
 
                 Flash++;
                 if (Flash == 60)
