@@ -90,7 +90,7 @@ void GameMain::INIT()
     WaitFlg2 = FALSE;
     WaitFlg3 = FALSE;
     WaitFlg4 = FALSE;
-
+    UraBotanFlg = TRUE;
 
     /*ResultFlg = TRUE;*/
     GM_Select = 0;
@@ -151,12 +151,17 @@ AbstractScene* GameMain::Update()
                     PushSEflg = TRUE;
                 }
 
-                if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER)&& flash == 0&&Item::TotemRand == 1)
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER)&& flash == 0&&Item::TotemRand == 1&&UraBotanFlg == TRUE)
                 {
 
-                  
+                    int a = GetRand(1);
+                    if (a == 0) {
                         flash = 1;
-                    
+                        UraBotanFlg = FALSE;
+                    }
+                    if (a == 1) {
+                        UraBotanFlg = FALSE;
+                    }
                 }
                 if (flash >= 1)
                 {
@@ -170,7 +175,7 @@ AbstractScene* GameMain::Update()
                 {
                    
                         flash = 0;
-                   
+                        
                 }
         }
 
@@ -202,6 +207,7 @@ AbstractScene* GameMain::Update()
       
             WaitFlg3 = TRUE;
             PushFlg = TRUE;
+          
         
         }
 
@@ -496,18 +502,20 @@ void GameMain::Draw() const
         }
 
 
-        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 40 && PushFlgUI != 1
-            || Item::TotemRand == 0 && PushFlgUI == 1 && Flash <= 40 && PushFlg == TRUE && Item::itemtable[4] == 1) {
-            DrawBox(460, 440, 830, 580, 0xADD8E6, TRUE);
-            DrawString(585, 390, "PUSH!", 0xFFFF00);
-            DrawString(575, 590, "START!", 0xFFFF00);
-           
+        if (PushFlg == TRUE && Item::itemtable[4] == 1 /*&& Flash <= 40*/ && PushFlgUI != 1
+            || Item::TotemRand == 0 && PushFlgUI == 1 /*&& Flash <= 40*/ && PushFlg == TRUE && Item::itemtable[4] == 1) {
+            DrawBox(300, 300, 900, 360, 0x000000, TRUE);
+            if (Flash <= 40) {
+                DrawBox(460, 350, 830, 490, 0xADD8E6, TRUE);
+                DrawString(585, 300, "PUSH!", 0xFFFF00);
+                DrawString(575, 500, "START!", 0xFFFF00);
+            }
         }
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI != 1 ||
             Item::TotemRand == 0 && PushFlgUI == 1 && PushFlg == TRUE && Item::itemtable[4] == 1)
         {
-            DrawBox(480, 460, 810, 560, 0xffffff, TRUE);
-            DrawTriangle(590, 470, 590, 550, 710, 510, 0xFF0000, TRUE);
+            DrawBox(480, 370, 810, 470, 0xffffff, TRUE);
+            DrawTriangle(590, 380, 590, 460, 710, 420, 0xFF0000, TRUE);
            
         }
 
@@ -526,7 +534,7 @@ void GameMain::Draw() const
         if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI == 1
             && Item::TotemRand == 1)
         {
-            DrawBox(150, 150, 1130, 570, 0xFFFF00, TRUE);
+            DrawBox(150, 150, 1130, 570, 0xEE82EE, TRUE);
            
             DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
           

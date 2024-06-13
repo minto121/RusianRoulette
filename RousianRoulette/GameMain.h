@@ -69,6 +69,7 @@ private:
     int RoundBackImg2;
     int flash;
     int UraBotanSE;
+    int UraBotanFlg;
     int WaitFlg4;
 public:
 
