@@ -22,8 +22,11 @@ Item::Item()
 {
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
+    for (int a = 0; a <= 5; a++)
+    {
+        itemtable[a] = 0;
+    }
     INIT();
-    itemtable[4] = 1;
 }
 
 
@@ -65,11 +68,7 @@ void Item::INIT()
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    for (int a = 0; a <= 5; a++)
-    {
-        itemtable[a] = 0;
-    }
-    itemtable[4] = 1;
+    //itemtable[4] = 1;
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -77,7 +76,9 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
-   
+
+   int table=GetRand(5);
+   itemtable[table] += 1;
 }
 
 
@@ -90,24 +91,26 @@ Item::~Item()
 void Item::DRAG()
 {
 
-    if (itemtable[0] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
+    if (itemtable[0] >= 1 &&GameMain::P_life==1)
     {
         GameMain::P_life++;
+        itemtable[0] -= 1;
     }
 }
 
 void Item::BOMB()
 {
-    if (itemtable[1] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    if (itemtable[1] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
     {
         Bomb = TRUE;
+        itemtable[1] -= 1;
     }
     
 } 
 
 void Item::LOUPE()
 {
-    if (itemtable[2] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+    if (itemtable[2] >= 1)
     {
        
         Timer::FPS = 1;
@@ -128,7 +131,7 @@ void Item::LOUPE()
 void Item::JUDGE()
 {
     int Judge = GetRand(1);
-    if(itemtable[3] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+    if(itemtable[3] >= 1){
         if (Judge == 0) {
             GameMain::P_life--;
         }
@@ -247,7 +250,7 @@ void Item::TOTEM()
 
 void Item::C_BULLET()
 {
-    if (itemtable[5] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+    if (itemtable[5] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
        
         int i;
         for (i = 0; i < 6; i++) {
@@ -469,12 +472,12 @@ AbstractScene*Item::Update()
    
   
     SOUND();
-    DRAG();
-    LOUPE();
+  /*  DRAG();*/
+ /*   LOUPE();
     BOMB();
-    JUDGE();
+    JUDGE();*/
     TOTEM();
-    C_BULLET();
+ /*   C_BULLET();*/
     ITEM_UI_TIME();
    
     if (TotemRand == 1&&Freez == FALSE)
@@ -661,6 +664,15 @@ void Item::Draw() const
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
     DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
+    SetFontSize(28);
+    DrawFormatString(940, 600, 0xffffff,"%d", itemtable[0]);
+    DrawFormatString(1090, 600, 0xffffff,"%d", itemtable[1]);
+    DrawFormatString(1230, 600, 0xffffff,"%d", itemtable[2]);
+    DrawFormatString(940, 650, 0xffffff,"%d", itemtable[3]);
+    DrawFormatString(1090, 650, 0xffffff,"%d", itemtable[4]);
+    DrawFormatString(1190, 650, 0xffffff,"%d", itemtable[5]);
+
+
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/
     /* DrawFormatString(100, 20, 0xffffff, "TR:%d", TotemRand);
@@ -676,7 +688,7 @@ void Item::Draw() const
      DrawFormatString(100, 360, 0x000ff, "TUI:%d", T_UI);
      DrawFormatString(100, 400, 0x000ff, "TUIR:%d", T_UIRand);
      */
-      DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
+   /*   DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
     if (L_Check == 1)
     {
         DrawString(70, 50, "0", 0xffffff, TRUE);
@@ -685,7 +697,7 @@ void Item::Draw() const
     if (L_Check == 2)
     {
         DrawString(70, 50, "1", 0xffffff, TRUE);
-    }
+    }*/
 
    /* DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
    

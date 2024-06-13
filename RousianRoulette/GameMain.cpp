@@ -296,6 +296,7 @@ AbstractScene* GameMain::Update()
                 isPlayerTurn = TRUE;
                 P_UI_INIT();
                 E_life = 2;
+                ITEM->INIT();
             }
         }
         
@@ -774,21 +775,16 @@ void GameMain::P_UI()
         {
             ITEM->JUDGE();
         }
-       /* if (CurX3 == 555 && CurY3 == 650
+        if (CurX3 == 830 && CurY3 == 640
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
-            P_Choice();
+            ITEM->BOMB();
         }
-        if (CurX3 == 555 && CurY3 == 575
+        if (CurX3 == 935 && CurY3 == 640
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
-            E_Choice();
+            ITEM->C_BULLET();
         }
-        if (CurX3 == 555 && CurY3 == 650
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            P_Choice();
-        }*/
 
     }
        
