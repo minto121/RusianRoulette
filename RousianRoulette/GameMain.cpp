@@ -132,8 +132,6 @@ AbstractScene* GameMain::Update()
     {
 
 
-        if (ResultFlg == FALSE)
-        {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
 
@@ -147,7 +145,7 @@ AbstractScene* GameMain::Update()
                 ResultBgmFlg = FALSE;
             }
             if (PushFlg == TRUE) {
-                 flash++;
+                 
 
                 Flash++;
                 if (Flash == 60)
@@ -312,7 +310,7 @@ AbstractScene* GameMain::Update()
                 }
             }
 
-        }
+       
     }
     return this;
 }

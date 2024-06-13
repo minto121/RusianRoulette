@@ -23,7 +23,7 @@ Item::Item()
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
-    itemtable[4] = 1;
+    /*itemtable[4] = 1;*/
 }
 
 
