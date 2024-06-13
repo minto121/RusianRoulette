@@ -18,6 +18,7 @@ int GameMain::bh2_flg;
 int GameMain::PushFlgUI;
 int GameMain::FreezUI;
 
+
 enum class CURSOL
 {
     C_ENEMY = 0,
@@ -32,7 +33,7 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 1;
-    ResultFlg = FALSE/*TRUE*/;
+    ResultFlg = /*FALSE*/TRUE;
     INIT();
 }
 
@@ -91,7 +92,7 @@ void GameMain::INIT()
     WaitFlg4 = FALSE;
 
 
-    ResultFlg = TRUE;
+    /*ResultFlg = TRUE;*/
     GM_Select = 0;
     a = 0;
     E_life = 2;

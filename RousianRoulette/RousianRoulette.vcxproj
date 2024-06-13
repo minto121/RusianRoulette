@@ -162,7 +162,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Padinput.cpp" />
     <ClCompile Include="Ranking.cpp" />
-    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
