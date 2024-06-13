@@ -30,7 +30,7 @@ bool GameMain::isPlayerTurn;
 GameMain::GameMain()
 {
   /*  R = 2000;*/
-    P_life = 2;
+    P_life = 1;
     E_life = 2;
     Round = 1;
     ResultFlg = /*FALSE*/TRUE;
@@ -91,7 +91,7 @@ void GameMain::INIT()
     WaitFlg3 = FALSE;
 
 
-    ResultFlg = TRUE;
+    ResultFlg = FALSE;
     GM_Select = 0;
     a = 0;
     E_life = 2;
@@ -335,9 +335,12 @@ void GameMain::Draw() const
         BULLET->Draw();
         ENEMY->Draw();
 
+        //ラウンド数描画
+        SetFontSize(48);
+        DrawFormatString(250, 30, 0xffffff, "%d", Round);
 
-      
-
+        SetFontSize(48);
+        DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
 
         //  //白枠
         //DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
@@ -422,7 +425,7 @@ void GameMain::Draw() const
             DrawLine(190, 700, 375, 700, 0xFFFF00);
            
         }
-
+       
           /*  if (isPlayerTurn == TRUE)
             {
                 DrawString(1130, 350, "PLAYER", 0xFFFF00);
@@ -480,6 +483,7 @@ void GameMain::Draw() const
                 DrawGraph(5, 10, ResultBackImg[6], TRUE);
             }
             DrawGraph(220, 180, P_LifeImg, TRUE);
+
             DrawFormatString(430, 310, 0xFFFFFF, "TOTAL:  %d   ROUND", Round);
             DrawString(550, 80, "RESULT", 0xFF0000);
             DrawString(400, 650, "PRESS _A_ BACK TITLE", 0x32CD32);
@@ -524,19 +528,8 @@ void GameMain::Draw() const
            
         }
 
-
-
-
-     
-
         ITEM->Draw();
-
-    
-    
-   
-   
-   
-   
+ 
 }
 
 
@@ -766,7 +759,36 @@ void GameMain::P_UI()
         {
             CurX3 -= 135;
         }
-       
+        if (CurX3 == 830 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->DRAG();
+        }
+        if (CurX3 == 935 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->LOUPE();
+        }
+        if (CurX3 == 1070 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->JUDGE();
+        }
+       /* if (CurX3 == 555 && CurY3 == 650
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            P_Choice();
+        }
+        if (CurX3 == 555 && CurY3 == 575
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            E_Choice();
+        }
+        if (CurX3 == 555 && CurY3 == 650
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            P_Choice();
+        }*/
 
     }
        

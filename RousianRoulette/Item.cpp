@@ -676,7 +676,7 @@ void Item::Draw() const
      DrawFormatString(100, 360, 0x000ff, "TUI:%d", T_UI);
      DrawFormatString(100, 400, 0x000ff, "TUIR:%d", T_UIRand);
      */
-     /* DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
+      DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
     if (L_Check == 1)
     {
         DrawString(70, 50, "0", 0xffffff, TRUE);
@@ -687,7 +687,7 @@ void Item::Draw() const
         DrawString(70, 50, "1", 0xffffff, TRUE);
     }
 
-    DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
+   /* DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
    
 }
 
