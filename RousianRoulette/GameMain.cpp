@@ -31,7 +31,7 @@ bool GameMain::isPlayerTurn;
 GameMain::GameMain()
 {
   /*  R = 2000;*/
-    P_life = 1;
+    P_life = 2;
     E_life = 2;
     Round = 1;
     ResultFlg = FALSE/*TRUE*/;
@@ -354,7 +354,18 @@ void GameMain::Draw() const
 
         SetFontSize(48);
         DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
+        DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
 
+        SetFontSize(28);
+        DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
+        DrawFormatString(1090, 600, 0xffffff, "%d", Item::itemtable[1]);
+        DrawFormatString(1230, 600, 0xffffff, "%d", Item::itemtable[2]);
+        DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[3]);
+        DrawFormatString(1090, 650, 0xffffff, "%d", Item::itemtable[4]);
+        DrawFormatString(1190, 650, 0xffffff, "%d", Item::itemtable[5]);
+
+      //if()
+      //  DrawString(450, 40, "USE DRAG", 0xffffff);
         //  //白枠
         //DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
         //DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
@@ -439,14 +450,16 @@ void GameMain::Draw() const
            
         }
        
-          /*  if (isPlayerTurn == TRUE)
+            if (isPlayerTurn == TRUE)
             {
-                DrawString(1130, 350, "PLAYER", 0xFFFF00);
+                SetFontSize(48);
+                DrawString(980, 35, "PLAYER", 0xFFFF00);
             }
             else
             {
-                DrawString(1135, 350, "ENEMY", 0xfa2000);
-            }*/
+                SetFontSize(48);
+                DrawString(990, 35, "ENEMY", 0xfa2000);
+            }
 
 
 
@@ -583,6 +596,7 @@ void GameMain::E_Choice()
     }
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
+        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         bh_flg = TRUE;
         E_life--;
         if (Item::Bomb == TRUE)
@@ -591,27 +605,14 @@ void GameMain::E_Choice()
             E_life--;
         }
         bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;
-        if (bullet::Cylinder[bullet::FireC] == 1)
-        {
-            PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-            E_life--;
-            if (Item::Bomb == TRUE)
-            {
-                E_life--;
-            }
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
-        {
-            bullet::FireC++;
-        }
-        isPlayerTurn = !isPlayerTurn;
-        ENEMY->E_UI_TIME();
+        bullet::FireC++;       
     }
-    
+    else if (bullet::Cylinder[bullet::FireC] == 0)
+    {
+        bullet::FireC++;
+    }
+    isPlayerTurn = !isPlayerTurn;
+    ENEMY->E_UI_TIME();
 }
 
 

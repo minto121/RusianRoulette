@@ -68,7 +68,7 @@ void Item::INIT()
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    //itemtable[4] = 1;
+    itemtable[4] = 1;
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -155,7 +155,7 @@ void Item::JUDGE()
 
 void Item::TOTEM()
 {
-    if (itemtable[4] == 1) {
+    if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
             TotemRand = GetRand(1);
@@ -505,7 +505,17 @@ AbstractScene*Item::Update()
 
 void Item::Draw() const
 {
+    
 
+      /*  SetFontSize(28);
+        DrawFormatString(940, 600, 0xffffff, "%d", itemtable[0]);
+        DrawFormatString(1090, 600, 0xffffff, "%d", itemtable[1]);
+        DrawFormatString(1230, 600, 0xffffff, "%d", itemtable[2]);
+        DrawFormatString(940, 650, 0xffffff, "%d", itemtable[3]);
+        DrawFormatString(1090, 650, 0xffffff, "%d", itemtable[4]);
+        DrawFormatString(1190, 650, 0xffffff, "%d", itemtable[5]);*/
+
+   
 
 
     if (TotemFlg == TRUE) {
@@ -672,13 +682,7 @@ void Item::Draw() const
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
     DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
-    SetFontSize(28);
-    DrawFormatString(940, 600, 0xffffff,"%d", itemtable[0]);
-    DrawFormatString(1090, 600, 0xffffff,"%d", itemtable[1]);
-    DrawFormatString(1230, 600, 0xffffff,"%d", itemtable[2]);
-    DrawFormatString(940, 650, 0xffffff,"%d", itemtable[3]);
-    DrawFormatString(1090, 650, 0xffffff,"%d", itemtable[4]);
-    DrawFormatString(1190, 650, 0xffffff,"%d", itemtable[5]);
+  
 
 
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
