@@ -75,6 +75,7 @@ private:
     int SelectSE;
 
     int ShotSE;
+    int NshotSE;
 
 public:
 
