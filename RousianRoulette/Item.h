@@ -15,6 +15,8 @@ private:
 	int T_RevivalAnim;
 	int R;
 	int R2;
+	int R5;
+	int R6;
 	int FreezSE;
 	int FreezSE2;
 	int FreezSE3;

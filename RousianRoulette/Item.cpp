@@ -64,11 +64,13 @@ void Item::INIT()
     R2 = 50;
     R3 = 0;
     R4 = 0;
+    R5 = 0;
+    R6 = 1280;
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    itemtable[4] = 1;
+   /* itemtable[4] = 1;*/
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -132,7 +134,7 @@ void Item::LOUPE()
         {
             L_Check = 2;
         }
-        
+        itemtable[2] -= 1;
     }
 }
 
@@ -150,6 +152,7 @@ void Item::JUDGE()
         if (GameMain::E_life < 1) {
             GameMain::P_life = 2;
         }
+        itemtable[3] -= 1;
     }
 }
 
@@ -158,7 +161,7 @@ void Item::TOTEM()
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = 1/*GetRand(1)*/;
+            TotemRand = GetRand(1);
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -269,7 +272,7 @@ void Item::C_BULLET()
                 bullet::Cylinder[i] = 0;
             }
         }
-        
+        itemtable[5] -= 1;
 
 
     }
@@ -306,7 +309,7 @@ void Item::ITEM_UI_TIME()
 
             }
 
-
+           
 
 
         }
@@ -337,7 +340,15 @@ void Item::ITEM_UI_TIME()
     if (GameMain::FreezUI == TRUE)
     {
 
-
+        if (R5 != 640)
+        {
+            R5 += 80;
+        }
+      
+        if (R6 != 640)
+        {
+            R6 -= 80;
+        }
         if (R != -1000) {
             R -= 400;
 
@@ -365,7 +376,7 @@ void Item::ITEM_UI_TIME()
             R3++;
             T_RevivalAnim = TRUE;
         }
-
+       
        
        
         if (R3 == 151) {
@@ -523,52 +534,52 @@ void Item::Draw() const
         if (GameMain::FreezUI == FALSE) {
             if (T_RevivalAnim == TRUE && R4 >= 100 && R4 < 104)
             {
-              
+
                 DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
-                DrawGraph(-150, -600, T_Bullet[0], TRUE);
+                DrawGraph(-150, -650, T_Bullet[0], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 104 && R4 < 108)
             {
                 DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
-                DrawGraph(400, -580, T_Bullet[1], TRUE);
+                DrawGraph(300, -380, T_Bullet[1], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 108 && R4 < 112)
             {
                 DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
-                DrawGraph(-540, -820, T_Bullet[2], TRUE);
+                DrawGraph(-400, -850, T_Bullet[2], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 112 && R4 < 116)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-                DrawGraph(330, -840, T_Bullet[3], TRUE);
+                DrawGraph(190, -870, T_Bullet[3], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 116 && R4 < 120)            {
+            if (T_RevivalAnim == TRUE && R4 >= 116 && R4 < 120) {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-                DrawGraph(-640, -520, T_Bullet[4], TRUE);
+                DrawGraph(-560, -400, T_Bullet[4], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 120 && R4 < 124)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
-                DrawGraph(350, -800, T_Bullet[5], TRUE);
+                DrawGraph(210, -900, T_Bullet[5], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 124 && R4 < 128)            {
+            if (T_RevivalAnim == TRUE && R4 >= 124 && R4 < 128) {
                 DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
-                DrawGraph(-690, -800, T_Bullet[6], TRUE);
+                DrawGraph(-650, -800, T_Bullet[6], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 128 && R4 < 132)
             {
                 DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
-                DrawGraph(360, -620, T_Bullet[7], TRUE);
+                DrawGraph(220, -370, T_Bullet[7], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 132 && R4 < 136)
             {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-                DrawGraph(-690, -500, T_Bullet[8], TRUE);
+                DrawGraph(-550, -470, T_Bullet[8], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 136 && R4 < 140)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-                DrawGraph(280, -820, T_Bullet[9], TRUE);
+                DrawGraph(140, -820, T_Bullet[9], TRUE);
             }
 
 
@@ -592,59 +603,63 @@ void Item::Draw() const
 
     if (GameMain::FreezUI == TRUE) {
         DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+        DrawBox(R5, 355, R6, 365, 0xEE82EE, true);
+      
         if (R != 0 && R2 != 0) {
-            DrawCircle(620, 320, R, 0xEE82EE, true);
-            DrawCircle(620, 320, R2, 0xffffff, true);
+            
+            DrawCircle(620, 360, R, 0xEE82EE, true);
+           
+            DrawCircle(620, 360, R2, 0xffffff, true);
         }
        
-        if (T_RevivalAnim == TRUE && R3 >= 100 && R3 < 104)
+        if (T_RevivalAnim == TRUE && R3 >= 100 && R4 < 104)
         {
 
             DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
-            DrawGraph(-150, -600, T_Bullet[0], TRUE);
+            DrawGraph(-150, -650, T_Bullet[0], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 104 && R3 < 108)
+        if (T_RevivalAnim == TRUE && R3 >= 104 && R4 < 108)
         {
             DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
-            DrawGraph(460, -580, T_Bullet[1], TRUE);
+            DrawGraph(300, -380, T_Bullet[1], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 108 && R3 < 112)
+        if (T_RevivalAnim == TRUE && R3 >= 108 && R4 < 112)
         {
             DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
-            DrawGraph(-560, -820, T_Bullet[2], TRUE);
+            DrawGraph(-400, -850, T_Bullet[2], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 112 && R3 < 116)
+        if (T_RevivalAnim == TRUE && R3 >= 112 && R4 < 116)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-            DrawGraph(350, -840, T_Bullet[3], TRUE);
+            DrawGraph(190, -870, T_Bullet[3], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 116 && R3 < 120) {
+        if (T_RevivalAnim == TRUE && R3 >= 116 && R4 < 120) {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-            DrawGraph(-660, -520, T_Bullet[4], TRUE);
+            DrawGraph(-560, -400, T_Bullet[4], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 120 && R3 < 124)
+        if (T_RevivalAnim == TRUE && R3 >= 120 && R4 < 124)
         {
             DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
-            DrawGraph(370, -800, T_Bullet[5], TRUE);
+            DrawGraph(210, -900, T_Bullet[5], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 124 && R3 < 128) {
+        if (T_RevivalAnim == TRUE && R3 >= 124 && R4 < 128) {
             DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
-            DrawGraph(-710, -800, T_Bullet[6], TRUE);
+            DrawGraph(-650, -800, T_Bullet[6], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 128 && R3 < 132)
+        if (T_RevivalAnim == TRUE && R3 >= 128 && R4 < 132)
         {
             DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
-            DrawGraph(380, -620, T_Bullet[7], TRUE);
+            DrawGraph(220, -370, T_Bullet[7], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 132 && R3 < 136)
+        if (T_RevivalAnim == TRUE && R3 >= 132 && R4 < 136)
         {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-            DrawGraph(-710, -500, T_Bullet[8], TRUE);
+            DrawGraph(-550, -470, T_Bullet[8], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 136 && R3 < 140)
+        if (T_RevivalAnim == TRUE && R3 >= 136 && R4 < 140)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-            DrawGraph(180, -820, T_Bullet[9], TRUE);
+            DrawGraph(140, -820, T_Bullet[9], TRUE);
         }
 
 

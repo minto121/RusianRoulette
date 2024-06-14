@@ -34,7 +34,7 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 1;
-    ResultFlg = /*FALSE*/TRUE;
+    ResultFlg = FALSE/*TRUE*/;
     INIT();
 }
 
@@ -80,7 +80,7 @@ void GameMain::INIT()
 
     RoundBackImg1 = LoadGraph("Resources/images/HukkatuRound.png");
     RoundBackImg2 = LoadGraph("Resources/images/FreezRound.png");
-
+    REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    
@@ -209,7 +209,7 @@ AbstractScene* GameMain::Update()
         {
             if (WaitFlg3 == FALSE)
             {
-               PushFlgUI = 5/*GetRand(5)*/;
+               PushFlgUI = GetRand(5);
           
             }
       
@@ -354,7 +354,8 @@ void GameMain::Draw() const
 
     if (ResultFlg == FALSE&& RoundUiflg == FALSE) {
         DrawGraph(0, 0, BackGRImg, TRUE);
-        /* DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], FALSE);*/
+       /*  DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], TRUE);*/
+         DrawGraph(520, 170, REnemyimg, TRUE);
         if (bh_flg == TRUE)
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
@@ -494,8 +495,8 @@ void GameMain::Draw() const
 
     SetFontSize(48);
         if (ResultFlg == TRUE) {
-
             DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+           
           
             DrawGraph(5, 10, ResultBackImg[0], TRUE);
             if (flash == 1|| flash == 7)

@@ -77,6 +77,7 @@ private:
 
     int ShotSE;
 
+    int REnemyimg;
 public:
 
     //�R���X�g���N�^
