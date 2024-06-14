@@ -601,7 +601,6 @@ void GameMain::E_Choice()
             E_life--;
         }
         bullet::Cylinder[bullet::FireC] = 0;
-        PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
         bullet::FireC++;
         if (bullet::Cylinder[bullet::FireC] == 1)
         {
@@ -612,13 +611,11 @@ void GameMain::E_Choice()
                 E_life--;
             }
             bullet::Cylinder[bullet::FireC] = 0;
-            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
 
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
-            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
         }
         isPlayerTurn = !isPlayerTurn;
