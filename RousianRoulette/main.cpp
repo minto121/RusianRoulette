@@ -6,6 +6,7 @@
 #include"GameMain.h"
 #include "DrawRanking.h"
 #include "InputRanking.h"
+#include "FpsControl.h"
 
 #define FRAMERATE 60.0 //�t���[�����[�g
 
@@ -24,6 +25,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ChangeWindowMode(TRUE);		// �E�B���h�E���[�h�ŋN��
 
 	SetGraphMode(WIDTH, HEIGHT, REFRESHRATE);	//��ʃT�C�Y�̐ݒ�
+
+	// 垂直同期を切る
+		SetWaitVSyncFlag(0);
 
 	if (DxLib_Init() == -1) return -1;	// DX���C�u�����̏���������
 
@@ -54,12 +58,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// �Q�[�����[�v
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
+		//フレームレート制御
+		FpsControll_Update();
+
 
 		ClearDrawScreen();		// ��ʂ̏�����
 		PAD_INPUT::UpdateKey();
 		sceneMng->Draw();
+
+		//フレームレート表示
+		FpsControll_Draw();
+		//待機
+		FpsControll_Wait();
 		//FPSC.All();
 		//FPSC.Disp();
+		
 		//�����I��
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK))
 		{

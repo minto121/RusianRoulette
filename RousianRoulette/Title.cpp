@@ -4,6 +4,9 @@
 #include "PadInput.h"
 #include "DrawRanking.h"
 #include "ResultScene.h"
+#include "EndScene.h"
+#include "InputRanking.h"
+#include "HelpScene.h"
 
 enum class TITLE_MENU
 {
@@ -19,55 +22,24 @@ Title::Title()
 	Select = 0;
 	Once = TRUE;
 
-	TitleImg=LoadGraph("resouce/image/title.png");
-	CursorImg=LoadGraph("resouce/image/BulletCur.png");
-
-	
-	////�^�C�g���摜�̓ǂݍ���
-	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
-	//{
-	//	throw "Resource/Images/mori.png";
-	//}
-	//// �J�[�\���摜�̓ǂݍ���
-	//if ((CursorImg = LoadGraph("Resource/Images/Apple_Red.png")) == -1)
-	//{
-	//	throw "Resource/Images/apple.png";
-	//}
-	////BGM�̓ǂݍ���
-	//if ((TitleBGM = LoadSoundMem("Resource/sounds/BGM/yonhonnorecorder.wav")) == -1)
-	//{
-	//	throw "Resource/sounds/BGM/yonhonnorecorder.wav";
-	//}
-	////BGM�̉��ʕύX
-	//ChangeVolumeSoundMem(140, TitleBGM);
-
-	////SE�̓ǂݍ���
-	//if ((MenuSE = LoadSoundMem("Resource/sounds/SE/select01.wav")) == -1) //�I��SE
-	//{
-	//	throw "Resource/sounds/SE/select01.wav";
-	//}
-	////SE�̉��ʕύX
-	//ChangeVolumeSoundMem(110, MenuSE);
-
-	////BGM�̍Đ�
-	//if (CheckSoundMem(TitleBGM) == 0)
-	//{
-	//	PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
-	//}
-
+	TitleBgm = LoadSoundMem("Resources/sounds/I like.wav");
+	MenuSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
+	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
 }
 
 Title::~Title()
 {
 
-	//StopSoundMem(TitleBGM);
-	////�T�E���h�̍폜
-	//DeleteSoundMem(TitleBGM);
+	//StopSoundMem(TitleBgm);
+	DeleteSoundMem(TitleBgm);
 	//DeleteSoundMem(MenuSE);
 }
 
 AbstractScene* Title::Update()
 {
+	ChangeVolumeSoundMem(100, TitleBgm);
+	PlaySoundMem(TitleBgm, DX_PLAYTYPE_LOOP, FALSE);
+
 	//�\���L�[������
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
 	{
@@ -109,26 +81,29 @@ AbstractScene* Title::Update()
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
+		PlaySoundMem(ASE, DX_PLAYTYPE_BACK);
+
 		switch (static_cast<TITLE_MENU>(Select))
 		{
 			//�Q�[����ʂ�
 		case TITLE_MENU::GAME_START:
 			return new GameMain();
+			StopSoundMem(TitleBgm);
 			break;
 			//�����L���O��ʂ�
 		case TITLE_MENU::GAME_RANKING:
 			return new DrawRankingScene(100);
-			//StopSoundMem(TitleBGM);
+			StopSoundMem(TitleBgm);
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new GameMain();
-			//StopSoundMem(TitleBGM);
+			return new HelpScene();
+			StopSoundMem(TitleBgm);
 			break;
 			//�G���h��ʂ�
 		case TITLE_MENU::GAME_END:
-			return nullptr;
-			//StopSoundMem(TitleBGM);
+			return new EndScene;
+			StopSoundMem(TitleBgm);
 			break;
 		default:
 			break;
@@ -140,6 +115,7 @@ AbstractScene* Title::Update()
 void Title::Draw()const
 {
 	SetFontSize(64);
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "select:%d", Select);
 
 	//DrawCircle(Select, Select, 10, GetColor(0, 255, 0), TRUE);
 
