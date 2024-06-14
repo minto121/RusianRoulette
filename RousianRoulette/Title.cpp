@@ -24,6 +24,9 @@ Title::Title()
 	TitleBgm = LoadSoundMem("Resources/sounds/I like.wav");
 	MenuSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
 	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
+
+	TitleImg = LoadGraph("resouce/image/title.png");
+	CursorImg=LoadGraph("resouce/image/BulletCur.png");
 }
 
 Title::~Title()
@@ -119,20 +122,23 @@ void Title::Draw()const
 	//DrawCircle(Select, Select, 10, GetColor(0, 255, 0), TRUE);
 
 	//�^�C�g���̕`��
-	//DrawGraph(0, 0, TitleImg, FALSE);
-	DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
+	DrawGraph(0, 0, TitleImg, FALSE);
+	//DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
 
 	SetFontSize(48);
 
 	//���j���[�̕`��
-	DrawFormatString(520, 380, 0xffffff, "START");
-	DrawFormatString(520, 460, 0xffffff, "RANKING");
-	DrawFormatString(520, 540, 0xffffff, "HELP");
-	DrawFormatString(520, 620, 0xffffff, "END");
+	//DrawFormatString(520, 380, 0xffffff, "START");
+	//DrawFormatString(520, 460, 0xffffff, "RANKING");
+	//DrawFormatString(520, 540, 0xffffff, "HELP");
+	//DrawFormatString(520, 620, 0xffffff, "END");
 
 	//�J�[�\���̕`��
-	int select_y = 400 + Select * 80;
+	int select_y = 360 + Select * 80;
 	//DrawGraph(650, select_y, CursorImg, TRUE);
 
-	DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
+	//DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
+	DrawGraph(550, select_y,CursorImg,TRUE);
+	
+	DrawGraph(1280, 720, TitleImg, TRUE);
 }

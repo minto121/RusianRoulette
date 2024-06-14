@@ -51,6 +51,13 @@ void GameMain::INIT()
     ENEMY = new Enemy;
    
     TurnCount = 0;
+
+    for (int a = 0; a <= 1; a++) {
+        A_UI[a]=FALSE;
+    }
+
+    AT = 0;
+
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
@@ -235,6 +242,21 @@ AbstractScene* GameMain::Update()
 
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
+                if (A_UI[1] == TRUE) {
+                    AT++;
+                    if (AT == 120) {
+                        AT = 0;
+                        A_UI[1] = FALSE;
+                    }
+                }
+
+                if (A_UI[0] == TRUE) {
+                    AT++;
+                    if (AT == 120) {
+                        AT = 0;
+                        A_UI[0] = FALSE;
+                    }
+                }
 
                 if (Timer::FPS == 30) {
                     WaitFlg2 = TRUE;
@@ -476,8 +498,18 @@ void GameMain::Draw() const
                 DrawString(990, 35, "ENEMY", 0xfa2000);
             }
 
+            SetFontSize(36);
+            if (A_UI[0] == TRUE)
+            {
+                DrawString(450, 40, "PLAYER", 0xfa2000, TRUE);
+                DrawString(560, 40, ": SHOT ENEMY!!", 0xffffff, TRUE);
+            }
 
-
+            if (A_UI[1] == TRUE)
+            {
+                DrawString(460, 40, "PLAYER", 0xfa2000, TRUE);
+                DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
+            }
 
             //プレイヤーか敵を選ぶ
 
@@ -607,6 +639,9 @@ void GameMain::Turn()
 
 void GameMain::E_Choice()
 {
+    if (A_UI[0] == FALSE) {
+        A_UI[0] = TRUE;
+    }
     if (WaitFlg == FALSE)
     {
         WaitFlg = !WaitFlg;
@@ -640,7 +675,13 @@ void GameMain::E_Choice()
             WaitFlg =!WaitFlg;
         }*/
 
-        if (bullet::Cylinder[bullet::FireC] == 1)
+        if (A_UI[1] == FALSE) {
+            A_UI[1] = TRUE;
+        }
+
+       
+
+        if (bullet::Cylinder[bullet::FireC] == 1&&AT==119)
         {
             bh2_flg = TRUE;
             PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
