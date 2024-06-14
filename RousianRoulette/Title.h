@@ -21,7 +21,7 @@ private:
     int TitleBgm;
     int ASE;
 
-
+    int TitleImg;
 public:
     //�R���X�g���N�^
     Title();

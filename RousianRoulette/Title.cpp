@@ -25,6 +25,8 @@ Title::Title()
 	TitleBgm = LoadSoundMem("Resources/sounds/I like.wav");
 	MenuSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
 	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
+
+	TitleImg = LoadGraph("resouce/image/title.png");
 }
 
 Title::~Title()
