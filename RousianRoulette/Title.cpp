@@ -19,6 +19,9 @@ Title::Title()
 	Select = 0;
 	Once = TRUE;
 
+	TitleImg=LoadGraph("resouce/image/title.png");
+	CursorImg=LoadGraph("resouce/image/ka-soru.jpg");
+
 	
 	////�^�C�g���摜�̓ǂݍ���
 	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
@@ -142,19 +145,22 @@ void Title::Draw()const
 
 	//�^�C�g���̕`��
 	DrawGraph(0, 0, TitleImg, FALSE);
-	DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
+	//DrawFormatString(370, 100, 0xffffff, "Russian Roulette", 0xffffff);
 
 	SetFontSize(48);
 
 	//���j���[�̕`��
-	DrawFormatString(520, 380, 0xffffff, "START");
-	DrawFormatString(520, 460, 0xffffff, "RANKING");
-	DrawFormatString(520, 540, 0xffffff, "HELP");
-	DrawFormatString(520, 620, 0xffffff, "END");
+	//DrawFormatString(520, 380, 0xffffff, "START");
+	//DrawFormatString(520, 460, 0xffffff, "RANKING");
+	//DrawFormatString(520, 540, 0xffffff, "HELP");
+	//DrawFormatString(520, 620, 0xffffff, "END");
 
 	//�J�[�\���̕`��
 	int select_y = 400 + Select * 80;
 	//DrawGraph(650, select_y, CursorImg, TRUE);
 
 	DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
+	DrawGraph(680, select_y,CursorImg,TRUE);
+	
+	DrawGraph(1280, 720, TitleImg, TRUE);
 }

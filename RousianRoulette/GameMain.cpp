@@ -65,6 +65,7 @@ AbstractScene* GameMain::Update()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     if (E_life <= 0) {
         Round++;
+        WaitTimer(1000);
         /*       P_life = 2;*/
         BULLET->B_INIT();
         isPlayerTurn = TRUE;
@@ -82,7 +83,7 @@ void GameMain::Draw() const
     //UI
 	DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
 	DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-    //UI ue
+    //UI上
     DrawBox(0,10, 1280, 120, GetColor(255, 255, 255), TRUE);
     DrawBox(10, 20, 1270, 110, GetColor(0, 0, 0), TRUE);
 
@@ -116,10 +117,10 @@ void GameMain::Draw() const
 
     SetFontSize(24);
     int z_X = 50;
-    int z_Y = 50;
+    int z_Y = 60;
     for (int i = 0; i
         < E_life; ++i) {
-        DrawString(z_X + (i * 20), z_Y, "O", 0xffffff);
+        DrawString(z_X + (i * 30), z_Y, "", 0xffffff);
     }
    
 }

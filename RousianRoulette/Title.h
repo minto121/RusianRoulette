@@ -21,6 +21,7 @@ private:
     int CursorImg;    //�J�[�\���摜
 
 
+
 public:
     //�R���X�g���N�^
     Title();
