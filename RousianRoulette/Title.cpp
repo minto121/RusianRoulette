@@ -20,7 +20,7 @@ Title::Title()
 	Once = TRUE;
 
 	TitleImg=LoadGraph("resouce/image/title.png");
-	CursorImg=LoadGraph("resouce/image/ka-soru.jpg");
+	CursorImg=LoadGraph("resouce/image/BulletCur.png");
 
 	
 	////�^�C�g���摜�̓ǂݍ���
@@ -156,11 +156,11 @@ void Title::Draw()const
 	//DrawFormatString(520, 620, 0xffffff, "END");
 
 	//�J�[�\���̕`��
-	int select_y = 400 + Select * 80;
+	int select_y = 360 + Select * 80;
 	//DrawGraph(650, select_y, CursorImg, TRUE);
 
-	DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
-	DrawGraph(680, select_y,CursorImg,TRUE);
+	//DrawCircle(480, select_y, 10, GetColor(0, 255, 0), TRUE);
+	DrawGraph(550, select_y,CursorImg,TRUE);
 	
 	DrawGraph(1280, 720, TitleImg, TRUE);
 }
