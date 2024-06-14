@@ -21,7 +21,6 @@ Title::Title()
 	//������
 	Select = 0;
 	Once = TRUE;
-
 	TitleBgm = LoadSoundMem("Resources/sounds/I like.wav");
 	MenuSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
 	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");

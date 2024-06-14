@@ -385,7 +385,7 @@ void Item::SOUND()
     {
         PlaySoundMem(ResultBgm, DX_PLAYTYPE_BACK);
     }*/
-    
+
     if (T_UI == 1 && R3 == 1 || T_UI == 1 && R4 == 1)
     {
         PlaySoundMem(WhiteBulletSE, DX_PLAYTYPE_BACK);
@@ -530,45 +530,45 @@ void Item::Draw() const
             if (T_RevivalAnim == TRUE && R4 >= 104 && R4 < 108)
             {
                 DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
-                DrawGraph(300, -380, T_Bullet[1], TRUE);
+                DrawGraph(400, -580, T_Bullet[1], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 108 && R4 < 112)
             {
                 DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
-                DrawGraph(-400, -850, T_Bullet[2], TRUE);
+                DrawGraph(-540, -820, T_Bullet[2], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 112 && R4 < 116)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-                DrawGraph(190, -870, T_Bullet[3], TRUE);
+                DrawGraph(330, -840, T_Bullet[3], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 116 && R4 < 120)            {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-                DrawGraph(-560, -400, T_Bullet[4], TRUE);
+                DrawGraph(-640, -520, T_Bullet[4], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 120 && R4 < 124)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
-                DrawGraph(210, -900, T_Bullet[5], TRUE);
+                DrawGraph(350, -800, T_Bullet[5], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 124 && R4 < 128)            {
                 DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
-                DrawGraph(-650, -800, T_Bullet[6], TRUE);
+                DrawGraph(-690, -800, T_Bullet[6], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 128 && R4 < 132)
             {
                 DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
-                DrawGraph(220, -370, T_Bullet[7], TRUE);
+                DrawGraph(360, -620, T_Bullet[7], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 132 && R4 < 136)
             {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-                DrawGraph(-550, -470, T_Bullet[8], TRUE);
+                DrawGraph(-690, -500, T_Bullet[8], TRUE);
             }
             if (T_RevivalAnim == TRUE && R4 >= 136 && R4 < 140)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-                DrawGraph(140, -820, T_Bullet[9], TRUE);
+                DrawGraph(280, -820, T_Bullet[9], TRUE);
             }
 
 
@@ -581,7 +581,7 @@ void Item::Draw() const
                 DrawGraph(-560, -400, T_Bullet[4], TRUE);
                 DrawGraph(210, -900, T_Bullet[5], TRUE);
                 DrawCircle(640, 340, 150, 0x000000);
-                DrawGraph(-150, -600, T_Bullet[0], TRUE);
+                DrawGraph(-150, -650, T_Bullet[0], TRUE);
                    
             }
         }
@@ -606,52 +606,51 @@ void Item::Draw() const
         if (T_RevivalAnim == TRUE && R3 >= 104 && R3 < 108)
         {
             DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
-            DrawGraph(300, -380, T_Bullet[1], TRUE);
+            DrawGraph(460, -580, T_Bullet[1], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 108 && R3 < 112)
         {
             DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
-            DrawGraph(-400, -850, T_Bullet[2], TRUE);
+            DrawGraph(-560, -820, T_Bullet[2], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 112 && R3 < 116)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-            DrawGraph(190, -870, T_Bullet[3], TRUE);
+            DrawGraph(350, -840, T_Bullet[3], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 116 && R3 < 120) {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-            DrawGraph(-560, -400, T_Bullet[4], TRUE);
+            DrawGraph(-660, -520, T_Bullet[4], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 120 && R3 < 124)
         {
             DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
-            DrawGraph(210, -900, T_Bullet[5], TRUE);
+            DrawGraph(370, -800, T_Bullet[5], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 124 && R3 < 128) {
             DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
-            DrawGraph(-650, -800, T_Bullet[6], TRUE);
+            DrawGraph(-710, -800, T_Bullet[6], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 128 && R3 < 132)
         {
             DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
-            DrawGraph(220, -370, T_Bullet[7], TRUE);
+            DrawGraph(380, -620, T_Bullet[7], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 132 && R3 < 136)
         {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
-            DrawGraph(-550, -470, T_Bullet[8], TRUE);
+            DrawGraph(-710, -500, T_Bullet[8], TRUE);
         }
         if (T_RevivalAnim == TRUE && R3 >= 136 && R3 < 140)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-            DrawGraph(140, -820, T_Bullet[9], TRUE);
+            DrawGraph(180, -820, T_Bullet[9], TRUE);
         }
 
 
 
         if (T_RevivalAnim == TRUE && R3 >= 140)
         {
-           
             DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
             DrawGraph(300, -380, T_Bullet[1], TRUE);
             DrawGraph(-480, -850, T_Bullet[2], TRUE);
@@ -659,7 +658,7 @@ void Item::Draw() const
             DrawGraph(-560, -400, T_Bullet[4], TRUE);
             DrawGraph(210, -900, T_Bullet[5], TRUE);
             DrawCircle(640, 340, 150, 0x000000);
-            DrawGraph(-150, -600, T_Bullet[0], TRUE);
+            DrawGraph(-150, -650, T_Bullet[0], TRUE);
 
         }
        
@@ -672,8 +671,7 @@ void Item::Draw() const
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
     DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
-  
-
+   
 
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/
