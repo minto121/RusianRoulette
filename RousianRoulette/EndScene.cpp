@@ -40,6 +40,6 @@ void EndScene::Draw() const
 	DrawString(800, 420, "Material Used", 0xffffff);
 	SetFontSize(24);
 	DrawString(800, 480, "SILHOUETTE DESIGN", 0xffffff);
-	DrawString(800, 510, "DOTOWN", 0xffffff);
+	DrawString(800, 510, "DOT ILLUST", 0xffffff);
 
 }

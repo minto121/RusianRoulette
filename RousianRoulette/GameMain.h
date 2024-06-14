@@ -11,9 +11,9 @@ class GameMain :
     public AbstractScene
 {
 public:
-     int Round;
+    int Round;
 private:
-   
+
     int PushFlg;
     /*int PushFlgUI;*/
     int Flash;
@@ -28,7 +28,7 @@ private:
     int CurY2;
     int CurX3;
     int CurY3;
-   
+
     int GM_Select;
     int I_Select;
     int A_Select;
@@ -38,9 +38,9 @@ private:
     bool WaitFlg3;
     int ResultFlg;
 
-     // プレイヤーターンのフラグ
+    // プレイヤーターンのフラグ
 
-    // プレイヤーとコンピュータの状態を表す列挙型
+   // プレイヤーとコンピュータの状態を表す列挙型
     enum class PlayerState {
         PLAYER,
         ENEMY
@@ -71,6 +71,12 @@ private:
     int UraBotanSE;
     int UraBotanFlg;
     int WaitFlg4;
+
+    int GMBgm;
+    int SelectSE;
+
+    int ShotSE;
+
 public:
 
     //�R���X�g���N�^
@@ -87,7 +93,7 @@ public:
 
     void INIT();
     void Turn();
-   /* void Choice();*/
+    /* void Choice();*/
     void Cursol();
     void E_Choice();
     void P_Choice();

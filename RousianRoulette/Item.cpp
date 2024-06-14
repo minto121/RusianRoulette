@@ -22,8 +22,11 @@ Item::Item()
 {
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
+    for (int a = 0; a <= 5; a++)
+    {
+        itemtable[a] = 0;
+    }
     INIT();
-    itemtable[4] = 1;
 }
 
 
@@ -39,8 +42,8 @@ void Item::INIT()
     T_Bullet[7] = LoadGraph("Resources/images/Mizuiro.png");
     T_Bullet[8] = LoadGraph("Resources/images/Orange.png");
     T_Bullet[9] = LoadGraph("Resources/images/Gray.png");
-   
-    
+
+
 
     FreezSE = LoadSoundMem("Resources/SE/Freez.mp3");
     RedBulletSE = LoadSoundMem("Resources/SE/RedBullet.mp3");
@@ -50,13 +53,13 @@ void Item::INIT()
     HukkatuSE3 = LoadSoundMem("Resources/SE/Hukkatu3.mp3");
     HukkatuSE4 = LoadSoundMem("Resources/SE/Hukkatu4.mp3");
     HukkatuSE5 = LoadSoundMem("Resources/SE/Hukkatu5.mp3");
-   
-   
+
+
     FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
     FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
     FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
     HukkatuSippaSE = LoadSoundMem("Resources/SE/TotemShippai.mp3");
-   
+
     R = 1000;
     R2 = 50;
     R3 = 0;
@@ -65,10 +68,6 @@ void Item::INIT()
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    for (int a = 0; a <= 5; a++)
-    {
-        itemtable[a] = 0;
-    }
     itemtable[4] = 1;
     T_UI = 0;
     T_UIRand = 0;
@@ -77,39 +76,51 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
-   
+
+   int table=GetRand(5);
+   itemtable[table] += 1;
+
+    BombSE = LoadSoundMem("Resources/sounds/Explosion.mp3");
+    DragSE = LoadSoundMem("Resources/sounds/Drag.mp3");
+    LoupeSE = LoadSoundMem("Resources/sounds/glass.mp3");
 }
-
-
 
 Item::~Item()
 {
-
+    DeleteSoundMem(BombSE);
+    DeleteSoundMem(DragSE);
+    DeleteSoundMem(LoupeSE);
 }
 
 void Item::DRAG()
 {
 
-    if (itemtable[0] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& GameMain::P_life==1)
+    if (itemtable[0] >= 1 &&GameMain::P_life==1)
     {
+        PlaySoundMem(DragSE, DX_PLAYTYPE_BACK);
         GameMain::P_life++;
+        itemtable[0] -= 1;
     }
 }
 
 void Item::BOMB()
 {
-    if (itemtable[1] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    if (itemtable[1] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
     {
         Bomb = TRUE;
+        itemtable[1] -= 1;
+        ChangeVolumeSoundMem(155, BombSE);
+        PlaySoundMem(BombSE, DX_PLAYTYPE_BACK);
     }
     
 } 
 
 void Item::LOUPE()
 {
-    if (itemtable[2] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+    if (itemtable[2] >= 1)
     {
-       
+        PlaySoundMem(LoupeSE, DX_PLAYTYPE_BACK);
+
         Timer::FPS = 1;
 
         if (bullet::Cylinder[bullet::FireC] == 0)
@@ -128,7 +139,7 @@ void Item::LOUPE()
 void Item::JUDGE()
 {
     int Judge = GetRand(1);
-    if(itemtable[3] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_X)){
+    if(itemtable[3] >= 1){
         if (Judge == 0) {
             GameMain::P_life--;
         }
@@ -144,7 +155,7 @@ void Item::JUDGE()
 
 void Item::TOTEM()
 {
-    if (itemtable[4] == 1) {
+    if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
             TotemRand = 1/*GetRand(1)*/;
@@ -247,7 +258,7 @@ void Item::TOTEM()
 
 void Item::C_BULLET()
 {
-    if (itemtable[5] == 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+    if (itemtable[5] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
        
         int i;
         for (i = 0; i < 6; i++) {
@@ -471,12 +482,12 @@ AbstractScene*Item::Update()
    
   
     SOUND();
-    DRAG();
-    LOUPE();
+  /*  DRAG();*/
+ /*   LOUPE();
     BOMB();
-    JUDGE();
+    JUDGE();*/
     TOTEM();
-    C_BULLET();
+ /*   C_BULLET();*/
     ITEM_UI_TIME();
    
     if (TotemRand == 1&&Freez == FALSE)
@@ -661,6 +672,9 @@ void Item::Draw() const
     DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
     DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
 
+  
+
+
    /* DrawFormatString(100, 280, 0x000ff, "R4:%d", R4);
     DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/
     /* DrawFormatString(100, 20, 0xffffff, "TR:%d", TotemRand);
@@ -676,7 +690,7 @@ void Item::Draw() const
      DrawFormatString(100, 360, 0x000ff, "TUI:%d", T_UI);
      DrawFormatString(100, 400, 0x000ff, "TUIR:%d", T_UIRand);
      */
-     /* DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
+   /*   DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
     if (L_Check == 1)
     {
         DrawString(70, 50, "0", 0xffffff, TRUE);
@@ -685,9 +699,9 @@ void Item::Draw() const
     if (L_Check == 2)
     {
         DrawString(70, 50, "1", 0xffffff, TRUE);
-    }
+    }*/
 
-    DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
+   /* DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
    
 }
 

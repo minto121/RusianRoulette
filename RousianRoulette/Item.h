@@ -32,6 +32,9 @@ private:
 	
 	
 	
+	int BombSE;
+	int DragSE;
+	int LoupeSE;
 
 public:
 	Item();

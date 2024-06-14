@@ -90,6 +90,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>
+      </AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,6 +126,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>
+      </AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,6 +161,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FpsControl.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="HelpScene.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="InputRanking.cpp" />
     <ClCompile Include="main.cpp" />
@@ -175,6 +180,7 @@
     <ClInclude Include="FPS.h" />
     <ClInclude Include="FpsControl.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="HelpScene.h" />
     <ClInclude Include="InputRanking.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Padinput.h" />

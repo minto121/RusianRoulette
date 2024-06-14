@@ -7,7 +7,7 @@
 #include <math.h>
 
 int Enemy::E_WaitFlg;
-
+//int Enemy::E_UI[];
 Enemy::Enemy()
 {
 	E_Choice = 0;
