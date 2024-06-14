@@ -76,6 +76,9 @@ private:
 
     int ShotSE;
 
+    int A_UI[2];  //Action UI プレイヤーの行動
+    int AT;
+
 public:
 
     //�R���X�g���N�^
