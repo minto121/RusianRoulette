@@ -681,7 +681,7 @@ void GameMain::E_Choice()
 
        
 
-        if (bullet::Cylinder[bullet::FireC] == 1&&AT==119)
+        if (bullet::Cylinder[bullet::FireC] == 1)
         {
             bh2_flg = TRUE;
             PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
