@@ -31,8 +31,9 @@ private:
 	int HukkatuSE4;
 	int HukkatuSE5;
 	int HukkatuSippaSE;
-	
-	
+	int T_Last;
+	int T_Last2;
+
 	
 	int BombSE;
 	int DragSE;
@@ -48,6 +49,8 @@ public:
 	void Draw() const;
 
 	void INIT();
+
+	void GETITEM();
 
 	void DRAG();
 
