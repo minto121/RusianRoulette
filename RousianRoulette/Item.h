@@ -15,6 +15,10 @@ private:
 	int T_RevivalAnim;
 	int R;
 	int R2;
+	int R5;
+	int R6;
+	int R7;
+	int R8;
 	int FreezSE;
 	int FreezSE2;
 	int FreezSE3;
@@ -28,10 +32,17 @@ private:
 	int HukkatuSE3;
 	int HukkatuSE4;
 	int HukkatuSE5;
-	int HukkatuSippaSE;
+	int HukkatuSE6;
+	int HukkatuSE7;
+	int HukkatuSE8;
+	int HukkatuSippaiSE;
+	int T_Last;
+	int T_Last2;
+
 	
-	
-	
+	int BombSE;
+	int DragSE;
+	int LoupeSE;
 
 public:
 	Item();
@@ -43,6 +54,8 @@ public:
 	void Draw() const;
 
 	void INIT();
+
+	void GETITEM();
 
 	void DRAG();
 
@@ -56,7 +69,7 @@ public:
 
 	void C_BULLET();
 
-	void ITEM_UI_TIME();
+	void TOTEM_UI_TIME();
 
 	void SOUND();
 

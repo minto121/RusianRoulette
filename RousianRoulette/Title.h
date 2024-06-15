@@ -15,12 +15,13 @@ private:
 
     int MenuFont; //���j���[�p�̃t�H���g
 
-    int TitleBGM;     //BGM�p
     int MenuSE;       //�I��SE�p
-    int TitleImg;     //�^�C�g���摜
     int CursorImg;    //�J�[�\���摜
 
+    int TitleBgm;
+    int ASE;
 
+    int TitleImg;
 public:
     //�R���X�g���N�^
     Title();
