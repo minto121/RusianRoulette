@@ -81,7 +81,7 @@ AbstractScene* Title::Update()
 		Once = TRUE;
 	}
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 	{
 		PlaySoundMem(ASE, DX_PLAYTYPE_BACK);
 

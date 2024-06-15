@@ -20,15 +20,16 @@ int Item::ReRound[2];
 
 Item::Item()
 {
-    ReRound[0] = FALSE;
-    ReRound[1] = FALSE;
+   
     for (int a = 0; a <= 5; a++)
     {
         itemtable[a] = 0;
     }
-
+    itemtable[4] = 1;
+    ReRound[0] = FALSE;
+    ReRound[1] = FALSE;
     INIT();
-    GETITEM();
+   
 }
 
 
@@ -48,32 +49,43 @@ void Item::INIT()
     T_Last2 = LoadGraph("Resources/images/Item/T_Last2.png");
 
 
-    FreezSE = LoadSoundMem("Resources/SE/Freez.mp3");
-    RedBulletSE = LoadSoundMem("Resources/SE/RedBullet.mp3");
-    WhiteBulletSE = LoadSoundMem("Resources/SE/WhiteBullet.mp3");
-    HukkatuSE = LoadSoundMem("Resources/SE/Hukkatu.mp3");
-    HukkatuSE2 = LoadSoundMem("Resources/SE/Hukkatu1.mp3");
-    HukkatuSE3 = LoadSoundMem("Resources/SE/Hukkatu3.mp3");
-    HukkatuSE4 = LoadSoundMem("Resources/SE/Hukkatu4.mp3");
-    HukkatuSE5 = LoadSoundMem("Resources/SE/Hukkatu5.mp3");
+    FreezSE = LoadSoundMem("Resources/SE/Totem/Freez.mp3");
+    RedBulletSE = LoadSoundMem("Resources/SE/Totem/RedBullet.mp3");
+    WhiteBulletSE = LoadSoundMem("Resources/SE/Totem/WhiteBullet.mp3");
+    HukkatuSE = LoadSoundMem("Resources/SE/Totem/Hukkatu.mp3");
+    HukkatuSE2 = LoadSoundMem("Resources/SE/Totem/Hukkatu1.mp3");
+    HukkatuSE3 = LoadSoundMem("Resources/SE/Totem/Hukkatu3.mp3");
+    HukkatuSE4 = LoadSoundMem("Resources/SE/Totem/Hukkatu4.mp3");
+    HukkatuSE5 = LoadSoundMem("Resources/SE/Totem/Hukkatu5.mp3");
+    HukkatuSE6 = LoadSoundMem("Resources/SE/UraBotann.mp3");
+    HukkatuSE7 = LoadSoundMem("Resources/SE/Totem/Hukkatu2.mp3");
+    HukkatuSE8 = LoadSoundMem("Resources/SE/Totem/Hukkatu6.mp3");
 
 
-    FreezSE2 = LoadSoundMem("Resources/SE/Freez2.mp3");
-    FreezSE3 = LoadSoundMem("Resources/SE/Freez3.mp3");
-    FreezSE4 = LoadSoundMem("Resources/SE/Freez4.mp3");
-    HukkatuSippaSE = LoadSoundMem("Resources/SE/TotemShippai.mp3");
+    FreezSE2 = LoadSoundMem("Resources/SE/Totem/Freez2.mp3");
+    FreezSE3 = LoadSoundMem("Resources/SE/Totem/Freez3.mp3");
+    FreezSE4 = LoadSoundMem("Resources/SE/Totem/Freez4.mp3");
+    HukkatuSippaiSE = LoadSoundMem("Resources/SE/Totem/TotemShippai.mp3");
+
+        /*TotemShippai.mp3"*/
 
     R = 1000;
-    R2 = 50;
+    R2 = 60;
+
     R3 = 0;
     R4 = 0;
-    R5 = 0;
-    R6 = 1280;
+
+    R5 = -100;
+    R6 = 1380;
+
+    R7 = 720;
+    R8 = 0;
+
     L_Check = 0;
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    itemtable[4] = 1;
+  /*  itemtable[4] = 1;*/
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -286,7 +298,7 @@ void Item::C_BULLET()
     }
 }
 
-void Item::ITEM_UI_TIME()
+void Item::TOTEM_UI_TIME()
 {
     if (GameMain::PushFlgUI != 5 || GameMain::PushFlgUI == 5&&TotemRand ==0) {
         if (WaitTime == FALSE)
@@ -300,7 +312,6 @@ void Item::ITEM_UI_TIME()
             if (TotemRand == 0 && R4 == 120)
             {
                 TotemFlg = FALSE;
-                itemtable[4] = 0;
                 T_UI = 0;
                 T_UIRand = 0;
                 WaitTime = FALSE;
@@ -328,7 +339,6 @@ void Item::ITEM_UI_TIME()
             if (TotemRand == 1 && R4 == 120)
             {
                 TotemFlg = FALSE;
-                itemtable[4] = 0;
                 T_UI = 0;
                 T_UIRand = 0;
                 WaitTime = FALSE;
@@ -341,13 +351,39 @@ void Item::ITEM_UI_TIME()
 
         if (R5 != 640)
         {
-            R5 += 160;
+            R5 += 65;
         }
       
         if (R6 != 640)
         {
-            R6 -= 160;
+            R6 -= 65;
         }
+        if (R5 >= 640) {
+            R5 = 640;
+            R6 = 640;
+        }
+
+
+        if (R7 != 360)
+        {
+            R7 -= 90;
+        }
+        if (R7 == 360)
+        {
+            R7 = 360;
+        }
+
+        if (R8 != 360)
+        {
+            R8 += 90;
+        }
+        if (R8 == 360)
+        {
+            R8 = 360;
+        }
+
+
+
         if (R != -1000) {
             R -= 400;
 
@@ -360,17 +396,17 @@ void Item::ITEM_UI_TIME()
         }
 
 
-        if (R2 != -310) {
-            R2 -= 6;
+        if (R2 != -420) {
+            R2 -= 10;
 
         }
 
 
-        if (R2 == -310) {
-            R2 = -310;
+        if (R2 == -420) {
+            R2 = -420;
 
         }
-        if (R2 == -310 && R == -1000) {
+        if (R2 == -420 && R == -1000) {
         
             R3++;
             T_RevivalAnim = TRUE;
@@ -399,22 +435,24 @@ void Item::SOUND()
 
     if (TotemRand == 0 && R4 == 120 || TotemRand == 1 && R4 == 120 && Freez == TRUE)
     {
-        PlaySoundMem(HukkatuSippaSE, TRUE);
+        PlaySoundMem(HukkatuSippaiSE, TRUE);
      
     }
 
 
 
     if (T_RevivalAnim == TRUE && R4 == 120
-        || T_RevivalAnim == TRUE && R4 == 126
-        || T_RevivalAnim == TRUE && R4 == 132
-        || T_RevivalAnim == TRUE && R4 == 138
-        || T_RevivalAnim == TRUE && R4 == 144
+        || T_RevivalAnim == TRUE && R4 == 125
+        || T_RevivalAnim == TRUE && R4 == 130
+        || T_RevivalAnim == TRUE && R4 == 135
+        || T_RevivalAnim == TRUE && R4 == 140
+        || T_RevivalAnim == TRUE && R4 == 145
         || T_RevivalAnim == TRUE && R4 == 150
-        || T_RevivalAnim == TRUE && R4 == 156
-        || T_RevivalAnim == TRUE && R4 == 162
-        || T_RevivalAnim == TRUE && R4 == 168
-        || T_RevivalAnim == TRUE && R4 == 174)
+        || T_RevivalAnim == TRUE && R4 == 155
+        || T_RevivalAnim == TRUE && R4 == 160
+        || T_RevivalAnim == TRUE && R4 == 165
+        || T_RevivalAnim == TRUE && R4 == 170
+        || T_RevivalAnim == TRUE && R4 == 175)
     {
         PlaySoundMem(HukkatuSE, DX_PLAYTYPE_BACK);
 
@@ -434,21 +472,28 @@ void Item::SOUND()
   
   
     //freez
-    if (GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R3 == 120 ||
+    /*if (GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R3 == 120 ||
         GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R4 == 120)
     {
         PlaySoundMem(FreezSE2, DX_PLAYTYPE_BACK);
-    }
+    }*/
 
-    if (T_RevivalAnim == TRUE && R3 == 120 || T_RevivalAnim == TRUE && R3 == 126
-        || T_RevivalAnim == TRUE && R3 == 132 || T_RevivalAnim == TRUE && R3 == 138
-        || T_RevivalAnim == TRUE && R3 == 144 || T_RevivalAnim == TRUE && R3 == 150
-        || T_RevivalAnim == TRUE && R3 == 156 || T_RevivalAnim == TRUE && R3 == 162
-        || T_RevivalAnim == TRUE && R3 == 168 || T_RevivalAnim == TRUE && R3 == 174)
+    if (   T_RevivalAnim == TRUE && R3 == 120
+        || T_RevivalAnim == TRUE && R3 == 125
+        || T_RevivalAnim == TRUE && R3 == 130
+        || T_RevivalAnim == TRUE && R3 == 135
+        || T_RevivalAnim == TRUE && R3 == 140
+        || T_RevivalAnim == TRUE && R3 == 145
+        || T_RevivalAnim == TRUE && R3 == 150
+        || T_RevivalAnim == TRUE && R3 == 155
+        || T_RevivalAnim == TRUE && R3 == 160
+        || T_RevivalAnim == TRUE && R3 == 165
+        || T_RevivalAnim == TRUE && R3 == 170
+        || T_RevivalAnim == TRUE && R3 == 175)
     {
 
         PlaySoundMem(HukkatuSE3, DX_PLAYTYPE_BACK);
-
+        PlaySoundMem(HukkatuSE4, DX_PLAYTYPE_BACK);
 
     }
 
@@ -458,9 +503,9 @@ void Item::SOUND()
         PlaySoundMem(FreezSE3, DX_PLAYTYPE_BACK);
     }
     
-    if (GameMain::FreezUI == TRUE&&R == 1000 && R2 == 50)
+    if (GameMain::FreezUI == TRUE&&R == 1000 && R2 == 60)
     {
-        StopSoundMem(HukkatuSippaSE);
+        StopSoundMem(HukkatuSippaiSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
        
     }
@@ -470,21 +515,25 @@ void Item::SOUND()
     }
    
     
-    if (R4 == 190 || R3 == 190)
+    if (R4 >= 190&& R4 < 250 && R4 % 5 == 0 || R3 >= 190 && R3 < 250 && R3 % 5 == 0)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
-        PlaySoundMem(HukkatuSE2, DX_PLAYTYPE_BACK);
+      /*  PlaySoundMem(HukkatuSE2, DX_PLAYTYPE_BACK);*/
+        PlaySoundMem(HukkatuSE7, DX_PLAYTYPE_BACK);
     }
-    if (R4 == 250 || R3 == 250)
+    if (R4 == 280 || R3 == 280)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
         PlaySoundMem(HukkatuSE2, DX_PLAYTYPE_BACK);
+        PlaySoundMem(HukkatuSE8, DX_PLAYTYPE_BACK);
     }
   
-    if (R4 == 319 || R3 == 319)
+    if (R4 == 354 || R3 == 354)
     {
+        PlaySoundMem(FreezSE2, DX_PLAYTYPE_BACK);
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
         PlaySoundMem(HukkatuSE2, DX_PLAYTYPE_BACK);
+        PlaySoundMem(HukkatuSE6, DX_PLAYTYPE_BACK);
     }
     //Totem↑
 
@@ -506,7 +555,7 @@ AbstractScene*Item::Update()
     JUDGE();*/
     TOTEM();
  /*   C_BULLET();*/
-    ITEM_UI_TIME();
+    TOTEM_UI_TIME();
    
     if (TotemRand == 1&&Freez == FALSE)
     {
@@ -537,86 +586,86 @@ void Item::Draw() const
     if (TotemFlg == TRUE) {
         if (T_UI == 1 && R4 < 120)
         {
-            DrawCircle(625, 370, 150, 0x000000);
+            DrawCircle(625, 370, 150, 0x00a8f3);
             DrawGraph(-150, -650, T_Bullet[0], TRUE);
         }
         if (T_UI == 2 && R4 < 120)
         {
-            DrawCircle(625, 370, 150, 0x000000);
+            DrawCircle(625, 370, 150, 0x00a8f3);
             DrawGraph(-150, -650, T_Bullet[1], TRUE);
         }
 
         if (GameMain::FreezUI == FALSE) {
-            if (T_RevivalAnim == TRUE && R4 >= 120 && R4 < 126)
+            if (T_RevivalAnim == TRUE && R4 >= 120 && R4 < 125)
             {
 
                 DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
                 DrawGraph(-150, -650, T_Bullet[0], TRUE);
 
             }
-            if (T_RevivalAnim == TRUE && R4 >= 126 && R4 < 132)
+            if (T_RevivalAnim == TRUE && R4 >= 125 && R4 < 130)
             {
                 DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
                 /*  DrawGraph(300, -380, T_Bullet[1], TRUE);*/
                 DrawGraph(340, -400, T_Bullet[1], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 132 && R4 < 138)
+            if (T_RevivalAnim == TRUE && R4 >= 130 && R4 < 135)
             {
                 DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
                 /* DrawGraph(-400, -850, T_Bullet[2], TRUE);*/
                 DrawGraph(-570, -850, T_Bullet[2], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 138 && R4 < 144)
+            if (T_RevivalAnim == TRUE && R4 >= 135 && R4 < 140)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
                 /* DrawGraph(190, -870, T_Bullet[3], TRUE);*/
                 DrawGraph(300, -870, T_Bullet[3], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 144 && R4 < 150) {
+            if (T_RevivalAnim == TRUE && R4 >= 140 && R4 < 145) {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
                 /*  DrawGraph(-560, -400, T_Bullet[4], TRUE);*/
                 DrawGraph(-590, -470, T_Bullet[4], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 150 && R4 < 156)
+            if (T_RevivalAnim == TRUE && R4 >= 145 && R4 < 150)
             {
                 DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
                 /* DrawGraph(210, -900, T_Bullet[5], TRUE);*/
                 DrawGraph(280, -850, T_Bullet[5], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 156 && R4 < 162) {
+            if (T_RevivalAnim == TRUE && R4 >= 150 && R4 < 155) {
                 /* DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
                  DrawGraph(-650, -800, T_Bullet[6], TRUE);*/
                 DrawBox(0, 0, 1280, 720, 0x008000, TRUE);
                 DrawGraph(-660, -840, T_Bullet[6], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 162 && R4 < 168)
+            if (T_RevivalAnim == TRUE && R4 >= 155 && R4 < 160)
             {
                 DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
                 /*  DrawGraph(220, -370, T_Bullet[7], TRUE);*/
                 DrawGraph(300, -480, T_Bullet[7], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 168 && R4 < 174)
+            if (T_RevivalAnim == TRUE && R4 >= 160 && R4 < 165)
             {
                 DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
                 DrawGraph(-580, -470, T_Bullet[8], TRUE);
             }
-            if (T_RevivalAnim == TRUE && R4 >= 174 && R4 < 180)
+            if (T_RevivalAnim == TRUE && R4 >= 165 && R4 < 170)
             {
-                DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-                /* DrawGraph(140, -820, T_Bullet[9], TRUE);*/
-                DrawGraph(280, -820, T_Bullet[9], TRUE);
+                DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
+                DrawGraph(-150, -650, T_Bullet[0], TRUE);
+            }
+            if (T_RevivalAnim == TRUE && R4 >= 170 && R4 < 175)
+            {
+                DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
+                DrawGraph(340, -400, T_Bullet[1], TRUE);
+            }
+            if (T_RevivalAnim == TRUE && R4 >= 175 && R4 < 180)
+            {
+                DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
+                DrawGraph(-570, -850, T_Bullet[2], TRUE);
             }
 
-
-
-
-
-           /* if (T_RevivalAnim == TRUE && R4 >= 180)
-            {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-                DrawGraph(0, 0, T_Last, TRUE);
-
-            }*/
+           
         }
 
 
@@ -625,73 +674,82 @@ void Item::Draw() const
 
     if (GameMain::FreezUI == TRUE) {
         DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-
-
+        /*0xEE82EE*/
         if (R != 0 && R2 != 0) {
+            DrawBox(638, R8, 642, R7, 0xEE82EE, true);
             DrawBox(R5, 359, R6, 361, 0xEE82EE, true);
-            DrawCircle(620, 360, R, 0xEE82EE, true);
+            DrawCircle(640, 360, R, 0xEE82EE, true);
 
-            DrawCircle(620, 360, R2, 0xffffff, true);
+            DrawCircle(640, 360, R2, 0xffffff, true);
         }
 
-        if (T_RevivalAnim == TRUE && R3 >= 120 && R3 < 126)
+        if (T_RevivalAnim == TRUE && R3 >= 120 && R3 < 125)
         {
 
             DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
             DrawGraph(-150, -650, T_Bullet[0], TRUE);
 
         }
-        if (T_RevivalAnim == TRUE && R3 >= 126 && R3 < 132)
+        if (T_RevivalAnim == TRUE && R3 >= 125 && R3 < 130)
         {
             DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
             /*  DrawGraph(300, -380, T_Bullet[1], TRUE);*/
             DrawGraph(340, -400, T_Bullet[1], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 132 && R3 < 138)
+        if (T_RevivalAnim == TRUE && R3 >= 130 && R3 < 135)
         {
             DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
             /* DrawGraph(-400, -850, T_Bullet[2], TRUE);*/
             DrawGraph(-570, -850, T_Bullet[2], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 138 && R3 < 144)
+        if (T_RevivalAnim == TRUE && R3 >= 135 && R3 < 140)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
             /* DrawGraph(190, -870, T_Bullet[3], TRUE);*/
             DrawGraph(300, -870, T_Bullet[3], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 144 && R3 < 150) {
+        if (T_RevivalAnim == TRUE && R3 >= 140 && R3 < 145) {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
             /*  DrawGraph(-560, -400, T_Bullet[4], TRUE);*/
             DrawGraph(-590, -470, T_Bullet[4], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 150 && R3 < 156)
+        if (T_RevivalAnim == TRUE && R3 >= 145 && R3 < 150)
         {
             DrawBox(0, 0, 1280, 720, 0xFFA500, TRUE);
             /* DrawGraph(210, -900, T_Bullet[5], TRUE);*/
             DrawGraph(280, -850, T_Bullet[5], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 156 && R3 < 162) {
+        if (T_RevivalAnim == TRUE && R3 >= 150 && R3 < 155) {
             /* DrawBox(0, 0, 1280, 720, 0x9370DB, TRUE);
              DrawGraph(-650, -800, T_Bullet[6], TRUE);*/
             DrawBox(0, 0, 1280, 720, 0x008000, TRUE);
             DrawGraph(-660, -840, T_Bullet[6], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 162 && R3 < 168)
+        if (T_RevivalAnim == TRUE && R3 >= 155 && R3 < 160)
         {
             DrawBox(0, 0, 1280, 720, 0xf1888b, TRUE);
             /*  DrawGraph(220, -370, T_Bullet[7], TRUE);*/
             DrawGraph(300, -480, T_Bullet[7], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 168 && R3 < 174)
+        if (T_RevivalAnim == TRUE && R3 >= 160 && R3 < 165)
         {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
             DrawGraph(-580, -470, T_Bullet[8], TRUE);
         }
-        if (T_RevivalAnim == TRUE && R3 >= 174 && R3 < 180)
+        if (T_RevivalAnim == TRUE && R3 >= 165 && R3 < 170)
         {
-            DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
-            /* DrawGraph(140, -820, T_Bullet[9], TRUE);*/
-            DrawGraph(280, -820, T_Bullet[9], TRUE);
+            DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
+            DrawGraph(-150, -650, T_Bullet[0], TRUE);
+        }
+        if (T_RevivalAnim == TRUE && R3 >= 170 && R3 < 175)
+        {
+            DrawBox(0, 0, 1280, 720, 0x0beadb, TRUE);
+            DrawGraph(340, -400, T_Bullet[1], TRUE);
+        }
+        if (T_RevivalAnim == TRUE && R3 >= 175 && R3 < 180)
+        {
+            DrawBox(0, 0, 1280, 720, 0xEE82EE, TRUE);
+            DrawGraph(-570, -850, T_Bullet[2], TRUE);
         }
 
 
@@ -712,54 +770,54 @@ void Item::Draw() const
     if (T_RevivalAnim == TRUE && R4 >= 180|| T_RevivalAnim == TRUE && R3 >= 180)
     {
         DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-        if (R4 >= 190 && R4 < 220 || R4 >= 220 && R4 < 250)
+        if (R4 >= 190 && R4 < 220 || R4 >= 220 && R4 < 250 || R4 >= 250 && R4 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
         }
-        if (R4 >= 195 && R4 < 220 || R4 >= 225 && R4 < 250)
+        if (R4 >= 195 && R4 < 220 || R4 >= 225 && R4 < 250 || R4 >= 255 && R4 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
         }
-        if (R4 >= 200 && R4 < 220 || R4 >= 230 && R4 < 250)
+        if (R4 >= 200 && R4 < 220 || R4 >= 230 && R4 < 250 || R4 >= 260 && R4 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
         }
-        if (R4 >= 205 && R4 < 220 || R4 >= 235 && R4 < 250)
+        if (R4 >= 205 && R4 < 220 || R4 >= 235 && R4 < 250 || R4 >= 265 && R4 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
         }
-        if (R4 >= 210 && R4 < 220 || R4 >= 240 && R4 < 250)
+        if (R4 >= 210 && R4 < 220 || R4 >= 240 && R4 < 250 || R4 >= 270 && R4 < 280)
         {
-            DrawBox(0, 0, 1280, 720, 0xFFC0CB, TRUE);
+            DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
         }
-        if (R4 >= 215 && R4 < 220 || R4 >= 245 && R4 < 250)
+        if (R4 >= 215 && R4 < 220 || R4 >= 245 && R4 < 250 || R4 >= 275 && R4 < 280)
         {
-            DrawBox(0, 0, 1280, 720, 0x008000, TRUE);
+            DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
         }
        
 
 
-        if (R3 >= 190 && R3 < 220 || R3 >= 220 && R3 < 250 )
+        if (R3 >= 190 && R3 < 220 || R3 >= 220 && R3 < 250 || R3 >= 250 && R3 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFF0000, TRUE);
         }
-        if (R3 >= 195 && R3 < 220 || R3 >= 225 && R3 < 250 )
+        if (R3 >= 195 && R3 < 220 || R3 >= 225 && R3 < 250 || R3 >= 255 && R3 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
         }
-        if (R3 >= 200 && R3 < 220 || R3 >= 230 && R3 < 250 )
+        if (R3 >= 200 && R3 < 220 || R3 >= 230 && R3 < 250 || R3 >= 260 && R3 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xee7800, TRUE);
         }
-        if (R3 >= 205 && R3 < 220 || R3 >= 235 && R3 < 250 )
+        if (R3 >= 205 && R3 < 220 || R3 >= 235 && R3 < 250 || R3 >= 265 && R3 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFF00, TRUE);
         }
-        if (R3 >= 210 && R3 < 220 || R3 >= 240 && R3 < 250 )
+        if (R3 >= 210 && R3 < 220 || R3 >= 240 && R3 < 250 || R3 >= 270 && R3 < 280)
         {
-            DrawBox(0, 0, 1280, 720, 0x008000, TRUE);
+            DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
         }
-        if (R3 >= 215 && R3 < 220 || R3 >= 245 && R3 < 250 )
+        if (R3 >= 215 && R3 < 220 || R3 >= 245 && R3 < 250 || R3 >= 275 && R3 < 280)
         {
             DrawBox(0, 0, 1280, 720, 0x0000FF, TRUE);
         }
@@ -767,41 +825,53 @@ void Item::Draw() const
         DrawGraph(0, 0, T_Last, TRUE);
 
        
-        if (R3 >= 250|| R4 >= 250)
+        if (R3 >= 280|| R4 >= 280)
         {
             DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
 
-            if (R3 >= 255 || R4 >= 255) {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            }
-            if (R3 >= 260 || R4 >= 260) {
-                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-            }
-            if (R3 >= 265 || R4 >= 265) {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            }
-            if (R3 >= 270 || R4 >= 270) {
-                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-            }
-            if (R3 == 270 || R4 == 270) {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            }
-            if (R3 >= 275 || R4 >= 275) {
-                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
-            }
-            if (R3 >= 280 || R4 >= 280) {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            }
             if (R3 >= 285 || R4 >= 285) {
-                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
             }
             if (R3 >= 290 || R4 >= 290) {
-                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-            }
-            if (R3 >= 295 || R4 >= 295) {
                 DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
             }
+            if (R3 >= 295 || R4 >= 295) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
             if (R3 >= 300 || R4 >= 300) {
+                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+            }
+            if (R3 == 305 || R4 == 305) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
+            if (R3 >= 310 || R4 >= 310) {
+                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+            }
+            if (R3 >= 315 || R4 >= 315) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
+            if (R3 >= 320 || R4 >= 320) {
+                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+            }
+            if (R3 >= 325 || R4 >= 325) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
+            if (R3 >= 330 || R4 >= 330) {
+                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+            }
+            if (R3 >= 335 || R4 >= 335) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
+            if (R3 >= 340 || R4 >= 340) {
+                DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+            }
+            if (R3 >= 345 || R4 >= 345) {
+                DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            }
+            if (R3 >= 350 || R4 >= 350) {
+                DrawBox(0, 0, 1280, 720, 0xFFFFFF, TRUE);
+            }
+            if (R3 == 355 || R4 == 355) {
                 DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
             }
             DrawGraph(0, 0, T_Last2, TRUE);
