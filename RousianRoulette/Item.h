@@ -5,6 +5,7 @@
 class Item:public AbstractScene
 {
 private:
+	
 	int L_Check;
 	int UItime;
 	/*int JudgeCount[2];*/
@@ -17,14 +18,20 @@ private:
 	int FreezSE;
 	int FreezSE2;
 	int FreezSE3;
+	int FreezSE4;
+	int PushSE;
+	int PushSE2;
 	int RedBulletSE;
 	int WhiteBulletSE;
 	int HukkatuSE;
 	int HukkatuSE2;
 	int HukkatuSE3;
 	int HukkatuSE4;
-	int ResultBgm;
-	int BgmW;
+	int HukkatuSE5;
+	int HukkatuSippaSE;
+	
+	
+	
 
 public:
 	Item();
@@ -62,6 +69,6 @@ public:
 	static int Freez;
 	static int R3;
 	static int R4;
-	
+	static int ReRound[2];
 };
 
