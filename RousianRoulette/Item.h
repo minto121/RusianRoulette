@@ -2,10 +2,10 @@
 #include "AbstractScene.h"
 
 	
-class Item:public AbstractScene
+class Item :public AbstractScene
 {
 private:
-	
+
 	int L_Check;
 	int UItime;
 	/*int JudgeCount[2];*/
@@ -38,8 +38,9 @@ private:
 	int HukkatuSippaiSE;
 	int T_Last;
 	int T_Last2;
+	int T_Last3;
+	int F_Flash;
 
-	
 	int BombSE;
 	int DragSE;
 	int LoupeSE;
