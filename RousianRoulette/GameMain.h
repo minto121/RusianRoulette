@@ -76,6 +76,7 @@ private:
     int SelectSE;
 
     int ShotSE;
+    int NshotSE;
 
     int REnemyimg;
     int A_UI[2];  //Action UI プレイヤーの行動

@@ -96,6 +96,7 @@ void GameMain::INIT()
     GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
     SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
     ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
+    NshotSE = LoadSoundMem("Resources/sounds/not shot.mp3");
     isPlayerTurn = TRUE;
 
     WaitFlg = FALSE;
@@ -129,6 +130,7 @@ GameMain::~GameMain()
     DeleteSoundMem(GMBgm);
     DeleteSoundMem(SelectSE);
     DeleteSoundMem(ShotSE);
+    DeleteSoundMem(NshotSE);
 }
 
 
@@ -650,6 +652,7 @@ void GameMain::E_Choice()
     {
         PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         bh_flg = TRUE;
+        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         E_life--;
         if (Item::Bomb == TRUE)
         {
