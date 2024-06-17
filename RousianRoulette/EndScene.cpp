@@ -5,12 +5,12 @@
 
 EndScene::EndScene()
 {
-
+	Endimage = LoadGraph("Resources/images/EndScene.png");
 }
 
 EndScene::~EndScene()
 {
-
+	DeleteGraph(Endimage);
 }
 
 AbstractScene* EndScene::Update()
@@ -24,7 +24,7 @@ AbstractScene* EndScene::Update()
 
 void EndScene::Draw() const
 {
-	DrawGraph(0, 0, Endimage, FALSE);
+	//DrawGraph(0, 0, Endimage, FALSE);
 	SetFontSize(50);
 	//DrawString(330, 50, "END", 0x000000);
 	DrawString(100, 50, "Thank you ", 0xffffff);
@@ -41,5 +41,7 @@ void EndScene::Draw() const
 	SetFontSize(24);
 	DrawString(800, 480, "SILHOUETTE DESIGN", 0xffffff);
 	DrawString(800, 510, "DOT ILLUST", 0xffffff);
+
+	DrawGraph(0, 0, Endimage, FALSE);
 
 }
