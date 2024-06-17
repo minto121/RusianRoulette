@@ -884,7 +884,7 @@ void GameMain::P_UI()
         {
             ITEM->JUDGE();
         }
-        if (CurX3 == 830 && CurY3 == 590
+        if (CurX3 == 830 && CurY3 == 640
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
             ITEM->BOMB();

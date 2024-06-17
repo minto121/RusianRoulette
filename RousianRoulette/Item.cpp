@@ -29,6 +29,7 @@ Item::Item()
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
+
    
 }
 
@@ -87,6 +88,7 @@ void Item::INIT()
     Bomb = FALSE;
     TotemRand = 0;
   /*  itemtable[4] = 1;*/
+    itemtable[2] = 1;
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -94,6 +96,7 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
+
 
   
 
@@ -144,18 +147,22 @@ void Item::LOUPE()
     {
         PlaySoundMem(LoupeSE, DX_PLAYTYPE_BACK);
 
+      
         Timer::FPS = 1;
-
         if (bullet::Cylinder[bullet::FireC] == 0)
         {
             L_Check = 1;
+
         }
 
         else if (bullet::Cylinder[bullet::FireC] == 1)
         {
             L_Check = 2;
+ 
         }
         itemtable[2] -= 1;
+        
+    
     }
 }
 
@@ -563,6 +570,11 @@ AbstractScene*Item::Update()
     TOTEM();
  /*   C_BULLET();*/
     TOTEM_UI_TIME();
+
+    if (Timer::FPS == 200)
+    {
+        L_Check = 0;
+    }
    
    /* if (TotemRand == 1&&Freez == FALSE)
     {
@@ -581,13 +593,16 @@ void Item::Draw() const
 {
 
 
+        if (L_Check == 1)
+        {
+            DrawString(450, 40, "Blank Bullets", 0xffffff, TRUE);
+        }
+        if (L_Check == 2)
+        {
+            DrawString(450, 40, "Live Bullets", 0xffffff, TRUE);
+        }
 
-
-
-
-
-
-
+   
 
     //totem
     if (TotemFlg == TRUE) {
@@ -898,6 +913,8 @@ void Item::Draw() const
     DrawBox(R5, 359, R6, 361, 0xEE82EE, true);
    
     DrawCircle(640, 360, R2, 0xFFFFFF, true);*/
+
+
   
 
     
@@ -931,16 +948,8 @@ void Item::Draw() const
      DrawFormatString(100, 360, 0x000ff, "TUI:%d", T_UI);
      DrawFormatString(100, 400, 0x000ff, "TUIR:%d", T_UIRand);
      */
-   /*   DrawString(0, 50, "Loupe:", 0xffffff, TRUE);
-    if (L_Check == 1)
-    {
-        DrawString(70, 50, "0", 0xffffff, TRUE);
-    }
-
-    if (L_Check == 2)
-    {
-        DrawString(70, 50, "1", 0xffffff, TRUE);
-    }*/
+     /* DrawString(0, 50, "Loupe:", 0xffffff, TRUE);*/
+    
 
    /* DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
    

@@ -84,5 +84,6 @@ public:
 	static int R3;
 	static int R4;
 	static int ReRound[2];
+
 };
 
