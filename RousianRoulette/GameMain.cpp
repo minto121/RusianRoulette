@@ -39,8 +39,9 @@ GameMain::GameMain()
     E_life = 2;
     Round = 0;
     ResultFlg = FALSE/*TRUE*/;
-    RoundUiflg = TRUE;
+  
     INIT();
+    RoundUiflg = TRUE;
 }
 
 
@@ -105,7 +106,7 @@ void GameMain::INIT()
     isPlayerTurn = TRUE;
 
     WaitFlg = FALSE;
-    WaitFlg2 = FALSE;
+    WaitFlg2 = 0;
     WaitFlg3 = FALSE;
     WaitFlg4 = FALSE;
     UraBotanFlg = TRUE;
@@ -125,6 +126,7 @@ void GameMain::INIT()
     PushSEflg = FALSE;
     ResultBgmFlg = TRUE;
     FreezDiray = 0;
+    RoundUiflg = FALSE;
 }
 
 
@@ -148,13 +150,17 @@ AbstractScene* GameMain::Update()
     }
     ROUND_UI();
    
+    
+
+
+
     if (RoundUiflg == FALSE)
     {
         //BGM
             if (ResultFlg == FALSE) {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
-        }
+            }
           
             if (ResultFlg == TRUE && ResultBgmFlg == TRUE)
             {
@@ -227,7 +233,7 @@ AbstractScene* GameMain::Update()
                 StopSoundMem(ResultBgm2);
                 if (WaitFlg3 == FALSE)
                 {
-                   PushFlgUI = 3/*GetRand(5)*/;
+                   PushFlgUI = 5/*GetRand(5)*/;
           
                 }
       
@@ -306,7 +312,7 @@ AbstractScene* GameMain::Update()
                 }
 
 
-                if (Timer::FPS == 30) {
+                if (Timer::FPS >= 10) {
                     WaitFlg2 = TRUE;
 
                 }
@@ -339,6 +345,10 @@ AbstractScene* GameMain::Update()
             }
         
     }
+
+
+
+
     return this;
 }
 
@@ -396,7 +406,7 @@ void GameMain::Draw() const
         SetFontSize(48);
         DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
-
+      
         //アイテム
         SetFontSize(28);
         DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
@@ -791,6 +801,7 @@ void GameMain::Result()
 
 void GameMain::P_UI()
 {
+    
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
         P_UI_INIT();
@@ -934,15 +945,17 @@ void GameMain::ROUND_UI()
     if (RoundUiflg == TRUE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
     {
         StopSoundMem(GMBgm);
-        WaitFlg2 = TRUE;
+      
         Enemy::E_WaitFlg = TRUE;
         Item::ReRound[0] = FALSE;
         Item::ReRound[1] = FALSE;
+      
         ROUND_UP();
+       
         RoundUiflg = FALSE;
     }
-
-
+  
+   
 }
 
 
@@ -951,6 +964,7 @@ void GameMain::ROUND_UP()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     
         Round++;
+       
         isPlayerTurn = TRUE;
         do
         {
@@ -966,9 +980,13 @@ void GameMain::ROUND_UP()
         ITEM->INIT();
         ITEM->GETITEM();
         ENEMY->E_INIT();
-        INIT();
+        P_UI_INIT();
         WaitFlg = FALSE;
+
         E_life = 2;
+        Timer::FPS = 0;
+        INIT();
+      
      
    
 }
