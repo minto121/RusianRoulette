@@ -934,6 +934,7 @@ void GameMain::ROUND_UI()
     if (RoundUiflg == TRUE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
     {
         StopSoundMem(GMBgm);
+        WaitFlg2 = TRUE;
         Enemy::E_WaitFlg = TRUE;
         Item::ReRound[0] = FALSE;
         Item::ReRound[1] = FALSE;
@@ -950,7 +951,7 @@ void GameMain::ROUND_UP()
     //敵のHPがなくなるとラウンドが進み弾がリロードされる
     
         Round++;
-     
+        isPlayerTurn = TRUE;
         do
         {
             ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
@@ -960,14 +961,15 @@ void GameMain::ROUND_UP()
 
         Item:: ReRound[0] = FALSE;
         Item::ReRound[1] = FALSE;
+       
         BULLET->B_INIT();
         ITEM->INIT();
         ITEM->GETITEM();
+        ENEMY->E_INIT();
         INIT();
         WaitFlg = FALSE;
-        isPlayerTurn = TRUE;
         E_life = 2;
-      
+     
    
 }
 
