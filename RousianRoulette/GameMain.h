@@ -37,6 +37,7 @@ private:
     bool WaitFlg2;
     bool WaitFlg3;
     int ResultFlg;
+    int FreezDiray;
 
     // プレイヤーターンのフラグ
 
@@ -62,7 +63,7 @@ private:
     int PushSE;
     int PushSE2;
     int PushSEflg;
-    int ResultBackImg[8];
+    int ResultBackImg[9];
     int ResultBgm;
     int  ResultBgmFlg;
     int RoundBackImg1;
@@ -78,6 +79,7 @@ private:
     int SelectSE;
 
     int ShotSE;
+    int NshotSE;
 
     int REnemyimg;
     int A_UI[2];  //Action UI プレイヤーの行動
@@ -124,5 +126,6 @@ public:
     static int bh2_flg;
     static int PushFlgUI;
     static int FreezUI;
+    static int ResultBgm2;
 };
 

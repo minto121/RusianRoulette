@@ -10,6 +10,12 @@ int Enemy::E_WaitFlg;
 //int Enemy::E_UI[];
 Enemy::Enemy()
 {
+	E_INIT();
+	
+}
+
+void Enemy::E_INIT()
+{
 	E_Choice = 0;
 	E_Shot_P = FALSE;
 	E_Shot_Self = FALSE;
@@ -18,8 +24,9 @@ Enemy::Enemy()
 	for (int a = 0; a <= 1; a++) {
 		E_UI[a] = FALSE;
 	}
-	
 }
+
+
 
 Enemy::~Enemy()
 {
@@ -162,6 +169,7 @@ void Enemy::Draw() const
 	}
 	
 }
+
 
 
 
