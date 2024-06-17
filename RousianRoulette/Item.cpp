@@ -107,7 +107,7 @@ void Item::DRAG()
 
 void Item::BOMB()
 {
-    if (itemtable[1] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
+    if (itemtable[1] >= 1/* && PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER*/)
     {
         Bomb = TRUE;
         itemtable[1] -= 1;
@@ -261,7 +261,7 @@ void Item::TOTEM()
 
 void Item::C_BULLET()
 {
-    if (itemtable[5] >= 1 && PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+    if (itemtable[5] >= 1 /*&& PAD_INPUT::OnButton(XINPUT_BUTTON_B)*/) {
        
         int i;
         for (i = 0; i < 6; i++) {

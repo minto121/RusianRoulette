@@ -395,11 +395,11 @@ void GameMain::Draw() const
 
         SetFontSize(28);
         DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
-        DrawFormatString(1090, 600, 0xffffff, "%d", Item::itemtable[1]);
-        DrawFormatString(1230, 600, 0xffffff, "%d", Item::itemtable[2]);
-        DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[3]);
-        DrawFormatString(1090, 650, 0xffffff, "%d", Item::itemtable[4]);
-        DrawFormatString(1190, 650, 0xffffff, "%d", Item::itemtable[5]);
+        DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[1]);
+        DrawFormatString(1080, 600, 0xffffff, "%d", Item::itemtable[2]);
+        DrawFormatString(1220, 600, 0xffffff, "%d", Item::itemtable[3]);
+        DrawFormatString(1080, 650, 0xffffff, "%d", Item::itemtable[4]);
+        DrawFormatString(1180, 650, 0xffffff, "%d", Item::itemtable[5]);
 
       //if()
       //  DrawString(450, 40, "USE DRAG", 0xffffff);
@@ -850,22 +850,22 @@ void GameMain::P_UI()
         {
             ITEM->DRAG();
         }
-        if (CurX3 == 935 && CurY3 == 590
+        if (CurX3 == 965 && CurY3 == 590
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
             ITEM->LOUPE();
         }
-        if (CurX3 == 1070 && CurY3 == 590
+        if (CurX3 == 1100 && CurY3 == 590
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
             ITEM->JUDGE();
         }
-        if (CurX3 == 830 && CurY3 == 640
+        if (CurX3 == 830 && CurY3 == 590
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
             ITEM->BOMB();
         }
-        if (CurX3 == 935 && CurY3 == 640
+        if (CurX3 == 1100 && CurY3 == 640
             && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
         {
             ITEM->C_BULLET();
