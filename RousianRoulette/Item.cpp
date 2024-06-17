@@ -555,7 +555,6 @@ void Item::SOUND()
 AbstractScene*Item::Update()
 {
    
-  
     SOUND();
   /*  DRAG();*/
  /*   LOUPE();
@@ -565,14 +564,14 @@ AbstractScene*Item::Update()
  /*   C_BULLET();*/
     TOTEM_UI_TIME();
    
-    if (TotemRand == 1&&Freez == FALSE)
+   /* if (TotemRand == 1&&Freez == FALSE)
     {
         ReRound[0] = TRUE;
     }
     if (TotemRand == 1 && Freez == TRUE)
     {
         ReRound[1] = TRUE;
-    }
+    }*/
 
     return this;
 }

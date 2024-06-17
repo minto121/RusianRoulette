@@ -38,8 +38,8 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 0;
-    ResultFlg = /*FALSE*/TRUE;
-  /*  RoundUiflg = TRUE;*/
+    ResultFlg = FALSE/*TRUE*/;
+    RoundUiflg = TRUE;
     INIT();
 }
 
@@ -227,7 +227,7 @@ AbstractScene* GameMain::Update()
                 StopSoundMem(ResultBgm2);
                 if (WaitFlg3 == FALSE)
                 {
-                   PushFlgUI = 5/*GetRand(5)*/;
+                   PushFlgUI = 3/*GetRand(5)*/;
           
                 }
       
@@ -243,7 +243,7 @@ AbstractScene* GameMain::Update()
 
             //freez
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
-                && Item::itemtable[4] <= 1 && Item::Freez == TRUE &&FreezDiray == 0)
+                && Item::itemtable[4] >= 1 && Item::Freez == TRUE &&FreezDiray == 0)
             {
                
                 FreezDiray += 2;
