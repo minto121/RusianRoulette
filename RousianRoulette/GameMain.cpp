@@ -41,10 +41,10 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 0;
-    ResultFlg = FALSE/*TRUE*/;
+    ResultFlg = /*FALSE*/TRUE;
   
     INIT();
-    RoundUiflg = TRUE;
+   /* RoundUiflg = TRUE;*/
 }
 
 
@@ -174,7 +174,7 @@ AbstractScene* GameMain::Update()
              
                 StopSoundMem(GMBgm);
                 PlaySoundMem(ResultBgm, TRUE);
-                ChangeVolumeSoundMem(245, ResultBgm2);
+                ChangeVolumeSoundMem(255, ResultBgm2);
                 PlaySoundMem(ResultBgm2, DX_PLAYTYPE_LOOP, FALSE);
                 ResultBgmFlg = FALSE;
             }
@@ -229,18 +229,18 @@ AbstractScene* GameMain::Update()
             }
 
             if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
-                && Item::itemtable[4] == 0 && Item::Freez == FALSE)
+                && Item::itemtable[4]== 0 && Item::Freez == FALSE)
             {
-                FreezDiray += 2;
+                FreezDiray = 2;
             }
-
+          
 
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] >= 1 &&WaitFlg4 == FALSE)
             {
                 StopSoundMem(ResultBgm2);
                 if (WaitFlg3 == FALSE)
                 {
-                   PushFlgUI = GetRand(5);
+                   PushFlgUI = 5/*GetRand(5)*/;
           
                 }
       
@@ -264,7 +264,7 @@ AbstractScene* GameMain::Update()
             if (FreezDiray >= 2)
             {
                 FreezDiray++;
-                if (FreezDiray == 50)
+                if (FreezDiray == 58)
                 {
                     StopSoundMem(ResultBgm2);
                 }
@@ -274,7 +274,7 @@ AbstractScene* GameMain::Update()
                         FreezUI = TRUE;
                         FreezDiray = 1;
                     }
-                    if (Item::itemtable[4] == 0 && Item::Freez == FALSE)
+                    if (Item::itemtable[4] == 0 && Item::TotemRand == 0 && Item::Freez == FALSE)
                     {
                       
                         return new Title();
@@ -558,7 +558,7 @@ void GameMain::Draw() const
             DrawFormatString(830, 280, 0xFF0000, "%d", Round);
 
 
-            if (Item::itemtable[4] >= 1 && Item::Freez == TRUE && FreezDiray >= 55)
+            if (Item::itemtable[4] >= 1 && Item::Freez == TRUE && FreezDiray >= 57)
             {
                 DrawGraph(0, 0, ResultBackImg[9], FALSE);
             }
@@ -596,7 +596,7 @@ void GameMain::Draw() const
         if (PushFlg == TRUE && Item::itemtable[4] >= 1 && Flash <= 40 &&
             PushFlgUI == 1 && Item::TotemRand == 1)
         {
-            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawGraph(0, 0, ResultBackImg[8], FALSE);
             DrawBox(80, 80, 1200, 640, 0x645959, TRUE);
             SetFontSize(72);
             DrawString(520, 0, "PUSH!!", 0xFF0000);
@@ -764,6 +764,7 @@ void GameMain::Result()
         PAD_INPUT::OnButton(XINPUT_BUTTON_START))
     {
         StopSoundMem(TotemChanceBgm);
+      /*  Item::itemtable[4] -= 1;*/
         WaitFlg3 = FALSE;
         WaitFlg4 = TRUE;
         PushFlg = FALSE;
