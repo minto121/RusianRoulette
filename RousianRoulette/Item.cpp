@@ -25,7 +25,7 @@ Item::Item()
     {
         itemtable[a] = 0;
     }
-    itemtable[4] = 1;
+    /*itemtable[4] = 1;*/
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
@@ -184,7 +184,7 @@ void Item::TOTEM()
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = 1/*GetRand(1)*/;
+            TotemRand = GetRand(1);
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)

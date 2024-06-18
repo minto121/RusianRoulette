@@ -41,10 +41,10 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 0;
-    ResultFlg = /*FALSE*/TRUE;
+    ResultFlg = FALSE/*TRUE*/;
   
     INIT();
-  /*  RoundUiflg = TRUE;*/
+    RoundUiflg = TRUE;
 }
 
 
@@ -240,7 +240,7 @@ AbstractScene* GameMain::Update()
                 StopSoundMem(ResultBgm2);
                 if (WaitFlg3 == FALSE)
                 {
-                   PushFlgUI = 5/*GetRand(5)*/;
+                   PushFlgUI = GetRand(5);
           
                 }
       
