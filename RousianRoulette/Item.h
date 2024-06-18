@@ -10,6 +10,7 @@ private:
 	int UItime;
 	/*int JudgeCount[2];*/
 	int T_Bullet[10];
+	int TotemBack;
 	int T_UIRand;
 	int T_UI;
 	int T_RevivalAnim;
