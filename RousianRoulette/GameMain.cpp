@@ -794,107 +794,111 @@ void GameMain::Result()
 
 void GameMain::P_UI()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+    if (Item::J_Player_Flg == FALSE && Item::J_Enemy_Flg == FALSE && Item::DRAG_Flg == FALSE && Item::Bomb_Flg == FALSE &&
+        Item::C_BULLET_Flg == FALSE && Item::L_Check == 0)
     {
-        P_UI_INIT();
-    }
-
-    if (P_Ui[0] == TRUE)
-    {
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX == 180 && CurY == 576)
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
         {
-            CurX = 180; 
-            CurY = 645;
-        }
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX == 180 && CurY == 645)
-        {
-            CurX = 180;
-            CurY = 576;
-        }
-        if (CurX == 180 && CurY == 576 && WaitFlg2 == TRUE
-            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
-        {
-            P_Ui[1] = TRUE;
-            P_Ui[0] = FALSE;
+            P_UI_INIT();
         }
 
-        if (CurX == 180 && CurY == 645 && WaitFlg2 == TRUE
-            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+        if (P_Ui[0] == TRUE)
         {
-            P_Ui[2] = TRUE;
-            P_Ui[0] = FALSE;
-        }
-    }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX == 180 && CurY == 576)
+            {
+                CurX = 180;
+                CurY = 645;
+            }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX == 180 && CurY == 645)
+            {
+                CurX = 180;
+                CurY = 576;
+            }
+            if (CurX == 180 && CurY == 576 && WaitFlg2 == TRUE
+                && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+            {
+                P_Ui[1] = TRUE;
+                P_Ui[0] = FALSE;
+            }
 
-    if (P_Ui[1] == TRUE)
-    {
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
-        {
-            CurX2 = 555;
-            CurY2 = 650;
-        }
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
-        {
-            CurX2 = 555;
-            CurY2 = 575;
-        }
-        if (CurX2 == 555 && CurY2 == 575 
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            E_Choice();
-        }
-        if (CurX2 == 555 && CurY2 == 650
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            P_Choice();
-        }
-    }
-
-    if (P_Ui[2] == TRUE)
-    {
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) &&CurY3 == 590)
-        {         
-            CurY3 = 640;
-        }
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
-        {
-            CurY3 = 590;
+            if (CurX == 180 && CurY == 645 && WaitFlg2 == TRUE
+                && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+            {
+                P_Ui[2] = TRUE;
+                P_Ui[0] = FALSE;
+            }
         }
 
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)&&CurX3!=1100)
+        if (P_Ui[1] == TRUE)
         {
-            CurX3 += 135;
-        }
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
-        {
-            CurX3 -= 135;
-        }
-        if (CurX3 == 830 && CurY3 == 590
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            ITEM->DRAG();
-        }
-        if (CurX3 == 965 && CurY3 == 590
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            ITEM->LOUPE();
-        }
-        if (CurX3 == 1100 && CurY3 == 590
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            ITEM->JUDGE();
-        }
-        if (CurX3 == 830 && CurY3 == 640
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            ITEM->BOMB();
-        }
-        if (CurX3 == 1100 && CurY3 == 640
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            ITEM->C_BULLET();
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
+            {
+                CurX2 = 555;
+                CurY2 = 650;
+            }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
+            {
+                CurX2 = 555;
+                CurY2 = 575;
+            }
+            if (CurX2 == 555 && CurY2 == 575
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                E_Choice();
+            }
+            if (CurX2 == 555 && CurY2 == 650
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                P_Choice();
+            }
         }
 
+        if (P_Ui[2] == TRUE)
+        {
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurY3 == 590)
+            {
+                CurY3 = 640;
+            }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
+            {
+                CurY3 = 590;
+            }
+
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) && CurX3 != 1100)
+            {
+                CurX3 += 135;
+            }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
+            {
+                CurX3 -= 135;
+            }
+            if (CurX3 == 830 && CurY3 == 590
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                ITEM->DRAG();
+            }
+            if (CurX3 == 965 && CurY3 == 590
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                ITEM->LOUPE();
+            }
+            if (CurX3 == 1100 && CurY3 == 590
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                ITEM->JUDGE();
+            }
+            if (CurX3 == 830 && CurY3 == 640
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                ITEM->BOMB();
+            }
+            if (CurX3 == 1100 && CurY3 == 640
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                ITEM->C_BULLET();
+            }
+
+        }
     }
     
 }

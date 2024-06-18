@@ -6,7 +6,7 @@ class Item :public AbstractScene
 {
 private:
 
-	int L_Check;
+
 	int UItime;
 	/*int JudgeCount[2];*/
 	int T_Bullet[10];
@@ -44,6 +44,7 @@ private:
 	int BombSE;
 	int DragSE;
 	int LoupeSE;
+	
 
 public:
 	Item();
@@ -84,6 +85,13 @@ public:
 	static int R3;
 	static int R4;
 	static int ReRound[2];
+
+	static int L_Check;
+	static int J_Player_Flg;
+	static int J_Enemy_Flg;
+	static int DRAG_Flg;
+	static int Bomb_Flg;
+	static int C_BULLET_Flg;
 
 };
 

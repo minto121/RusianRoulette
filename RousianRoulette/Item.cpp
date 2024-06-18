@@ -18,6 +18,13 @@ int Item::R3;
 int Item::R4;
 int Item::ReRound[2];
 
+int Item::L_Check;
+int Item::J_Player_Flg;
+int Item::J_Enemy_Flg;
+int Item::DRAG_Flg;
+int Item::Bomb_Flg;
+int Item::C_BULLET_Flg;
+
 Item::Item()
 {
    
@@ -87,8 +94,12 @@ void Item::INIT()
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-  /*  itemtable[4] = 1;*/
+    itemtable[0] = 1;
+    itemtable[1] = 1;
     itemtable[2] = 1;
+    itemtable[3] = 1;
+    itemtable[4] = 1;
+    itemtable[5] = 1;
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -96,7 +107,11 @@ void Item::INIT()
     WaitTime2 = FALSE;
     Freez = FALSE;
     TotemFlg = FALSE;
-
+    J_Player_Flg = FALSE;
+    J_Enemy_Flg = FALSE;
+    DRAG_Flg = FALSE;
+    Bomb_Flg = FALSE;
+    C_BULLET_Flg = FALSE;
 
   
 
@@ -123,9 +138,11 @@ void Item::DRAG()
 
     if (itemtable[0] >= 1 &&GameMain::P_life==1)
     {
+        Timer::FPS = 1;
         PlaySoundMem(DragSE, DX_PLAYTYPE_BACK);
         GameMain::P_life++;
         itemtable[0] -= 1;
+        DRAG_Flg = TRUE;
     }
 }
 
@@ -133,7 +150,9 @@ void Item::BOMB()
 {
     if (itemtable[1] >= 1)
     {
+        Timer::FPS = 1;
         Bomb = TRUE;
+        Bomb_Flg = TRUE;
         itemtable[1] -= 1;
         ChangeVolumeSoundMem(155, BombSE);
         PlaySoundMem(BombSE, DX_PLAYTYPE_BACK);
@@ -170,11 +189,15 @@ void Item::JUDGE()
 {
     int Judge = GetRand(1);
     if(itemtable[3] >= 1){
+        Timer::FPS = 1;
+
         if (Judge == 0) {
             GameMain::P_life--;
+            J_Player_Flg = TRUE;
         }
         else {
             GameMain::E_life--;
+            J_Enemy_Flg = TRUE;
         }
         
         if (GameMain::E_life < 1) {
@@ -290,7 +313,10 @@ void Item::TOTEM()
 void Item::C_BULLET()
 {
     if (itemtable[5] >= 1) {
-       
+        C_BULLET_Flg = TRUE;
+        Timer::FPS = 1;
+
+
         int i;
         for (i = 0; i < 6; i++) {
             if (bullet::Cylinder[i] == 0) {
@@ -301,8 +327,7 @@ void Item::C_BULLET()
             }
         }
         itemtable[5] -= 1;
-
-
+      
     }
 }
 
@@ -574,7 +599,14 @@ AbstractScene*Item::Update()
     if (Timer::FPS == 200)
     {
         L_Check = 0;
+        J_Player_Flg = FALSE;
+        J_Enemy_Flg = FALSE;
+        Bomb_Flg = FALSE;
+        DRAG_Flg = FALSE;
+        C_BULLET_Flg = FALSE;
     }
+
+  
    
    /* if (TotemRand == 1&&Freez == FALSE)
     {
@@ -592,15 +624,40 @@ AbstractScene*Item::Update()
 void Item::Draw() const
 {
 
+    //空砲か実弾かを表示
+    if (L_Check == 1)
+    {
+        DrawString(450, 40, "Blank Bullets", 0xffffff, TRUE);
+    }
+    if (L_Check == 2)
+    {
+        DrawString(450, 40, "Live Bullets", 0xffffff, TRUE);
+    }
 
-        if (L_Check == 1)
-        {
-            DrawString(450, 40, "Blank Bullets", 0xffffff, TRUE);
-        }
-        if (L_Check == 2)
-        {
-            DrawString(450, 40, "Live Bullets", 0xffffff, TRUE);
-        }
+    //ジャッジの結果表示
+    if (J_Player_Flg == TRUE)
+    {
+        DrawString(420, 40, "JUDGE:PLAYER LIFE -1", 0xfa2000, TRUE);
+    }
+    if (J_Enemy_Flg == TRUE)
+    {
+        DrawString(420, 40, "JUDGE:ENEMY LIFE -1", 0xfa2000, TRUE);
+    }
+
+    if (Bomb_Flg == TRUE)
+    {
+        DrawString(450, 40, "Bullet Power UP", 0xffffff, TRUE);
+    }
+
+    if (DRAG_Flg == TRUE)
+    {
+        DrawString(430, 40, "LIFE +1", 0xffffff, TRUE);
+    }
+
+    if (C_BULLET_Flg == TRUE)
+    {
+        DrawString(400, 40, "CHANGE BULLET", 0xffffff, TRUE);
+    }
 
    
 
