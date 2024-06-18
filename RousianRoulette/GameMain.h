@@ -37,6 +37,7 @@ private:
     bool WaitFlg2;
     bool WaitFlg3;
     int ResultFlg;
+    
 
     // プレイヤーターンのフラグ
 
@@ -62,15 +63,19 @@ private:
     int PushSE;
     int PushSE2;
     int PushSEflg;
-    int ResultBackImg[7];
+    int ResultBackImg[10];
     int ResultBgm;
     int  ResultBgmFlg;
     int RoundBackImg1;
     int RoundBackImg2;
+    int RoundBackImg3;
+ 
+   
     int flash;
     int UraBotanSE;
     int UraBotanFlg;
     int WaitFlg4;
+    int TotemChanceBgm;
 
     int GMBgm;
     int SelectSE;
@@ -80,7 +85,9 @@ private:
 
     int REnemyimg;
     int A_UI[2];  //Action UI プレイヤーの行動
-    int AT;
+    int AT;       //A_UIの表示時間
+    int ET;       //E_UIの表示時間
+    int RoundButtonSE;
 
 public:
 
@@ -99,13 +106,15 @@ public:
     void INIT();
     void Turn();
     /* void Choice();*/
-    void Cursol();
+    /*void Cursol();*/
     void E_Choice();
     void P_Choice();
     void Result();
     void P_UI();
     void P_UI_INIT();
     void ROUND_UI();
+    void ROUND_UP();
+
 
     bullet* BULLET;
     Item* ITEM;
@@ -120,5 +129,7 @@ public:
     static int bh2_flg;
     static int PushFlgUI;
     static int FreezUI;
+    static int ResultBgm2;
+    static int FreezDiray;
 };
 

@@ -2,14 +2,15 @@
 #include "AbstractScene.h"
 
 	
-class Item:public AbstractScene
+class Item :public AbstractScene
 {
 private:
-	
-	int L_Check;
+
+
 	int UItime;
 	/*int JudgeCount[2];*/
 	int T_Bullet[10];
+	int TotemBack;
 	int T_UIRand;
 	int T_UI;
 	int T_RevivalAnim;
@@ -17,6 +18,8 @@ private:
 	int R2;
 	int R5;
 	int R6;
+	int R7;
+	int R8;
 	int FreezSE;
 	int FreezSE2;
 	int FreezSE3;
@@ -30,13 +33,19 @@ private:
 	int HukkatuSE3;
 	int HukkatuSE4;
 	int HukkatuSE5;
-	int HukkatuSippaSE;
-	
-	
-	
+	int HukkatuSE6;
+	int HukkatuSE7;
+	int HukkatuSE8;
+	int HukkatuSippaiSE;
+	int T_Last;
+	int T_Last2;
+	int T_Last3;
+	int F_Flash;
+
 	int BombSE;
 	int DragSE;
 	int LoupeSE;
+	
 
 public:
 	Item();
@@ -48,6 +57,8 @@ public:
 	void Draw() const;
 
 	void INIT();
+
+	void GETITEM();
 
 	void DRAG();
 
@@ -61,7 +72,7 @@ public:
 
 	void C_BULLET();
 
-	void ITEM_UI_TIME();
+	void TOTEM_UI_TIME();
 
 	void SOUND();
 
@@ -75,5 +86,13 @@ public:
 	static int R3;
 	static int R4;
 	static int ReRound[2];
+
+	static int L_Check;
+	static int J_Player_Flg;
+	static int J_Enemy_Flg;
+	static int DRAG_Flg;
+	static int Bomb_Flg;
+	static int C_BULLET_Flg;
+
 };
 
