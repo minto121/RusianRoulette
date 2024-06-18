@@ -53,12 +53,22 @@ void Item::INIT()
     T_Bullet[7] = LoadGraph("Resources/images/Item/Mizuiro.png");
     T_Bullet[8] = LoadGraph("Resources/images/Item/Orange.png");
     T_Bullet[9] = LoadGraph("Resources/images/Item/Gray.png");
+
+    //アイテムimg
+    Bomb_Img = LoadGraph("Resources/images/Item2/dainamait.png");
+    Loope_Img = LoadGraph("Resources/images/Item2/Lupe.png");
+    Drag_img = LoadGraph("Resources/images/Item2/tabako.png");
+    CB_Img = LoadGraph("Resources/images/Item2/ChangeBullet.png");
+    Judge_Img = LoadGraph("Resources/images/Item2/Judge.png");
+
     TotemBack = LoadGraph("Resources/images/Result/ResultBackImg2.png");
     T_Last = LoadGraph("Resources/images/Item/T_Last.png");
     T_Last2 = LoadGraph("Resources/images/Item/T_Last2.png");
     T_Last3 = LoadGraph("Resources/images/Item/T_Last3.png");
     F_Flash = LoadGraph("Resources/images/Item/ F_Flash.png");
 
+
+    //SE
     FreezSE = LoadSoundMem("Resources/SE/Totem/Freez.mp3");
     RedBulletSE = LoadSoundMem("Resources/SE/Totem/RedBullet.mp3");
     WhiteBulletSE = LoadSoundMem("Resources/SE/Totem/WhiteBullet.mp3");
@@ -608,7 +618,16 @@ AbstractScene*Item::Update()
  /*   C_BULLET();*/
     TOTEM_UI_TIME();
 
-    if (Timer::FPS == 200)
+    //if (Timer::FPS == 120)
+    //{
+    //    Bomb_Img;
+    //    Loope_Img;
+    //    Drag_img;
+    //    CB_Img;
+    //    Judge_Img;
+    //}
+
+    if (Timer::FPS == 320)
     {
         L_Check = 0;
         J_Player_Flg = FALSE;
@@ -617,6 +636,8 @@ AbstractScene*Item::Update()
         DRAG_Flg = FALSE;
         C_BULLET_Flg = FALSE;
     }
+
+ 
 
   
    
@@ -649,27 +670,73 @@ void Item::Draw() const
     //ジャッジの結果表示
     if (J_Player_Flg == TRUE)
     {
-        DrawString(420, 40, "JUDGE:PLAYER LIFE -1", 0xfa2000, TRUE);
+        if (Timer::FPS <= 120)
+        {
+            //DrawBox(490, 190, 770, 410, 0xffffff, TRUE);
+            DrawBox(200, 110, 1090, 500, 0x000000, TRUE);
+            DrawGraph(540, 190, Judge_Img, TRUE);
+        }
+        else if (Timer::FPS >= 120)
+        {
+            DrawString(420, 40, "JUDGE:PLAYER LIFE -1", 0xfa2000, TRUE);
+        }
     }
     if (J_Enemy_Flg == TRUE)
     {
-        DrawString(420, 40, "JUDGE:ENEMY LIFE -1", 0xfa2000, TRUE);
+        if (Timer::FPS <= 120)
+        {
+            //DrawBox(490, 190, 770, 410, 0xffffff, TRUE);
+            DrawBox(200, 110, 1090, 500, 0xFFFF00, TRUE);
+            DrawGraph(540, 190, Judge_Img, TRUE);
+        }
+        else if (Timer::FPS >= 120)
+        {
+            DrawString(420, 40, "JUDGE:ENEMY LIFE -1", 0xfa2000, TRUE);
+        }
     }
 
     if (Bomb_Flg == TRUE)
     {
-        DrawString(450, 40, "Bullet Power UP", 0xffffff, TRUE);
+        if (Timer::FPS <= 120)
+        {
+            DrawGraph(500, 190, Bomb_Img, TRUE);
+        }
+        else if(Timer::FPS >= 120)
+        {
+            DrawString(450, 40, "Bullet Power UP", 0xffffff, TRUE);
+        }
+       
     }
 
     if (DRAG_Flg == TRUE)
     {
-        DrawString(430, 40, "LIFE +1", 0xffffff, TRUE);
+        if (Timer::FPS <= 120)
+        {
+            DrawBox(200, 110, 1090, 500, 0xffffff, TRUE);
+            //DrawBox(500, 200, 760, 400, 0x000000, TRUE);
+            DrawGraph(520, 170, Drag_img, TRUE);
+        }
+        else if (Timer::FPS >= 120)
+        {
+            DrawString(430, 40, "LIFE +1", 0xffffff, TRUE);
+        }
     }
+
 
     if (C_BULLET_Flg == TRUE)
     {
-        DrawString(400, 40, "CHANGE BULLET", 0xffffff, TRUE);
+        if (Timer::FPS <= 120)
+        {
+            DrawBox(200, 110, 1090, 500, 0xfa2000, TRUE);
+            /* DrawBox(500, 200, 760, 400, 0x000000, TRUE);*/
+            DrawGraph(500, 170, CB_Img, TRUE);
+        }
+        else if (Timer::FPS >= 120)
+        {
+            DrawString(430, 40, "CHANGE BULLET", 0xffffff, TRUE);
+        }
     }
+    
 
    
 

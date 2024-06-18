@@ -42,6 +42,12 @@ private:
 	int T_Last3;
 	int F_Flash;
 
+	int Bomb_Img;
+	int	Loope_Img;
+	int Drag_img;
+	int CB_Img;
+	int Judge_Img;
+
 	int BombSE;
 	int DragSE;
 	int LoupeSE;
