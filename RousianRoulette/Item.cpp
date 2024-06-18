@@ -45,6 +45,7 @@ void Item::INIT()
     T_Bullet[7] = LoadGraph("Resources/images/Item/Mizuiro.png");
     T_Bullet[8] = LoadGraph("Resources/images/Item/Orange.png");
     T_Bullet[9] = LoadGraph("Resources/images/Item/Gray.png");
+    TotemBack = LoadGraph("Resources/images/Result/ResultBackImg2.png");
     T_Last = LoadGraph("Resources/images/Item/T_Last.png");
     T_Last2 = LoadGraph("Resources/images/Item/T_Last2.png");
     T_Last3 = LoadGraph("Resources/images/Item/T_Last3.png");
@@ -70,9 +71,10 @@ void Item::INIT()
 
         /*TotemShippai.mp3"*/
 
+   /* R = 1000;
+    R2 = 70;*/
     R = 1000;
     R2 = 70;
-
     R3 = 0;
     R4 = 0;
 
@@ -393,7 +395,7 @@ void Item::TOTEM_UI_TIME()
         }
 
 
-        if (R == -1000) {
+        if (R <= -1000) {
             R = -1000;
 
         }
@@ -483,6 +485,7 @@ void Item::SOUND()
         GameMain::FreezUI == TRUE && T_RevivalAnim == TRUE && R4 == 120)
     {
         PlaySoundMem(FreezSE2, DX_PLAYTYPE_BACK);
+   
     }
 
     if (   T_RevivalAnim == TRUE && R3 == 120
@@ -510,18 +513,27 @@ void Item::SOUND()
         PlaySoundMem(FreezSE3, DX_PLAYTYPE_BACK);
     }
     
-    if (GameMain::FreezUI == TRUE&&R == 1000 && R2 == 70)
+    
+
+    if (GameMain::FreezUI == TRUE&&GameMain::FreezDiray == 55/*R == 1000 && R2 == 70*/)
     {
-        StopSoundMem(HukkatuSippaiSE);
+        
         StopSoundMem(GameMain::ResultBgm2);
-        PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
+       
        
     }
-    if (GameMain::FreezUI == TRUE && R == 600)
+    if (GameMain::FreezUI == TRUE && R == 1000 && R2 == 70)
+    {
+        StopSoundMem(HukkatuSippaiSE);
+      
+        PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
+        
+    }
+    if (GameMain::FreezUI == TRUE && R2 == 50)
     {
         PlaySoundMem(FreezSE4, DX_PLAYTYPE_BACK);
+      
     }
-   
     
     if (R4 >= 190&& R4 < 250 && R4 % 5 == 0 || R3 >= 190 && R3 < 250 && R3 % 5 == 0)
     {
@@ -593,13 +605,15 @@ void Item::Draw() const
     if (TotemFlg == TRUE) {
         if (T_UI == 1 && R4 < 120)
         {
-            DrawCircle(625, 370, 150, 0x000000);
-            DrawGraph(-150, -650, T_Bullet[0], TRUE);
+            DrawGraph(0, 0, TotemBack, FALSE);
+            DrawCircle(660, 330, 150, 0x000000);
+            DrawGraph(-130, -700, T_Bullet[0], TRUE);
         }
         if (T_UI == 2 && R4 < 120)
         {
-            DrawCircle(625, 370, 150, 0x000000);
-            DrawGraph(-150, -650, T_Bullet[1], TRUE);
+            DrawGraph(0, 0, TotemBack, FALSE);
+            DrawCircle(660, 330, 150, 0x000000);
+            DrawGraph(-130, -700, T_Bullet[1], TRUE);
         }
 
         if (GameMain::FreezUI == FALSE) {
@@ -683,13 +697,13 @@ void Item::Draw() const
         DrawGraph(0, 0, F_Flash, TRUE);
         DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
         /*0xEE82EE*/
+      
         if (R != 0 && R2 != 0) {
-            DrawBox(638, R8, 642, R7, 0xEE82EE, true);
+            DrawBox(635, R8, 645, R7, 0x0000ff, true);
             DrawBox(639, R8, 641, R7, 0xFFFFFF, true);
-            DrawBox(R5, 358, R6, 362, 0xEE82EE, true);
+            DrawBox(R5, 356, R6, 364, 0x0000ff, true);
             DrawBox(R5, 359, R6, 361, 0xffffff, true);
             DrawCircle(640, 360, R, 0xEE82EE, true);
-
             DrawCircle(640, 360, R2, 0xffffff, true);
         }
 
