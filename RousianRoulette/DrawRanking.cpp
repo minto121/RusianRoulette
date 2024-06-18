@@ -11,10 +11,13 @@ DrawRankingScene::DrawRankingScene(int stage) {
 	}
 
 	image = LoadGraph("Resources/images/Ranking.png");
+	DesideSE = LoadSoundMem("Resources/sounds/kettei.mp3");
+
 }
 
 AbstractScene* DrawRankingScene::Update() {
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1) {
+		PlaySoundMem(DesideSE, DX_PLAYTYPE_BACK);
 
 		return new Title();
 
