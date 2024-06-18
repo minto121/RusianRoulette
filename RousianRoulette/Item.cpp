@@ -32,7 +32,7 @@ Item::Item()
     {
         itemtable[a] = 0;
     }
-    /*itemtable[4] = 1;*/
+    itemtable[4] = 1;
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
@@ -126,6 +126,11 @@ void Item::GETITEM()
 {
     int table = GetRand(5);
     itemtable[table] += 1;
+    if (itemtable[4] == 2)
+    {
+        itemtable[4] -= 1;
+        itemtable[0] += 1;
+    }
 }
 
 Item::~Item()
@@ -214,7 +219,7 @@ void Item::TOTEM()
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = GetRand(1);
+            TotemRand = 1/*GetRand(1)*/;
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -347,6 +352,7 @@ void Item::TOTEM_UI_TIME()
             if (TotemRand == 0 && R4 == 120)
             {
                 TotemFlg = FALSE;
+                itemtable[4] -= 1;
                 T_UI = 0;
                 T_UIRand = 0;
                 WaitTime = FALSE;
@@ -557,7 +563,7 @@ void Item::SOUND()
     if (GameMain::FreezUI == TRUE && R == 1000 && R2 == 70)
     {
         StopSoundMem(HukkatuSippaiSE);
-      
+        ChangeVolumeSoundMem(2000, FreezSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
         
     }
