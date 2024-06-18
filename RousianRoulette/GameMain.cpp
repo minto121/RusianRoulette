@@ -72,7 +72,7 @@ void GameMain::INIT()
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
     Enemyimg[4] = LoadGraph("Resources/images/devil.png");
     bullet_holes = LoadGraph("Resources/images/k0100_1.png");
-    bullet_holes2 = LoadGraph("Resources/images/White.png");
+    bullet_holes2 = LoadGraph("Resources/images/Item/Red.png");
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
@@ -301,7 +301,7 @@ AbstractScene* GameMain::Update()
             {
                 if (A_UI[1] == TRUE) {
                     AT++;
-                    if (AT == 120) {
+                    if (AT == 100) {
                         AT = 0;
                         A_UI[1] = FALSE;
                     }
@@ -309,7 +309,7 @@ AbstractScene* GameMain::Update()
 
                 if (A_UI[0] == TRUE) {
                     AT++;
-                    if (AT == 120) {
+                    if (AT == 100) {
                         AT = 0;
                         A_UI[0] = FALSE;
                     }
@@ -325,7 +325,7 @@ AbstractScene* GameMain::Update()
                     WaitFlg2 = TRUE;
 
                 }
-                if (isPlayerTurn == FALSE && Timer::FPS == 750)
+                if (isPlayerTurn == FALSE && Timer::FPS == 250)
                 {
                     P_UI_INIT();
                 }
@@ -342,7 +342,7 @@ AbstractScene* GameMain::Update()
                 }
                
 
-                if (Timer::FPS == 200 || Timer::FPS == 799)
+                if (Timer::FPS == 100 || Timer::FPS == 299)
                 {
                     bh_flg = FALSE;
                     bh2_flg = FALSE;
@@ -402,6 +402,7 @@ void GameMain::Draw() const
 
         if (bh_flg == TRUE)
         {
+           
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
         BULLET->Draw();
@@ -542,6 +543,7 @@ void GameMain::Draw() const
 
         if (bh2_flg == TRUE)
         {
+            DrawCircle(660, 350, 150, 0x000000);
             DrawGraph(-150, -650, bullet_holes2, TRUE);
         }
 

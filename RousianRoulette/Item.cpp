@@ -122,6 +122,7 @@ void Item::INIT()
     LoupeSE = LoadSoundMem("Resources/sounds/glass.mp3");
 }
 
+
 void Item::GETITEM()
 {
     int table = GetRand(5);
@@ -133,12 +134,14 @@ void Item::GETITEM()
     }
 }
 
+
 Item::~Item()
 {
     DeleteSoundMem(BombSE);
     DeleteSoundMem(DragSE);
     DeleteSoundMem(LoupeSE);
 }
+
 
 void Item::DRAG()
 {
@@ -153,6 +156,7 @@ void Item::DRAG()
     }
 }
 
+
 void Item::BOMB()
 {
     if (itemtable[1] >= 1)
@@ -166,6 +170,7 @@ void Item::BOMB()
     }
     
 } 
+
 
 void Item::LOUPE()
 {
@@ -192,6 +197,7 @@ void Item::LOUPE()
     }
 }
 
+
 void Item::JUDGE()
 {
     int Judge = GetRand(1);
@@ -213,6 +219,7 @@ void Item::JUDGE()
         itemtable[3] -= 1;
     }
 }
+
 
 void Item::TOTEM()
 {
@@ -317,6 +324,7 @@ void Item::TOTEM()
     }
 }
 
+
 void Item::C_BULLET()
 {
     if (itemtable[5] >= 1) {
@@ -337,6 +345,7 @@ void Item::C_BULLET()
       
     }
 }
+
 
 void Item::TOTEM_UI_TIME()
 {
@@ -464,6 +473,7 @@ void Item::TOTEM_UI_TIME()
     
 }
 
+
 void Item::SOUND()
 {
   
@@ -563,7 +573,7 @@ void Item::SOUND()
     if (GameMain::FreezUI == TRUE && R == 1000 && R2 == 70)
     {
         StopSoundMem(HukkatuSippaiSE);
-        ChangeVolumeSoundMem(2000, FreezSE);
+        ChangeVolumeSoundMem(1000, FreezSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
         
     }
