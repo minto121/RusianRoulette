@@ -18,7 +18,10 @@ private:
     /*int PushFlgUI;*/
     int Flash;
 
-    int BulettCount_UI;
+    
+    int BulletCount_Img;
+    int BulletCount_Img2;
+    int BulletCount_Img3;
     int RoundImg;
     int RoundUiflg;
     int R;
@@ -131,5 +134,6 @@ public:
     static int FreezUI;
     static int ResultBgm2;
     static int FreezDiray;
+    static int BulettCount_UI;
 };
 

@@ -519,7 +519,7 @@ void Item::SOUND()
     {
      
         PlaySoundMem(HukkatuSE3, DX_PLAYTYPE_BACK);
-       /* PlaySoundMem(HukkatuSE4, DX_PLAYTYPE_BACK);*/
+     /*   PlaySoundMem(HukkatuSE4, DX_PLAYTYPE_BACK);*/
 
     }
 
@@ -541,7 +541,7 @@ void Item::SOUND()
     if (GameMain::FreezUI == TRUE && R == 1000 && R2 == 70)
     {
         StopSoundMem(HukkatuSippaiSE);
-        ChangeVolumeSoundMem(1000, FreezSE);
+        ChangeVolumeSoundMem(500, FreezSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
         
     }

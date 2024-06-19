@@ -62,6 +62,7 @@ void bullet::Reload()
 {
 	if (FireC == 6)
 	{
+		GameMain::BulettCount_UI = 0;
 		B_INIT();
 	}
 }

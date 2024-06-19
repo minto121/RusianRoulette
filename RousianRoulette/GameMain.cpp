@@ -19,6 +19,7 @@ int GameMain::PushFlgUI;
 int GameMain::FreezUI;
 int GameMain::ResultBgm2;
 int GameMain::FreezDiray;
+int GameMain::BulettCount_UI;
 
 
 enum class CURSOL
@@ -98,6 +99,13 @@ void GameMain::INIT()
     RoundBackImg1 = LoadGraph("Resources/images/Round/ROUND1.png");
     RoundBackImg2 = LoadGraph("Resources/images/Round/ROUND2.png");
     RoundBackImg3 = LoadGraph("Resources/images/Round/ROUND3.png");
+
+    BulletCount_Img = LoadGraph("Resources/images/Bullet/BulletUIImg1.png");
+    BulletCount_Img2 = LoadGraph("Resources/images/Bullet/BulletUIImg2.png");
+    BulletCount_Img3 = LoadGraph("Resources/images/Bullet/BulletUIImg3.png");
+
+
+
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
@@ -166,7 +174,7 @@ AbstractScene* GameMain::Update()
     if (RoundUiflg == FALSE)
     {
         //BGM
-            if (ResultFlg == FALSE&&RoundUiflg == FALSE) {
+            if (ResultFlg == FALSE&&RoundUiflg == FALSE&& BulettCount_UI == 181) {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
             }
@@ -299,8 +307,14 @@ AbstractScene* GameMain::Update()
      //ゲームメイン
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
+                BULLET->Update();
+                
+                 /*if (bullet::FireC == 6)
+                 {
+                     BulettCount_UI = 0;
+                 }*/
                  BulettUI();
-                 if (BulettCount_UI == 151)
+                 if (BulettCount_UI == 181)
                  {
                      if (A_UI[1] == TRUE) {
                          AT++;
@@ -311,6 +325,7 @@ AbstractScene* GameMain::Update()
                              AT = 0;
                              A_UI[1] = FALSE;
                          }
+                        
                      }
 
                      if (A_UI[0] == TRUE) {
@@ -322,6 +337,7 @@ AbstractScene* GameMain::Update()
                              AT = 0;
                              A_UI[0] = FALSE;
                          }
+                         
                      }
 
                      if (E_life <= 0)
@@ -339,7 +355,7 @@ AbstractScene* GameMain::Update()
                          P_UI_INIT();
                      }
                      /*  life();*/
-                     BULLET->Update();
+                   
 
                      ENEMY->Update();
                      TIMER->Update();
@@ -428,8 +444,24 @@ void GameMain::Draw() const
       
 
         //弾
-        if (BulettCount_UI < 150) {
-            DrawFormatString(440, 40, 0xffffff, "Real      %d", bullet::Bullet);
+        if (BulettCount_UI < 180) {
+            DrawFormatString(400, 40, 0xffffff, "RELOAD    %d    BULLET", bullet::Bullet);
+            DrawBox(200, 115, 1090, 500, 0x000000, TRUE);
+            if (bullet::Bullet == 2)
+            {
+                DrawGraph(200, 115, BulletCount_Img, TRUE);
+               
+            }
+            if (bullet::Bullet == 3)
+            {
+                DrawGraph(200, 115, BulletCount_Img2, TRUE);
+              
+            }
+            if (bullet::Bullet == 4)
+            {
+                DrawGraph(200,115, BulletCount_Img3, TRUE);
+              
+            }
         }
 
         //アイテム
@@ -1039,11 +1071,11 @@ void GameMain::ROUND_UP()
 
 void GameMain::BulettUI()
 {
-    if (RoundUiflg == FALSE&& BulettCount_UI != 151) {
+    if (RoundUiflg == FALSE&& BulettCount_UI != 181) {
         BulettCount_UI++;
-        if (BulettCount_UI == 150) {
+        if (BulettCount_UI == 180) {
            
-            BulettCount_UI = 151;
+            BulettCount_UI = 181;
         }
     }
 }
