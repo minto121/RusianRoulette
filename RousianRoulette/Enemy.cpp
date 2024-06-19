@@ -96,6 +96,7 @@ void Enemy::E_AI()
 			else if (bullet::Cylinder[bullet::FireC] == 0)
 			{
 				bullet::FireC++;
+				NT = 0;
 				Nohit_UI = TRUE;
 
 
