@@ -36,7 +36,7 @@ GameMain::GameMain()
     E_life = 2;
     Round = 0;
     ResultFlg = FALSE/*TRUE*/;
-  
+    RoundUiflg = TRUE;
     INIT();
 }
 
@@ -643,7 +643,7 @@ void GameMain::Draw() const
         {
             DrawBox(150, 150, 1130, 570, 0xEE82EE, TRUE);
            
-        }*/
+        }
 
 
         //URABOTAN
@@ -819,7 +819,7 @@ void GameMain::Result()
     if (Item::R3 == 150)
     {
         isPlayerTurn = TRUE;
-        bh2_flg = FALSE;*/
+        bh2_flg = FALSE;
         ResultFlg = FALSE;
       /*  PushFlg = FALSE;
         PushFlgUI = 0;
@@ -1049,3 +1049,13 @@ void GameMain::ROUND_UP()
    
 }
 
+void GameMain::BulettUI()
+{
+    if (RoundUiflg == FALSE) {
+        BulettCount_UI++;
+        if (BulettCount_UI == 120) {
+            Draw();
+            BulettCount_UI = 121;
+        }
+    }
+}

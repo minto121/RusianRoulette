@@ -7,6 +7,7 @@ private:
 	int Bullet_img;
 	int Shot_Ui_Img;
 	int BulletCur_Img;
+
 public:
 	bullet();
 
