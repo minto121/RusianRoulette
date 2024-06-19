@@ -125,6 +125,8 @@ void GameMain::INIT()
     WaitFlg4 = FALSE;
     UraBotanFlg = TRUE;
 
+    BulettCount_UI = 0;
+
     /*ResultFlg = TRUE;*/
     GM_Select = 0;
     a = 0;
@@ -305,54 +307,57 @@ AbstractScene* GameMain::Update()
      //ゲームメイン
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
-                if (A_UI[1] == TRUE) {
-                    AT++;
-                    if (AT == 99) {
-                        P_Choice();
-                    }
-                    if (AT == 100) {
-                        AT = 0;
-                        A_UI[1] = FALSE;
-                    }
-                }
+                 BulettUI();
+                 if (BulettCount_UI == 151)
+                 {
+                     if (A_UI[1] == TRUE) {
+                         AT++;
+                         if (AT == 99) {
+                             P_Choice();
+                         }
+                         if (AT == 100) {
+                             AT = 0;
+                             A_UI[1] = FALSE;
+                         }
+                     }
 
-                if (A_UI[0] == TRUE) {
-                    AT++;
-                    if (AT == 99) {
-                        E_Choice();
-                    }
-                    if (AT == 100) {
-                        AT = 0;
-                        A_UI[0] = FALSE;
-                    }
-                }
+                     if (A_UI[0] == TRUE) {
+                         AT++;
+                         if (AT == 99) {
+                             E_Choice();
+                         }
+                         if (AT == 100) {
+                             AT = 0;
+                             A_UI[0] = FALSE;
+                         }
+                     }
 
-                if (E_life <= 0)
-                {
-                    ET++;
-                }
+                     if (E_life <= 0)
+                     {
+                         ET++;
+                     }
 
 
-                if (Timer::FPS >= 10) {
-                    WaitFlg2 = TRUE;
+                     if (Timer::FPS >= 10) {
+                         WaitFlg2 = TRUE;
 
-                }
-                if (isPlayerTurn == FALSE && Timer::FPS == 250)
-                {
-                    P_UI_INIT();
-                }
-                /*  life();*/
-                BULLET->Update();
+                     }
+                     if (isPlayerTurn == FALSE && Timer::FPS == 250)
+                     {
+                         P_UI_INIT();
+                     }
+                     /*  life();*/
+                     BULLET->Update();
 
-                ENEMY->Update();
-                TIMER->Update();
-                //Choice();
-                Turn();
-                if (isPlayerTurn == TRUE)
-                {
-                    P_UI();
-                }
-               
+                     ENEMY->Update();
+                     TIMER->Update();
+                     //Choice();
+                     Turn();
+                     if (isPlayerTurn == TRUE)
+                     {
+                         P_UI();
+                     }
+
 
                 if (Timer::FPS == 100 || Timer::FPS == 299)
                 {
@@ -361,8 +366,8 @@ AbstractScene* GameMain::Update()
                     bh2_flg = FALSE;
                 }
 
-              
 
+                 }
             
             }
         
@@ -436,6 +441,12 @@ void GameMain::Draw() const
         DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
       
+
+        //弾
+        if (BulettCount_UI < 150) {
+            DrawFormatString(440, 40, 0xffffff, "Real      %d", bullet::Bullet);
+        }
+
         //アイテム
         SetFontSize(28);
         DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
@@ -1055,5 +1066,17 @@ void GameMain::ROUND_UP()
       
      
    
+}
+
+
+void GameMain::BulettUI()
+{
+    if (RoundUiflg == FALSE&& BulettCount_UI != 151) {
+        BulettCount_UI++;
+        if (BulettCount_UI == 150) {
+           
+            BulettCount_UI = 151;
+        }
+    }
 }
 
