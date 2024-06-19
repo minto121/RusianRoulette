@@ -9,7 +9,9 @@ int bullet::Last_Bullet;
 int bullet::Bullet;
 bullet::bullet()
 {
-	
+	Bullet_img = LoadGraph("Resources/images/Bullet/Bullet.png");
+	Shot_Ui_Img = LoadGraph("Resources/images/Bullet/BulletUI.png");
+	BulletCur_Img = LoadGraph("Resources/images/Bullet/BulletCur.png");
 	B_INIT();
 }
 
@@ -21,9 +23,7 @@ bullet::~bullet()
 
 void bullet::B_INIT()
 {
-	Bullet_img = LoadGraph("Resources/images/Bullet/Bullet.png");
-	Shot_Ui_Img = LoadGraph("Resources/images/Bullet/BulletUI.png");
-	BulletCur_Img = LoadGraph("Resources/images/Bullet/BulletCur.png");
+	
 	Bullet = 0;
 	for (int x = 0; x <= 5; x++) {
 		Cylinder[x] = 0;
@@ -59,7 +59,7 @@ void bullet::N_Of_Bullet()
 
 void bullet::Reload()
 {
-	if (FireC == 6||GameMain::E_life == 0)
+	if (FireC == 6)
 	{
 		B_INIT();
 	}
