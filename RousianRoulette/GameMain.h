@@ -93,7 +93,8 @@ private:
 
     int C_UI[2];
     int PT;
-    
+
+    int BulettCount_UI;
 public:
 
     //�R���X�g���N�^

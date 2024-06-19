@@ -17,8 +17,6 @@ int GameMain::bh_flg;
 int GameMain::bh2_flg;
 int GameMain::PushFlgUI;
 int GameMain::FreezUI;
-int GameMain::ResultBgm2;
-int GameMain::FreezDiray;
 
 
 enum class CURSOL
@@ -30,31 +28,29 @@ enum class CURSOL
 
 bool GameMain::isPlayerTurn;
 
-
 GameMain::GameMain()
 {
-    BULLET = new bullet;
-    ITEM = new Item;
-    TIMER = new Timer;
-    ENEMY = new Enemy;
   /*  R = 2000;*/
     P_life = 2;
     E_life = 2;
-    Round = 0;
-    ResultFlg = /*FALSE*/TRUE;
-  
+    Round = 1;
+    ResultFlg = FALSE/*TRUE*/;
     INIT();
-   /* RoundUiflg = TRUE;*/
 }
-
 
 void GameMain::INIT()
 {
     CurX = 180;
     CurY = 576;
     P_UI_INIT();
+
+    BulettCount_UI = 0;
+
     flash = 0;
-  
+    BULLET = new bullet;
+    ITEM = new Item;
+    TIMER = new Timer;
+    ENEMY = new Enemy;
    
     TurnCount = 0;
 
@@ -67,7 +63,6 @@ void GameMain::INIT()
     }
 
     AT = 0;
-    ET = 0;
     PT = 0;
 
     //Turn = 1;
@@ -78,7 +73,7 @@ void GameMain::INIT()
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
     Enemyimg[4] = LoadGraph("Resources/images/devil.png");
     bullet_holes = LoadGraph("Resources/images/k0100_1.png");
-    bullet_holes2 = LoadGraph("Resources/images/Item/Red.png");
+    bullet_holes2 = LoadGraph("Resources/images/White.png");
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
@@ -88,40 +83,31 @@ void GameMain::INIT()
 
     PushSE = LoadSoundMem("Resources/SE/Push.mp3");
     PushSE2 = LoadSoundMem("Resources/SE/Push2.mp3");
-    ResultBgm = LoadSoundMem("Resources/BGM/Result/result.mp3");
-    ResultBgm2 = LoadSoundMem("Resources/BGM/Result/Result2.mp3");
-    ResultBackImg[0] = LoadGraph("Resources/images/Result/Result1.png");
-    ResultBackImg[1] = LoadGraph("Resources/images/Result/Result2.png");
-    ResultBackImg[2] = LoadGraph("Resources/images/Result/Result3.png");
-    ResultBackImg[3] = LoadGraph("Resources/images/Result/Result4.png");
-    ResultBackImg[4] = LoadGraph("Resources/images/Result/Result5.png");
-    ResultBackImg[5] = LoadGraph("Resources/images/Result/Result6.png");
-    ResultBackImg[6] = LoadGraph("Resources/images/Result/Result7.png");
-    ResultBackImg[7] = LoadGraph("Resources/images/Result/ResultBackImg.png");
-    ResultBackImg[8] = LoadGraph("Resources/images/Result/ResultBackImg2.png");
-    ResultBackImg[9] = LoadGraph("Resources/images/Result/ResultBackImg3.png");
+    ResultBgm = LoadSoundMem("Resources/SE/result.mp3");
+    ResultBackImg[0] = LoadGraph("Resources/images/Result1.png");
+    ResultBackImg[1] = LoadGraph("Resources/images/Result2.png");
+    ResultBackImg[2] = LoadGraph("Resources/images/Result3.png");
+    ResultBackImg[3] = LoadGraph("Resources/images/Result4.png");
+    ResultBackImg[4] = LoadGraph("Resources/images/Result5.png");
+    ResultBackImg[5] = LoadGraph("Resources/images/Result6.png");
+    ResultBackImg[6] = LoadGraph("Resources/images/Result7.png");
 
-    RoundBackImg1 = LoadGraph("Resources/images/Round/ROUND1.png");
-    RoundBackImg2 = LoadGraph("Resources/images/Round/ROUND2.png");
-    RoundBackImg3 = LoadGraph("Resources/images/Round/ROUND3.png");
+    RoundBackImg1 = LoadGraph("Resources/images/HukkatuRound.png");
+    RoundBackImg2 = LoadGraph("Resources/images/FreezRound.png");
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
     //AShotImg = LoadGraph();
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
-   RoundButtonSE = LoadSoundMem("Resources/sounds/kettei.mp3");
+   
     ShuffleEnemyNum = 0;
     LastEnemyNum = -1;
     GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
     SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
     ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
-    NshotSE = LoadSoundMem("Resources/sounds/not shot.mp3");
-    TotemChanceBgm = LoadSoundMem("Resources/BGM/Result/TotemChance1.mp3");
-
-
     isPlayerTurn = TRUE;
 
     WaitFlg = FALSE;
-    WaitFlg2 = 0;
+    WaitFlg2 = FALSE;
     WaitFlg3 = FALSE;
     WaitFlg4 = FALSE;
     UraBotanFlg = TRUE;
@@ -140,10 +126,7 @@ void GameMain::INIT()
     FreezUI = FALSE;
     PushSEflg = FALSE;
     ResultBgmFlg = TRUE;
-    FreezDiray = 0;
-    RoundUiflg = FALSE;
 }
-
 
 GameMain::~GameMain()
 {
@@ -154,47 +137,32 @@ GameMain::~GameMain()
     DeleteSoundMem(GMBgm);
     DeleteSoundMem(SelectSE);
     DeleteSoundMem(ShotSE);
-    DeleteSoundMem(NshotSE);
 }
 
 
 AbstractScene* GameMain::Update()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
-    {
-        return new Title();
-    }
     ROUND_UI();
    
-    
-
-
-
     if (RoundUiflg == FALSE)
     {
-        //BGM
-            if (ResultFlg == FALSE) {
+
+        if (ResultFlg == FALSE) {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
+        }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
+            {
+                return new Title();
             }
-          
             if (ResultFlg == TRUE && ResultBgmFlg == TRUE)
             {
-             
-                StopSoundMem(GMBgm);
                 PlaySoundMem(ResultBgm, TRUE);
-                ChangeVolumeSoundMem(255, ResultBgm2);
-                PlaySoundMem(ResultBgm2, DX_PLAYTYPE_LOOP, FALSE);
                 ResultBgmFlg = FALSE;
             }
-
-           
-  
-
-        //Result
             if (PushFlg == TRUE) {
+                 
 
-                StopSoundMem(ResultBgm2);
                 Flash++;
                 if (Flash == 60)
                 {
@@ -209,7 +177,7 @@ AbstractScene* GameMain::Update()
                     PushSEflg = TRUE;
                 }
 
-                if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER) && flash == 0 && Item::TotemRand == 1 && UraBotanFlg == TRUE)
+                if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER)&& flash == 0&&Item::TotemRand == 1&&UraBotanFlg == TRUE)
                 {
 
                     int a = GetRand(1);
@@ -231,69 +199,11 @@ AbstractScene* GameMain::Update()
                 }
                 if (flash == 12)
                 {
-
-                    flash = 0;
-
+                   
+                        flash = 0;
+                        
                 }
             }
-
-            if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
-                && Item::itemtable[4]== 0 && Item::Freez == FALSE)
-            {
-                FreezDiray = 2;
-            }
-          
-
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] >= 1 &&WaitFlg4 == FALSE)
-            {
-                StopSoundMem(ResultBgm2);
-                if (WaitFlg3 == FALSE)
-                {
-                   PushFlgUI = 5/*GetRand(5)*/;
-          
-                }
-      
-                P_UI_INIT();
-       
-                PlaySoundMem(TotemChanceBgm, DX_PLAYTYPE_LOOP, FALSE);
-                WaitFlg3 = TRUE;
-                PushFlg = TRUE;
-          
-        
-            }
-
-
-            //freez
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
-                && Item::itemtable[4] >= 1 && Item::Freez == TRUE &&FreezDiray == 0)
-            {
-               
-                FreezDiray += 2;
-            }
-            if (FreezDiray >= 2)
-            {
-                FreezDiray++;
-                if (FreezDiray == 58)
-                {
-                    StopSoundMem(ResultBgm2);
-                }
-                if (FreezDiray == 60)
-                {
-                    if (Item::itemtable[4] >= 1 && Item::Freez == TRUE) {
-                        FreezUI = TRUE;
-                        FreezDiray = 1;
-                    }
-                    if (Item::itemtable[4] == 0 && Item::TotemRand == 0 && Item::Freez == FALSE)
-                    {
-                      
-                        return new Title();
-                        FreezDiray = 1;
-                       
-                      
-                    }
-                }
-            }
-
 
 
             Result();
@@ -303,12 +213,46 @@ AbstractScene* GameMain::Update()
 
 
 
-     //ゲームメイン
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
+                && Item::itemtable[4] == 0 && Item::Freez == FALSE)
+            {
+                return new Title();
+            }
+
+
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::itemtable[4] >= 1 &&WaitFlg4 == FALSE)
+        {
+            if (WaitFlg3 == FALSE)
+            {
+               PushFlgUI = GetRand(5);
+          
+            }
+      
+                P_UI_INIT();
+       
+      
+            WaitFlg3 = TRUE;
+            PushFlg = TRUE;
+          
+        
+        }
+
+
+
+
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && ResultFlg == TRUE && Item::WaitTime == FALSE
+                && Item::itemtable[4] <= 1 && Item::Freez == TRUE)
+            {
+                FreezUI = TRUE;
+
+            }
+
+
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
                 if (A_UI[1] == TRUE) {
                     AT++;
-                    if (AT == 100) {
+                    if (AT == 120) {
                         AT = 0;
                         A_UI[1] = FALSE;
                     }
@@ -316,23 +260,17 @@ AbstractScene* GameMain::Update()
 
                 if (A_UI[0] == TRUE) {
                     AT++;
-                    if (AT == 100) {
+                    if (AT == 120) {
                         AT = 0;
                         A_UI[0] = FALSE;
                     }
                 }
 
-                if (E_life <= 0)
-                {
-                    ET++;
-                }
-
-
-                if (Timer::FPS >= 10) {
+                if (Timer::FPS == 30) {
                     WaitFlg2 = TRUE;
 
                 }
-                if (isPlayerTurn == FALSE && Timer::FPS == 250)
+                if (isPlayerTurn == FALSE && Timer::FPS == 750)
                 {
                     P_UI_INIT();
                 }
@@ -347,24 +285,70 @@ AbstractScene* GameMain::Update()
                 {
                     P_UI();
                 }
-               
+                /*  Cursol();*/
 
-                if (Timer::FPS == 100 || Timer::FPS == 299)
+                if (Timer::FPS == 200 || Timer::FPS == 799)
                 {
                     bh_flg = FALSE;
                     bh2_flg = FALSE;
                 }
 
-              
+                ////if (WaitFlg == FALSE && isPlayerTurn == TRUE && P_Ui[1] == TRUE && P_Ui[0] == FALSE)
+                ////{
+                ////    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+                ////    {
+                ////        switch (static_cast<CURSOL>(GM_Select))
+                ////        {
+                ////        case CURSOL::C_ENEMY:
+                ////            E_Choice();
+                ////            break;
+                ////        case CURSOL::C_PLAYER:
+                ////            P_Choice();
+                ////            break;
+                ////        default:
+                ////            break;
+                ////        }
+                ////    }
+                ////    //上方向
+                ////    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+                ////    {
+                ////        /*  CurY -= 50;*/
+                ////        GM_Select--;
+                ////        if (GM_Select < 0)GM_Select = 1;
+                ////    }
+                ////    //下方向
+                ////    if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+                ////    {
+                ////        /*CurY += 50;*/
+                ////        GM_Select++;
+                ////        if (GM_Select > 1)GM_Select = 0;
+                ////    }
+                //}
 
-            
+
+
+
+            //敵のHPがなくなるとラウンドが進み弾がリロードされる
+                if (E_life <= 0) {
+                    Round++;
+                    do
+                    {
+                        ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
+                    } while (ShuffleEnemyNum == LastEnemyNum);
+
+                    LastEnemyNum = ShuffleEnemyNum;
+
+                /*       P_life = 2;*/
+                BULLET->B_INIT();
+                WaitFlg = FALSE;
+                isPlayerTurn = TRUE;
+                P_UI_INIT();
+                E_life = 2;
+                ITEM->INIT();
             }
+        }
         
     }
-
-
-
-
     return this;
 }
 
@@ -373,21 +357,24 @@ void GameMain::Draw() const
 {
     if (RoundUiflg == TRUE)
     {
-        SetFontSize(160);
+        SetFontSize(72);
         if (Item::ReRound[0] == FALSE && Item::ReRound[1] == FALSE)
         {
-            DrawGraph(0, 0, RoundBackImg1, TRUE);
-            DrawFormatString(860, 222, 0xFFFFFF, "%d", Round+1);
+            
+            DrawBox(0, 0, 1280, 720, 0x00FFFF, TRUE);
+            DrawString(420, 140,"NEXT ROUND", 0xFF0000,TRUE);
+            DrawFormatString(480, 200, 0xFF0000, "%d", Round);
         }
         if (Item::ReRound[0] == TRUE)
         {
-            DrawGraph(0, 0, RoundBackImg2, TRUE);
-            DrawFormatString(860, 222, 0xFF0000, "%d", Round+1);
+            DrawGraph(0, 0, RoundBackImg1, TRUE);
+            DrawString(420, 140, "NEXT ROUND", 0x00FFFF, TRUE);
+            DrawFormatString(480, 200, 0x00FFFF, "%d", Round);
         }
         if (Item::ReRound[1] == TRUE)
         {
-            DrawGraph(0, 0, RoundBackImg3, TRUE);
-            DrawFormatString(860, 222, 0x8A2BE2, "%d", Round+1);
+            DrawGraph(0, 0, RoundBackImg2, TRUE);
+            DrawFormatString(400, 140, 0x8A2BE2, "NEXT ROUND : %d ", Round);
             
         }
        
@@ -395,21 +382,12 @@ void GameMain::Draw() const
     }
 
 
-    //ゲームメイン
     if (ResultFlg == FALSE&& RoundUiflg == FALSE) {
-
-        //背景
         DrawGraph(0, 0, BackGRImg, TRUE);
-
-        //敵
-        if (E_life > 0) {
-            /*  DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], TRUE);*/
-            DrawGraph(520, 170, REnemyimg, TRUE);
-        }
-
+       /*  DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], TRUE);*/
+         DrawGraph(520, 170, REnemyimg, TRUE);
         if (bh_flg == TRUE)
         {
-           
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
         BULLET->Draw();
@@ -419,19 +397,17 @@ void GameMain::Draw() const
         SetFontSize(48);
         DrawFormatString(250, 30, 0xffffff, "%d", Round);
 
-        //ライフ
         SetFontSize(48);
         DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
-      
-        //アイテム
+
         SetFontSize(28);
         DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
-        DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[1]);
-        DrawFormatString(1080, 600, 0xffffff, "%d", Item::itemtable[2]);
-        DrawFormatString(1220, 600, 0xffffff, "%d", Item::itemtable[3]);
-        DrawFormatString(1080, 650, 0xffffff, "%d", Item::itemtable[4]);
-        DrawFormatString(1180, 650, 0xffffff, "%d", Item::itemtable[5]);
+        DrawFormatString(1090, 600, 0xffffff, "%d", Item::itemtable[1]);
+        DrawFormatString(1230, 600, 0xffffff, "%d", Item::itemtable[2]);
+        DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[3]);
+        DrawFormatString(1090, 650, 0xffffff, "%d", Item::itemtable[4]);
+        DrawFormatString(1190, 650, 0xffffff, "%d", Item::itemtable[5]);
 
       //if()
       //  DrawString(450, 40, "USE DRAG", 0xffffff);
@@ -519,7 +495,6 @@ void GameMain::Draw() const
            
         }
        
-        //ターン
             if (isPlayerTurn == TRUE)
             {
                 SetFontSize(48);
@@ -531,7 +506,6 @@ void GameMain::Draw() const
                 DrawString(990, 35, "ENEMY", 0xfa2000);
             }
 
-            //アクションUI
             SetFontSize(36);
             if (A_UI[0] == TRUE)
             {
@@ -545,12 +519,12 @@ void GameMain::Draw() const
                 DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
             }
 
-      
+            //プレイヤーか敵を選ぶ
+
 
 
         if (bh2_flg == TRUE)
         {
-            DrawCircle(660, 350, 150, 0x000000);
             DrawGraph(-150, -650, bullet_holes2, TRUE);
         }
 
@@ -558,103 +532,84 @@ void GameMain::Draw() const
     }
 
 
-    //リザルト画面
-   
-   
+
+    SetFontSize(48);
         if (ResultFlg == TRUE) {
-            DrawGraph(0, 0, ResultBackImg[7], TRUE);
-            SetFontSize(78);
-         
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
            
-            DrawFormatString(830, 280, 0xFF0000, "%d", Round);
-
-
-            if (Item::itemtable[4] >= 1 && Item::Freez == TRUE && FreezDiray >= 57)
+          
+            DrawGraph(5, 10, ResultBackImg[0], TRUE);
+            if (flash == 1|| flash == 7)
             {
-                DrawGraph(0, 0, ResultBackImg[9], FALSE);
+                DrawGraph(5, 10, ResultBackImg[1], TRUE);
             }
+            if (flash == 2 || flash == 8)
+            {
+                DrawGraph(5, 10, ResultBackImg[2], TRUE);
+            }
+            if (flash == 3 || flash == 9)
+            {
+                DrawGraph(5, 10, ResultBackImg[3], TRUE);
+            }
+            if (flash == 4 || flash == 10)
+            {
+                DrawGraph(5, 10, ResultBackImg[4], TRUE);
+            }
+            if (flash == 5 || flash == 11)
+            {
+                DrawGraph(5, 10, ResultBackImg[5], TRUE);
+            }
+            if (flash == 6 || flash == 12)
+            {
+                DrawGraph(5, 10, ResultBackImg[6], TRUE);
+            }
+            DrawGraph(220, 180, P_LifeImg, TRUE);
+
+            DrawFormatString(430, 310, 0xFFFFFF, "TOTAL:  %d   ROUND", Round);
+            DrawString(550, 80, "RESULT", 0xFF0000);
+            DrawString(400, 650, "PRESS _A_ BACK TITLE", 0x32CD32);
 
         }
 
 
-        SetFontSize(48);
-
-        //Push
-  
-        if (PushFlg == TRUE && Item::itemtable[4] >= 1  && PushFlgUI != 1
-            || Item::TotemRand == 0 && PushFlgUI == 1  && PushFlg == TRUE && Item::itemtable[4] == 1) {
-           /*DrawBox(0,0,1280,720,0x000000,TRUE)*/
-            DrawGraph(0, 0, ResultBackImg[8], FALSE);
+        if (PushFlg == TRUE && Item::itemtable[4] >= 1 /*&& Flash <= 40*/ && PushFlgUI != 1
+            || Item::TotemRand == 0 && PushFlgUI == 1 /*&& Flash <= 40*/ && PushFlg == TRUE && Item::itemtable[4] == 1) {
+            DrawBox(300, 300, 900, 360, 0x000000, TRUE);
             if (Flash <= 40) {
-                
-                DrawBox(490, 510, 860, 650, 0x332c2c, TRUE);
-
-
-                DrawBox(605, 450, 740, 510, 0x000000, TRUE);
-                DrawBox(605, 650, 780, 700, 0x000000, TRUE);
-                DrawString(615, 460, "PUSH!", 0xFF0000);
-                DrawString(605, 660, "START!", 0xFF0000);
-                DrawBox(510, 530, 840, 630, 0x645959, TRUE);
-                DrawTriangle(620, 540, 620, 620, 740, 580, 0xFFFFFF, FALSE);
+                DrawBox(460, 350, 830, 490, 0xADD8E6, TRUE);
+                DrawString(585, 300, "PUSH!", 0xFFFF00);
+                DrawString(575, 500, "START!", 0xFFFF00);
             }
-
+        }
+        if (PushFlg == TRUE && Item::itemtable[4] >= 1 && PushFlgUI != 1 ||
+            Item::TotemRand == 0 && PushFlgUI == 1 && PushFlg == TRUE && Item::itemtable[4] == 1)
+        {
+            DrawBox(480, 370, 810, 470, 0xffffff, TRUE);
+            DrawTriangle(590, 380, 590, 460, 710, 420, 0xFF0000, TRUE);
            
         }
-       
 
 
-        //bigpush
-        if (PushFlg == TRUE && Item::itemtable[4] >= 1 && Flash <= 40 &&
+
+        if (PushFlg == TRUE && Item::itemtable[4] == 1 && Flash <= 40 &&
             PushFlgUI == 1 && Item::TotemRand == 1)
         {
-            DrawGraph(0, 0, ResultBackImg[8], FALSE);
-            DrawBox(80, 80, 1200, 640, 0x645959, TRUE);
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawBox(80, 80, 1200, 640, 0xADD8E6, TRUE);
             SetFontSize(72);
-            DrawString(520, 0, "PUSH!!", 0xFF0000);
-            DrawString(500, 640, "START!!", 0xFF0000);
-            DrawBox(150, 150, 1130, 570, 0x3a3232, TRUE);
-
-            DrawTriangle(470, 160, 470, 560, 900, 370, 0xFFFFFF, FALSE);
+            DrawString(520, 0, "PUSH!!", 0xFFFF00);
+            DrawString(500, 640, "START!!", 0xFFFF00);
         }
 
-      /*  if (PushFlg == TRUE && Item::itemtable[4] >= 1 && PushFlgUI == 1
+        if (PushFlg == TRUE && Item::itemtable[4] == 1 && PushFlgUI == 1
             && Item::TotemRand == 1)
         {
-            
+            DrawBox(150, 150, 1130, 570, 0xEE82EE, TRUE);
+           
+            DrawTriangle(470, 160, 470, 560, 900, 370, 0xFF0000, TRUE);
           
            
-        }*/
-
-
-        //URABOTAN
-        if (flash == 1 || flash == 7)
-        {
-            DrawGraph(-25, 60, ResultBackImg[1], TRUE);
         }
-        if (flash == 2 || flash == 8)
-        {
-            DrawGraph(-25, 60, ResultBackImg[2], TRUE);
-        }
-        if (flash == 3 || flash == 9)
-        {
-            DrawGraph(-25, 60, ResultBackImg[3], TRUE);
-        }
-        if (flash == 4 || flash == 10)
-        {
-            DrawGraph(-25, 60, ResultBackImg[4], TRUE);
-        }
-        if (flash == 5 || flash == 11)
-        {
-            DrawGraph(-25, 60, ResultBackImg[5], TRUE);
-        }
-        if (flash == 6 || flash == 12)
-        {
-            DrawGraph(-25, 60, ResultBackImg[6], TRUE);
-        }
-
-
-      
-
 
         ITEM->Draw();
  
@@ -703,7 +658,6 @@ void GameMain::E_Choice()
     {
         PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         bh_flg = TRUE;
-        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
         E_life--;
         if (Item::Bomb == TRUE)
         {
@@ -722,7 +676,7 @@ void GameMain::E_Choice()
 }
 
 
-void GameMain::P_Choice()
+    void GameMain::P_Choice()
     {
         /*if (WaitFlg == FALSE)
         {
@@ -774,61 +728,50 @@ void GameMain::Result()
         ResultFlg = TRUE;
     }
 
-    if (PushFlg == TRUE && Item::itemtable[4] >= 1 &&
-        PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+    if (Item::R4 == 150)
     {
-        StopSoundMem(TotemChanceBgm);
-      /*  Item::itemtable[4] -= 1;*/
-        WaitFlg3 = FALSE;
-        WaitFlg4 = TRUE;
-        PushFlg = FALSE;
-        P_life = 2;
-        Item::TotemFlg = TRUE;
-
-
-
-    }
-
-
-
-    if (Item::R4 == 425)
-    {
-        Item::ReRound[0] = TRUE;
-      
-       
-      /*  PushSEflg = FALSE;
+        Item::itemtable[4] = 0;
+        PushSEflg = FALSE;
         ResultBgmFlg = TRUE;
         isPlayerTurn = TRUE;
-        bh2_flg = FALSE;*/
+        bh2_flg = FALSE;
         ResultFlg = FALSE;
-      /*  PushFlg = FALSE;
+        PushFlg = FALSE;
         PushFlgUI = 0;
-        Flash = 0;*/
-    /*    FreezUI = FALSE;*/
+        Flash = 0;
+        FreezUI = FALSE;
         ITEM->INIT();
-        Item::itemtable[4] -= 1;
         RoundUiflg = TRUE;
 
     }
 
 
-    if (Item::R3 == 425)
+    if (PushFlg == TRUE &&Item::itemtable[4] >=1&&
+        PAD_INPUT::OnButton(XINPUT_BUTTON_START))
     {
-        Item::ReRound[0] = FALSE;
-        Item::ReRound[1] = TRUE;
+        WaitFlg3 = FALSE;
+        WaitFlg4 = TRUE;
+        PushFlg = FALSE;
+        P_life = 2;
+        Item::TotemFlg = TRUE;
        
-     /*   isPlayerTurn = TRUE;
-        bh2_flg = FALSE;*/
+    
+       
+    }
+    
+    if (Item::R3 == 150)
+    {
+        isPlayerTurn = TRUE;
+        bh2_flg = FALSE;
         ResultFlg = FALSE;
-       /* PushFlg = FALSE;
+        PushFlg = FALSE;
         PushFlgUI = 0;
         Flash = 0;
-        Item:: Freez = FALSE;*/
+        Item:: Freez = FALSE;
         FreezUI = FALSE;
-       
+        Item::itemtable[4] = 0;
        
         ITEM->INIT();
-        Item::itemtable[4] -= 1;
         RoundUiflg = TRUE;
     }
     
@@ -837,111 +780,107 @@ void GameMain::Result()
 
 void GameMain::P_UI()
 {
-    if (Item::J_Player_Flg == FALSE && Item::J_Enemy_Flg == FALSE && Item::DRAG_Flg == FALSE && Item::Bomb_Flg == FALSE &&
-        Item::C_BULLET_Flg == FALSE && Item::L_Check == 0)
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
     {
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+        P_UI_INIT();
+    }
+
+    if (P_Ui[0] == TRUE)
+    {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX == 180 && CurY == 576)
         {
-            P_UI_INIT();
+            CurX = 180; 
+            CurY = 645;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX == 180 && CurY == 645)
+        {
+            CurX = 180;
+            CurY = 576;
+        }
+        if (CurX == 180 && CurY == 576 && WaitFlg2 == TRUE
+            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+        {
+            P_Ui[1] = TRUE;
+            P_Ui[0] = FALSE;
         }
 
-        if (P_Ui[0] == TRUE)
+        if (CurX == 180 && CurY == 645 && WaitFlg2 == TRUE
+            && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
         {
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX == 180 && CurY == 576)
-            {
-                CurX = 180;
-                CurY = 645;
-            }
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX == 180 && CurY == 645)
-            {
-                CurX = 180;
-                CurY = 576;
-            }
-            if (CurX == 180 && CurY == 576 && WaitFlg2 == TRUE
-                && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
-            {
-                P_Ui[1] = TRUE;
-                P_Ui[0] = FALSE;
-            }
+            P_Ui[2] = TRUE;
+            P_Ui[0] = FALSE;
+        }
+    }
 
-            if (CurX == 180 && CurY == 645 && WaitFlg2 == TRUE
-                && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
-            {
-                P_Ui[2] = TRUE;
-                P_Ui[0] = FALSE;
-            }
+    if (P_Ui[1] == TRUE)
+    {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
+        {
+            CurX2 = 555;
+            CurY2 = 650;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
+        {
+            CurX2 = 555;
+            CurY2 = 575;
+        }
+        if (CurX2 == 555 && CurY2 == 575 
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            E_Choice();
+        }
+        if (CurX2 == 555 && CurY2 == 650
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            P_Choice();
+        }
+    }
+
+    if (P_Ui[2] == TRUE)
+    {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) &&CurY3 == 590)
+        {         
+            CurY3 = 640;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
+        {
+            CurY3 = 590;
         }
 
-        if (P_Ui[1] == TRUE)
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)&&CurX3!=1100)
         {
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
-            {
-                CurX2 = 555;
-                CurY2 = 650;
-            }
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
-            {
-                CurX2 = 555;
-                CurY2 = 575;
-            }
-            if (CurX2 == 555 && CurY2 == 575
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                E_Choice();
-            }
-            if (CurX2 == 555 && CurY2 == 650
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                P_Choice();
-            }
+            CurX3 += 135;
+        }
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
+        {
+            CurX3 -= 135;
+        }
+        if (CurX3 == 830 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->DRAG();
+        }
+        if (CurX3 == 935 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->LOUPE();
+        }
+        if (CurX3 == 1070 && CurY3 == 590
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->JUDGE();
+        }
+        if (CurX3 == 830 && CurY3 == 640
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->BOMB();
+        }
+        if (CurX3 == 935 && CurY3 == 640
+            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+        {
+            ITEM->C_BULLET();
         }
 
-        if (P_Ui[2] == TRUE)
-        {
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurY3 == 590)
-            {
-                CurY3 = 640;
-            }
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
-            {
-                CurY3 = 590;
-            }
-
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) && CurX3 != 1100)
-            {
-                CurX3 += 135;
-            }
-            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
-            {
-                CurX3 -= 135;
-            }
-            if (CurX3 == 830 && CurY3 == 590
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                ITEM->DRAG();
-            }
-            if (CurX3 == 965 && CurY3 == 590
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                ITEM->LOUPE();
-            }
-            if (CurX3 == 1100 && CurY3 == 590
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                ITEM->JUDGE();
-            }
-            if (CurX3 == 830 && CurY3 == 640
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                ITEM->BOMB();
-            }
-            if (CurX3 == 1100 && CurY3 == 640
-                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-            {
-                ITEM->C_BULLET();
-            }
-
-        }
     }
     
 }
@@ -970,63 +909,18 @@ void GameMain::P_UI_INIT()
 
 }
 
-
 void GameMain::ROUND_UI()
 {
-  
-    
-        if (ET == 60)
-        {
-            RoundUiflg = TRUE;
-            E_life = 2;
-        }
-  
     if (RoundUiflg == TRUE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
     {
-        StopSoundMem(GMBgm);
-        PlaySoundMem(RoundButtonSE, TRUE);
+      
+        RoundUiflg = FALSE;
         Enemy::E_WaitFlg = TRUE;
+        INIT();
         Item::ReRound[0] = FALSE;
         Item::ReRound[1] = FALSE;
-      
-        ROUND_UP();
-       
-        RoundUiflg = FALSE;
     }
-  
-   
-}
 
 
-void GameMain::ROUND_UP()
-{
-    //敵のHPがなくなるとラウンドが進み弾がリロードされる
-    
-        Round++;
-       
-        isPlayerTurn = TRUE;
-        do
-        {
-            ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
-        } while (ShuffleEnemyNum == LastEnemyNum);
-
-        LastEnemyNum = ShuffleEnemyNum;
-
-        Item:: ReRound[0] = FALSE;
-        Item::ReRound[1] = FALSE;
-       
-        BULLET->B_INIT();
-        ITEM->INIT();
-        ITEM->GETITEM();
-        ENEMY->E_INIT();
-        P_UI_INIT();
-        WaitFlg = FALSE;
-
-        E_life = 2;
-        Timer::FPS = 0;
-        INIT();
-      
-     
-   
 }
 
