@@ -9,6 +9,7 @@ private:
 
 	int E_UI[2];
 
+	int Damage_UI;
 
 public:
 	static int E_WaitFlg;

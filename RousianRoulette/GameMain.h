@@ -60,6 +60,7 @@ private:
     int P_Ui[5];
     int BackGRImg;
     int CursolImg[3];
+    int AShotImg;
     int PushSE;
     int PushSE2;
     int PushSEflg;
@@ -88,11 +89,16 @@ private:
     int NshotSE;
 
     int REnemyimg;
+
     int A_UI[2];  //Action UI プレイヤーの行動
     int AT;       //A_UIの表示時間
     int ET;       //E_UIの表示時間
     int RoundButtonSE;
 
+    int C_UI[2];
+    int PT;
+
+    int BulettCount_UI;
 public:
 
     //�R���X�g���N�^
@@ -118,6 +124,7 @@ public:
     void P_UI_INIT();
     void ROUND_UI();
     void ROUND_UP();
+    void BulettUI();
 
 
     bullet* BULLET;

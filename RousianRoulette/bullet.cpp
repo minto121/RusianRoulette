@@ -6,7 +6,7 @@
 int bullet::FireC;
 int bullet::Cylinder[6];
 int bullet::Last_Bullet;
-
+int bullet::Bullet;
 bullet::bullet()
 {
 	Bullet_img = LoadGraph("Resources/images/Bullet/Bullet.png");
