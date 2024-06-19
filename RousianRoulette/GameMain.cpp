@@ -765,7 +765,7 @@ void GameMain::Result()
     if (Item::R4 == 425)
     {
         isPlayerTurn = TRUE;
-        bh2_flg = FALSE;*/
+        bh2_flg = FALSE;
         ResultFlg = FALSE;
       /*  PushFlg = FALSE;
         PushFlgUI = 0;
