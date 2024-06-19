@@ -18,6 +18,7 @@ private:
     /*int PushFlgUI;*/
     int Flash;
 
+    int BulettCount_UI;
     int RoundImg;
     int RoundUiflg;
     int R;
@@ -113,7 +114,7 @@ public:
     void P_UI_INIT();
     void ROUND_UI();
     void ROUND_UP();
-
+    void BulettUI();
 
     bullet* BULLET;
     Item* ITEM;
