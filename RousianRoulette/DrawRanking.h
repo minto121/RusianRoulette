@@ -16,7 +16,7 @@ private:
 
 
 public:
-	DrawRankingScene(int stage);
+	DrawRankingScene(int round);
 
 public:
 	virtual void Draw()const override;

@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "FpsControl.h"
+#include "InputRanking.h"
 
 
 int GameMain::E_life;
@@ -819,7 +820,6 @@ void GameMain::Result()
         Item::itemtable[4] -= 1;
         RoundUiflg = TRUE;
     }
-    
 }
 
 
