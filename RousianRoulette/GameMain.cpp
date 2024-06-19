@@ -252,6 +252,7 @@ AbstractScene* GameMain::Update()
 
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
+                BulettUI();
                 if (A_UI[1] == TRUE) {
                     AT++;
                     if (AT == 120) {
@@ -410,6 +411,11 @@ void GameMain::Draw() const
         DrawFormatString(940, 650, 0xffffff, "%d", Item::itemtable[3]);
         DrawFormatString(1090, 650, 0xffffff, "%d", Item::itemtable[4]);
         DrawFormatString(1190, 650, 0xffffff, "%d", Item::itemtable[5]);
+
+        if (BulettCount_UI <= 120) {
+            SetFontSize(50);
+            DrawFormatString(450, 30, 0xfffffff, "Real Bullet %d", bullet::Bullet);
+        }
 
       //if()
       //  DrawString(450, 40, "USE DRAG", 0xffffff);
@@ -924,5 +930,16 @@ void GameMain::ROUND_UI()
     }
 
 
+}
+
+void GameMain::BulettUI()
+{
+    if (RoundUiflg == FALSE) {
+        BulettCount_UI++;
+        if (BulettCount_UI == 120) {
+            Draw();
+            BulettCount_UI = 121;
+        }
+    }
 }
 

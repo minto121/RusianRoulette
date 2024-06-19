@@ -3,7 +3,7 @@ class bullet
 {
 private:
 	int RandBox;
-	int Bullet;
+	
 	int Bullet_img;
 	int Shot_Ui_Img;
 	int BulletCur_Img;
@@ -29,7 +29,7 @@ public:
 	
 	static int Cylinder[6];
 	static int FireC;
-	
+	static int Bullet;
 	static int Last_Bullet;
 };
 

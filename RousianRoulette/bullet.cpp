@@ -6,7 +6,7 @@
 int bullet::FireC;
 int bullet::Cylinder[6];
 int bullet::Last_Bullet;
-
+int bullet::Bullet;
 bullet::bullet()
 {
 	
