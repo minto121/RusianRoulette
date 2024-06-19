@@ -18,6 +18,9 @@ private:
 	int image;
 	//int TitleSE;
 	//int TitleSE2;
+	int SelectSE;
+	int DesideSE;
+	int BackSE;
 
 public:
 	InputRankingScene(int stage);

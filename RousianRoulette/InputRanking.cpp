@@ -10,14 +10,17 @@ InputRankingScene::InputRankingScene(int stage) {
 		rankingData[i] = ranking.GetRankingData(i);
 	}
 
+	SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
+	DesideSE = LoadSoundMem("Resources/sounds/kettei.mp3");
+	BackSE = LoadSoundMem("Resources/sounds/cancel.mp3");
 
 }
 
 AbstractScene* InputRankingScene::Update() {
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) == 1) {
-		//PlaySoundMem(TitleSE, DX_PLAYTYPE_BACK);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
 		if (--cursorPoint.y < 0) {
-			//PlaySoundMem(TitleSE, DX_PLAYTYPE_BACK);
+			PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
 			if (cursorPoint.x > 10) {
 				cursorPoint.y = 3;
 			}
@@ -27,19 +30,19 @@ AbstractScene* InputRankingScene::Update() {
 		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) == 1) {
-		//PlaySoundMem(TitleSE, DX_PLAYTYPE_BACK);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
 		if (++cursorPoint.y > 3 && cursorPoint.x > 10 || cursorPoint.y > 4) {
 			cursorPoint.y = 0;
 		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) == 1) {
-		//PlaySoundMem(TitleSE, DX_PLAYTYPE_BACK);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
 		if (++cursorPoint.x > 10 && cursorPoint.y > 3 || cursorPoint.x > 12) {
 			cursorPoint.x = 0;
 		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) == 1) {
-		//PlaySoundMem(TitleSE, DX_PLAYTYPE_BACK);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK);
 		if (--cursorPoint.x < 0) {
 			if (cursorPoint.y > 3) {
 				cursorPoint.x = 10;
@@ -51,7 +54,7 @@ AbstractScene* InputRankingScene::Update() {
 	}
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1 && (name.size() < 5 || keyboard[cursorPoint.y][cursorPoint.x] == '<')) {
-		//PlaySoundMem(TitleSE2, DX_PLAYTYPE_BACK);
+		PlaySoundMem(BackSE, DX_PLAYTYPE_BACK);
 		if (keyboard[cursorPoint.y][cursorPoint.x] == '<') {
 			if (name.size() > 0) {
 				name.erase(name.begin() + (name.size() - 1));
@@ -63,6 +66,7 @@ AbstractScene* InputRankingScene::Update() {
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) == 1) {
 
+		PlaySoundMem(DesideSE, DX_PLAYTYPE_BACK);
 		ranking.WriteRanking(name, score);
 
 		return new DrawRankingScene(score);

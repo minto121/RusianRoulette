@@ -12,6 +12,9 @@ private:
 	int bgm;
 	int TitleSE2;
 
+	int DesideSE;
+
+
 public:
 	DrawRankingScene(int stage);
 

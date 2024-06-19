@@ -33,7 +33,7 @@ Item::Item()
     {
         itemtable[a] = 0;
     }
-    /*itemtable[4] = 1;*/
+    itemtable[4] = 1;
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
@@ -135,11 +135,18 @@ void Item::INIT()
     LoupeSE = LoadSoundMem("Resources/sounds/glass.mp3");
 }
 
+
 void Item::GETITEM()
 {
     int table = GetRand(5);
     itemtable[table] += 1;
+    if (itemtable[4] == 2)
+    {
+        itemtable[4] -= 1;
+        itemtable[0] += 1;
+    }
 }
+
 
 Item::~Item()
 {
@@ -147,6 +154,7 @@ Item::~Item()
     DeleteSoundMem(DragSE);
     DeleteSoundMem(LoupeSE);
 }
+
 
 void Item::DRAG()
 {
@@ -161,6 +169,7 @@ void Item::DRAG()
     }
 }
 
+
 void Item::BOMB()
 {
     if (itemtable[1] >= 1)
@@ -174,6 +183,7 @@ void Item::BOMB()
     }
     
 } 
+
 
 void Item::LOUPE()
 {
@@ -200,6 +210,7 @@ void Item::LOUPE()
     }
 }
 
+
 void Item::JUDGE()
 {
     int Judge = GetRand(1);
@@ -222,12 +233,13 @@ void Item::JUDGE()
     }
 }
 
+
 void Item::TOTEM()
 {
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = GetRand(1);
+            TotemRand = 1/*GetRand(1)*/;
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -325,6 +337,7 @@ void Item::TOTEM()
     }
 }
 
+
 void Item::C_BULLET()
 {
     if (itemtable[5] >= 1) {
@@ -346,6 +359,7 @@ void Item::C_BULLET()
     }
 }
 
+
 void Item::TOTEM_UI_TIME()
 {
     if (GameMain::PushFlgUI != 5 || GameMain::PushFlgUI == 5&&TotemRand ==0) {
@@ -360,6 +374,7 @@ void Item::TOTEM_UI_TIME()
             if (TotemRand == 0 && R4 == 120)
             {
                 TotemFlg = FALSE;
+                itemtable[4] -= 1;
                 T_UI = 0;
                 T_UIRand = 0;
                 WaitTime = FALSE;
@@ -471,6 +486,7 @@ void Item::TOTEM_UI_TIME()
     
 }
 
+
 void Item::SOUND()
 {
   
@@ -570,7 +586,7 @@ void Item::SOUND()
     if (GameMain::FreezUI == TRUE && R == 1000 && R2 == 70)
     {
         StopSoundMem(HukkatuSippaiSE);
-      
+        ChangeVolumeSoundMem(1000, FreezSE);
         PlaySoundMem(FreezSE, DX_PLAYTYPE_BACK);
         
     }
