@@ -65,6 +65,9 @@ void GameMain::INIT()
 
     AT = 0;
     ET = 0;
+    OM = 0;
+
+    More_UI = FALSE;
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
@@ -105,6 +108,7 @@ void GameMain::INIT()
 
     
     A_shot = LoadGraph("resouce/image/AShot.png");
+   
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    RoundButtonSE = LoadSoundMem("Resources/sounds/kettei.mp3");
@@ -368,7 +372,12 @@ AbstractScene* GameMain::Update()
                     bh_flg = FALSE;
                     bh2_flg = FALSE;
                 }
-
+                if (More_UI == TRUE) {
+                    OM++;
+                    if (OM == 120) {
+                        More_UI = FALSE;
+                    }
+                }
 
                  }
             
@@ -583,6 +592,10 @@ void GameMain::Draw() const
         }
 
 
+        if (More_UI == TRUE) {
+            DrawGraph(0, 0, A_shot, TRUE);
+        }
+
     }
 
 
@@ -778,7 +791,8 @@ void GameMain::P_Choice()
         {
             PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
-
+            OM = 0;
+            More_UI = TRUE;
            
         }
 

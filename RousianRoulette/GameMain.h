@@ -39,8 +39,9 @@ private:
     bool WaitFlg3;
     int ResultFlg;
     
-   
+    int More_UI;
     int A_shot;
+    int OM;
 
     // プレイヤーターンのフラグ
 
