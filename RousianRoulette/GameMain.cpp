@@ -17,7 +17,8 @@ int GameMain::bh_flg;
 int GameMain::bh2_flg;
 int GameMain::PushFlgUI;
 int GameMain::FreezUI;
-
+int GameMain::FreezDiray;
+int GameMain::ResultBgm2;
 
 enum class CURSOL
 {
@@ -35,6 +36,7 @@ GameMain::GameMain()
     E_life = 2;
     Round = 1;
     ResultFlg = FALSE/*TRUE*/;
+    RoundUiflg = TRUE;
     INIT();
 }
 
