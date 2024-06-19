@@ -103,6 +103,9 @@ void GameMain::INIT()
     RoundBackImg3 = LoadGraph("Resources/images/Round/ROUND3.png");
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
 
+    
+    A_shot = LoadGraph("resouce/image/AShot.png");
+
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    RoundButtonSE = LoadSoundMem("Resources/sounds/kettei.mp3");
     ShuffleEnemyNum = 0;
@@ -456,6 +459,8 @@ void GameMain::Draw() const
         DrawFormatString(1080, 650, 0xffffff, "%d", Item::itemtable[4]);
         DrawFormatString(1180, 650, 0xffffff, "%d", Item::itemtable[5]);
 
+        
+
       //if()
       //  DrawString(450, 40, "USE DRAG", 0xffffff);
         //  //白枠
@@ -773,6 +778,8 @@ void GameMain::P_Choice()
         {
             PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
+
+           
         }
 
 

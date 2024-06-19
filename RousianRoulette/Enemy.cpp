@@ -24,6 +24,11 @@ void Enemy::E_INIT()
 	for (int a = 0; a <= 1; a++) {
 		E_UI[a] = FALSE;
 	}
+
+	NohitImg = LoadGraph("resouce/image/Nohit.png");
+
+	Nohit_UI = FALSE;
+	NT = 0;
 }
 
 
@@ -85,49 +90,50 @@ void Enemy::E_AI()
 				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
-				
+
 			}
 
 			else if (bullet::Cylinder[bullet::FireC] == 0)
 			{
 				bullet::FireC++;
+				Nohit_UI = TRUE;
 
-			}
 
-			E_Shot_P = FALSE;
+				E_Shot_P = FALSE;
 
-			break;
+				break;
 
 
 
 		case(1):
-			
+
 			E_Shot_Self = TRUE;
-			
+
 			if (bullet::Cylinder[bullet::FireC] == 1)
 			{
-				
+
 				GameMain::bh_flg = TRUE;
 				GameMain::E_life--;
 				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
-				
+
 			}
 
 			else if (bullet::Cylinder[bullet::FireC] == 0)
 			{
-				
+
 				bullet::FireC++;
-				
+
 				E_UI_TIME();
-				
+
 			}
 
 			E_Shot_Self = FALSE;
-			
+
 			break;
 
+			}
 		}
 	}
 	
@@ -152,6 +158,13 @@ void Enemy::Update()
 	}
 
 	E_Turn();
+
+	if (Nohit_UI == TRUE) {
+		NT++;
+			if (NT == 120) {
+				Nohit_UI = FALSE;
+			}
+	}
 }
 
 void Enemy::Draw() const
@@ -169,7 +182,11 @@ void Enemy::Draw() const
 		DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
 	}
 	
+	if (Nohit_UI == TRUE) {
+		DrawGraph(0, 0, NohitImg, TRUE);
+	}
 }
+
 
 
 

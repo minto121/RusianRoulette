@@ -9,7 +9,10 @@ private:
 
 	int E_UI[2];
 
+	int NohitImg;
 
+	int Nohit_UI;
+	int NT;
 public:
 	static int E_WaitFlg;
 
