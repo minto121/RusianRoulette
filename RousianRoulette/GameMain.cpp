@@ -77,6 +77,8 @@ void GameMain::INIT()
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
+    BackGR_PlayerImg = LoadGraph("Resources/images/BG_Player.png");
+    BackGR_EnemyImg = LoadGraph("Resources/images/BG_Enemy.png");
     CursolImg[0] = LoadGraph("resouce/image/cursor3.png");
     CursolImg[1] = LoadGraph("resouce/image/cursor2.png");
     CursolImg[2] = LoadGraph("resouce/image/cursor4.png");
@@ -406,6 +408,10 @@ void GameMain::Draw() const
 
         //背景
         DrawGraph(0, 0, BackGRImg, TRUE);
+        if (isPlayerTurn == FALSE || bh_flg == TRUE ||bh2_flg==TRUE)
+        {
+            DrawGraph(0, 0, BackGR_EnemyImg, TRUE);
+        }
 
         //敵
         if (E_life > 0) {

@@ -57,8 +57,9 @@ void Item::INIT()
 
     //アイテムimg
     Bomb_Img = LoadGraph("Resources/images/Item2/dainamait.png");
-    Loope_Img = LoadGraph("Resources/images/Item2/Lupe.png");
-    Drag_img = LoadGraph("Resources/images/Item2/tabako.png");
+    //Loupe_Img = LoadGraph("Resources/images/Item2/Lupe.png");
+    Loupe_Blank_Img = LoadGraph("Resources/images/Item2/Loupe_Blank.png");
+    Drag_img = LoadGraph("Resources/images/Item2/Drag.png");
     CB_Img = LoadGraph("Resources/images/Item2/ChangeBullet.png");
     Judge_Img = LoadGraph("Resources/images/Item2/Judge.png");
     Loupe_Img = LoadGraph("Resources/images/Item2/Loupe.png");
@@ -83,6 +84,8 @@ void Item::INIT()
     HukkatuSE7 = LoadSoundMem("Resources/SE/Totem/Hukkatu2.mp3");
     HukkatuSE8 = LoadSoundMem("Resources/SE/Totem/Hukkatu6.mp3");
     I_Bomb_SE = LoadSoundMem("Resources/SE/bakudan.wav");
+    JudgeSE = LoadSoundMem("Resources/SE/JUDGE.wav");
+    BC_SE = LoadSoundMem("Resources/SE/BC.wav");
 
 
     FreezSE2 = LoadSoundMem("Resources/SE/Totem/Freez2.mp3");
@@ -215,6 +218,7 @@ void Item::JUDGE()
 {
     int Judge = GetRand(1);
     if(itemtable[3] >= 1){
+        PlaySoundMem(JudgeSE, DX_PLAYTYPE_BACK);
         Timer::FPS = 1;
 
         if (Judge == 0) {
@@ -341,6 +345,7 @@ void Item::TOTEM()
 void Item::C_BULLET()
 {
     if (itemtable[5] >= 1) {
+        PlaySoundMem(BC_SE, DX_PLAYTYPE_BACK);
         C_BULLET_Flg = TRUE;
         Timer::FPS = 1;
 
@@ -684,8 +689,8 @@ void Item::Draw() const
     {
         if (Timer::FPS <= 120)
         {
-            DrawBox(200, 110, 1090, 500, 0x87CEFA, TRUE);
-            DrawGraph(520, 140, Loupe_Img, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0x87CEFA*/0x000000, TRUE);
+            DrawGraph(520, 140, Loupe_Blank_Img, TRUE);
         }
         else if (Timer::FPS >= 120)
         {
@@ -697,7 +702,7 @@ void Item::Draw() const
     {
         if (Timer::FPS <= 120)
         {
-            DrawBox(200, 110, 1090, 500, 0x87CEFA, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0x87CEFA*/0x000000, TRUE);
             DrawGraph(520, 140, Loupe_Img, TRUE);
         }
          else if (Timer::FPS >= 120)
@@ -712,7 +717,7 @@ void Item::Draw() const
         if (Timer::FPS <= 120)
         {
             //DrawBox(490, 190, 770, 410, 0xffffff, TRUE);
-            DrawBox(200, 110, 1090, 500, 0xFFFF00, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0xFFFF00*/0x000000, TRUE);
             DrawGraph(540, 190, Judge_Img, TRUE);
         }
         else if (Timer::FPS >= 120)
@@ -725,7 +730,7 @@ void Item::Draw() const
         if (Timer::FPS <= 120)
         {
             //DrawBox(490, 190, 770, 410, 0xffffff, TRUE);
-            DrawBox(200, 110, 1090, 500, 0xFFFF00, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0xFFFF00*/0x000000, TRUE);
             DrawGraph(540, 190, Judge_Img, TRUE);
         }
         else if (Timer::FPS >= 120)
@@ -734,11 +739,12 @@ void Item::Draw() const
         }
     }
 
+    //BombImg
     if (Bomb == TRUE)
     {
         DrawExtendGraph(550, 380, 670, 490, Bomb_Img, TRUE);
     }
-   
+
     if (Bomb_Flg == TRUE)
     {
        
@@ -751,13 +757,15 @@ void Item::Draw() const
        
     }
 
+    //ドラッグimg
     if (DRAG_Flg == TRUE)
     {
         if (Timer::FPS <= 120)
         {
-            DrawBox(200, 110, 1090, 500, 0x87CEFA, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0x87CEFA*/0x000000, TRUE);
             //DrawBox(500, 200, 760, 400, 0x000000, TRUE);
-            DrawGraph(490, 150, Drag_img, TRUE);
+            //DrawExtendGraph(550, 380, 670, 490, Drag_img, TRUE);
+            DrawGraph(490, 120, Drag_img, TRUE);
         }
         else if (Timer::FPS >= 120)
         {
@@ -765,12 +773,12 @@ void Item::Draw() const
         }
     }
 
-
+    //ChangeBulletimg
     if (C_BULLET_Flg == TRUE)
     {
         if (Timer::FPS <= 120)
         {
-            DrawBox(200, 110, 1090, 500, 0xfa2000, TRUE);
+            DrawBox(200, 110, 1090, 500, /*0xfa2000*/0x000000, TRUE);
             /* DrawBox(500, 200, 760, 400, 0x000000, TRUE);*/
             DrawGraph(500, 170, CB_Img, TRUE);
         }

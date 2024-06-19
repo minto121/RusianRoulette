@@ -11,7 +11,7 @@ bullet::bullet()
 {
 	Bullet_img = LoadGraph("Resources/images/Bullet/Bullet.png");
 	Shot_Ui_Img = LoadGraph("Resources/images/Bullet/BulletUI.png");
-	BulletCur_Img = LoadGraph("Resources/images/Bullet/BulletCur.png");
+	BulletCur_Img = LoadGraph("Resources/images/Bullet/cursol.png");
 	B_INIT();
 }
 
@@ -159,27 +159,27 @@ void bullet::Draw() const
 
 	if (FireC == 0)
 	{
-		DrawGraph(35, 135, BulletCur_Img, TRUE);
+		DrawGraph(30, 135, BulletCur_Img, TRUE);
 	}
 	if (FireC == 1 )
 	{
-		DrawGraph(35, 195, BulletCur_Img, TRUE);
+		DrawGraph(30, 195, BulletCur_Img, TRUE);
 	}
 	if (FireC == 2 )
 	{
-		DrawGraph(35, 255, BulletCur_Img, TRUE);
+		DrawGraph(30, 255, BulletCur_Img, TRUE);
 	}
 	if (FireC == 3 )
 	{
-		DrawGraph(35, 315, BulletCur_Img, TRUE);
+		DrawGraph(30, 315, BulletCur_Img, TRUE);
 	}
 	if (FireC == 4 )
 	{
-		DrawGraph(35, 375, BulletCur_Img, TRUE);
+		DrawGraph(30, 375, BulletCur_Img, TRUE);
 	}
 	if (FireC == 5)
 	{
-		DrawGraph(35, 435, BulletCur_Img, TRUE);
+		DrawGraph(30, 435, BulletCur_Img, TRUE);
 	}
 }
 

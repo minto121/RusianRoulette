@@ -59,6 +59,8 @@ private:
     int P_Ui_flg[5];
     int P_Ui[5];
     int BackGRImg;
+    int BackGR_PlayerImg;
+    int BackGR_EnemyImg;
     int CursolImg[3];
     int PushSE;
     int PushSE2;
