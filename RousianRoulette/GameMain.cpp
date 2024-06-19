@@ -56,7 +56,12 @@ void GameMain::INIT()
         A_UI[a]=FALSE;
     }
 
+    for (int a = 0; a <= 1; a++) {
+        C_UI[a] = FALSE;
+    }
+
     AT = 0;
+    PT = 0;
 
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
@@ -88,6 +93,7 @@ void GameMain::INIT()
     RoundBackImg1 = LoadGraph("Resources/images/HukkatuRound.png");
     RoundBackImg2 = LoadGraph("Resources/images/FreezRound.png");
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
+    //AShotImg = LoadGraph();
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    
@@ -696,7 +702,9 @@ void GameMain::E_Choice()
             bullet::FireC++;
 
         }
+        if (bullet::FireC++) {
 
+        }
 
     }
 

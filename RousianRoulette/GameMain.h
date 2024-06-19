@@ -59,6 +59,7 @@ private:
     int P_Ui[5];
     int BackGRImg;
     int CursolImg[3];
+    int AShotImg;
     int PushSE;
     int PushSE2;
     int PushSEflg;
@@ -78,9 +79,13 @@ private:
     int ShotSE;
 
     int REnemyimg;
+
     int A_UI[2];  //Action UI プレイヤーの行動
     int AT;
 
+    int C_UI[2];
+    int PT;
+    
 public:
 
     //�R���X�g���N�^

@@ -19,6 +19,8 @@ Enemy::Enemy()
 		E_UI[a] = FALSE;
 	}
 	
+
+	Damage_UI = LoadGraph("resouce/image/Damage.png");
 }
 
 Enemy::~Enemy()
@@ -151,8 +153,9 @@ void Enemy::Draw() const
 	SetFontSize(36);
 	if (E_UI[0] == TRUE) 
 	{
-		DrawString(450, 40, "ENEMY", 0xfa2000, TRUE);
-		DrawString(560, 40, ": SHOT PLAYER!!", 0xffffff, TRUE);
+		DrawGraph(0,0, Damage_UI,TRUE);
+		//DrawString(450, 40, "ENEMY", 0xfa2000, TRUE);
+		//DrawString(560, 40, ": SHOT PLAYER!!", 0xffffff, TRUE);
 	}
 
 	if (E_UI[1] == TRUE)
