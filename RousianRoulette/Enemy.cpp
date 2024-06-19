@@ -199,7 +199,7 @@ void Enemy::Draw() const
 		DrawGraph(0, 0, NohitImg, TRUE);
 	}
 
-	if (Hit_UI == TRUE) {
+	if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
 		DrawGraph(0, 0, Hitdamage, TRUE);
 	}
 }
