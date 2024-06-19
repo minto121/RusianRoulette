@@ -52,7 +52,7 @@ void Enemy::E_Turn()
 
 void Enemy::E_AI()
 {
-	if (Timer::FPS == 200)
+	if (Timer::FPS == 100)
 	{
 		E_Choice = GetRand(1);
 		switch (E_Choice)
@@ -66,9 +66,12 @@ void Enemy::E_AI()
 		}
 	}
 	
-	if (Timer::FPS == 700)
+	if (Timer::FPS == 200)
 	{
-
+		for (int a = 0; a <= 1; a++) {
+			E_UI[a] = FALSE;
+		}
+	
 		switch (E_Choice)
 		{
 		case(0):
@@ -109,14 +112,12 @@ void Enemy::E_AI()
 				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
-				E_UI[1] = FALSE;
+				
 			}
 
 			else if (bullet::Cylinder[bullet::FireC] == 0)
 			{
-				for (int a = 0; a <= 1; a++) {
-					E_UI[a] = FALSE;
-				}
+				
 				bullet::FireC++;
 				
 				E_UI_TIME();
@@ -141,7 +142,7 @@ void Enemy::E_UI_TIME()
 void Enemy::Update()
 {
 	
-	if (Timer::FPS == 790&&GameMain::isPlayerTurn == FALSE)
+	if (Timer::FPS == 350&&GameMain::isPlayerTurn == FALSE)
 	{
 		for (int a = 0; a <= 1; a++) {
 			E_UI[a] = FALSE;

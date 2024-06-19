@@ -15,7 +15,7 @@ private:
 
     int MenuFont; //���j���[�p�̃t�H���g
 
-    int MenuSE;       //�I��SE�p
+    //int MenuSE;       //�I��SE�p
     int CursorImg;    //�J�[�\���摜
 
     int TitleBgm;
@@ -34,6 +34,8 @@ public:
 
     //�`��Ɋւ��邱�Ƃ����
     void Draw() const override;
+
+    static int MenuSE;
 };
 
 
