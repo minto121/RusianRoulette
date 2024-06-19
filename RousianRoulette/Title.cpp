@@ -81,7 +81,7 @@ AbstractScene* Title::Update()
 		Once = TRUE;
 	}
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 	{
 		PlaySoundMem(ASE, DX_PLAYTYPE_BACK);
 
@@ -94,12 +94,12 @@ AbstractScene* Title::Update()
 			break;
 			//�����L���O��ʂ�
 		case TITLE_MENU::GAME_RANKING:
-			return new DrawRankingScene(100);
+			return new HelpScene();
 			StopSoundMem(TitleBgm);
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new HelpScene();
+			return new DrawRankingScene(100);
 			StopSoundMem(TitleBgm);
 			break;
 			//�G���h��ʂ�

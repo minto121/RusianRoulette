@@ -22,6 +22,8 @@ public:
 
 	void Draw() const;
 
+	void E_INIT();
+
 	void E_Turn();
 
 	void E_AI();

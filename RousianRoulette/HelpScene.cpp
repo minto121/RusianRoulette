@@ -3,6 +3,7 @@
 #include"PadInput.h"
 #include"GameMain.h"
 #include"Title.h"
+#include "DrawRanking.h"
 
 Title title;
 

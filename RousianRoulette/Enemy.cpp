@@ -10,6 +10,12 @@ int Enemy::E_WaitFlg;
 //int Enemy::E_UI[];
 Enemy::Enemy()
 {
+	E_INIT();
+	
+}
+
+void Enemy::E_INIT()
+{
 	E_Choice = 0;
 	E_Shot_P = FALSE;
 	E_Shot_Self = FALSE;
@@ -47,7 +53,7 @@ void Enemy::E_Turn()
 
 void Enemy::E_AI()
 {
-	if (Timer::FPS == 200)
+	if (Timer::FPS == 100)
 	{
 		E_Choice = GetRand(1);
 		switch (E_Choice)
@@ -61,7 +67,7 @@ void Enemy::E_AI()
 		}
 	}
 	
-	if (Timer::FPS == 700)
+	if (Timer::FPS == 200)
 	{
 
 		switch (E_Choice)
@@ -136,7 +142,7 @@ void Enemy::E_UI_TIME()
 void Enemy::Update()
 {
 	
-	if (Timer::FPS == 790&&GameMain::isPlayerTurn == FALSE)
+	if (Timer::FPS == 290&&GameMain::isPlayerTurn == FALSE)
 	{
 		for (int a = 0; a <= 1; a++) {
 			E_UI[a] = FALSE;
@@ -165,6 +171,7 @@ void Enemy::Draw() const
 	}
 	
 }
+
 
 
 
