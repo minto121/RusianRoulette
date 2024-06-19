@@ -41,7 +41,7 @@ GameMain::GameMain()
     P_life = 2;
     E_life = 2;
     Round = 0;
-    ResultFlg = /*FALSE*/TRUE;
+    ResultFlg = FALSE/*TRUE*/;
   
     INIT();
    /* RoundUiflg = TRUE;*/
@@ -164,7 +164,7 @@ AbstractScene* GameMain::Update()
     if (RoundUiflg == FALSE)
     {
         //BGM
-            if (ResultFlg == FALSE) {
+            if (ResultFlg == FALSE&&RoundUiflg == FALSE) {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
             }
@@ -299,6 +299,9 @@ AbstractScene* GameMain::Update()
             {
                 if (A_UI[1] == TRUE) {
                     AT++;
+                    if (AT == 99) {
+                        P_Choice();
+                    }
                     if (AT == 100) {
                         AT = 0;
                         A_UI[1] = FALSE;
@@ -307,6 +310,9 @@ AbstractScene* GameMain::Update()
 
                 if (A_UI[0] == TRUE) {
                     AT++;
+                    if (AT == 99) {
+                        E_Choice();
+                    }
                     if (AT == 100) {
                         AT = 0;
                         A_UI[0] = FALSE;
@@ -683,9 +689,7 @@ void GameMain::Turn()
 
 void GameMain::E_Choice()
 {
-    if (A_UI[0] == FALSE) {
-        A_UI[0] = TRUE;
-    }
+  
     if (WaitFlg == FALSE)
     {
         WaitFlg = !WaitFlg;
@@ -719,13 +723,11 @@ void GameMain::P_Choice()
             WaitFlg =!WaitFlg;
         }*/
 
-        if (A_UI[1] == FALSE) {
-            A_UI[1] = TRUE;
-        }
+       
 
        
 
-        if (bullet::Cylinder[bullet::FireC] == 1)
+        if (bullet::Cylinder[bullet::FireC] == 1&&AT==99)
         {
             bh2_flg = TRUE;
             PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
@@ -735,7 +737,7 @@ void GameMain::P_Choice()
             bullet::Cylinder[bullet::FireC] = 0;
             bullet::FireC++;
         }
-        else if (bullet::Cylinder[bullet::FireC] == 0)
+        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 99)
         {
             bullet::FireC++;
 
@@ -860,25 +862,33 @@ void GameMain::P_UI()
 
     if (P_Ui[1] == TRUE)
     {
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
-        {
-            CurX2 = 555;
-            CurY2 = 650;
-        }
-        if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
-        {
-            CurX2 = 555;
-            CurY2 = 575;
-        }
-        if (CurX2 == 555 && CurY2 == 575 
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            E_Choice();
-        }
-        if (CurX2 == 555 && CurY2 == 650
-            && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-        {
-            P_Choice();
+        if (AT == 0) {
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
+            {
+                CurX2 = 555;
+                CurY2 = 650;
+            }
+            if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
+            {
+                CurX2 = 555;
+                CurY2 = 575;
+            }
+            if (CurX2 == 555 && CurY2 == 575
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                /*  E_Choice();*/
+                if (A_UI[0] == FALSE) {
+                    A_UI[0] = TRUE;
+                }
+            }
+            if (CurX2 == 555 && CurY2 == 650
+                && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+            {
+                /* P_Choice();*/
+                if (A_UI[1] == FALSE) {
+                    A_UI[1] = TRUE;
+                }
+            }
         }
     }
 
