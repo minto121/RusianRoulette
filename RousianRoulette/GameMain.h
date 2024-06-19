@@ -69,6 +69,10 @@ private:
     int RoundBackImg1;
     int RoundBackImg2;
     int RoundBackImg3;
+    int Bakuhatsu_Img;
+    int BK_Flg;
+    int GM_SelectSE;
+    int BlankSE;
  
    
     int flash;

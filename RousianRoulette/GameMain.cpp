@@ -45,6 +45,7 @@ GameMain::GameMain()
   
     INIT();
     RoundUiflg = TRUE;
+
 }
 
 
@@ -79,6 +80,8 @@ void GameMain::INIT()
     CursolImg[0] = LoadGraph("resouce/image/cursor3.png");
     CursolImg[1] = LoadGraph("resouce/image/cursor2.png");
     CursolImg[2] = LoadGraph("resouce/image/cursor4.png");
+    Bakuhatsu_Img = LoadGraph("Resources/images/Item2/bakuhatsu.png");
+    
 
     PushSE = LoadSoundMem("Resources/SE/Push.mp3");
     PushSE2 = LoadSoundMem("Resources/SE/Push2.mp3");
@@ -109,9 +112,12 @@ void GameMain::INIT()
     ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
     NshotSE = LoadSoundMem("Resources/sounds/not shot.mp3");
     TotemChanceBgm = LoadSoundMem("Resources/BGM/Result/TotemChance1.mp3");
+    GM_SelectSE = LoadSoundMem("Resources/SE/Cursol.wav");
+ /*   BlankSE = LoadSoundMem("Resources/SE/kuuhou.wav");*/
 
 
     isPlayerTurn = TRUE;
+    BK_Flg = FALSE;
 
     WaitFlg = FALSE;
     WaitFlg2 = 0;
@@ -344,6 +350,7 @@ AbstractScene* GameMain::Update()
 
                 if (Timer::FPS == 200 || Timer::FPS == 799)
                 {
+                    BK_Flg = FALSE;
                     bh_flg = FALSE;
                     bh2_flg = FALSE;
                 }
@@ -400,10 +407,16 @@ void GameMain::Draw() const
             DrawGraph(520, 170, REnemyimg, TRUE);
         }
 
-        if (bh_flg == TRUE)
+        if (bh_flg == TRUE&&Item::Bomb_Flg==FALSE)
         {
             DrawGraph(370, 50, bullet_holes, TRUE);
         }
+        if (BK_Flg == TRUE)
+        {
+            DrawExtendGraph(350, 120, 950, 490, Bakuhatsu_Img, TRUE);
+            /*DrawGraph(370, 50, Bakuhatsu_Img, TRUE);*/
+        }
+        
         BULLET->Draw();
         ENEMY->Draw();
 
@@ -693,11 +706,15 @@ void GameMain::E_Choice()
     if (bullet::Cylinder[bullet::FireC] == 1)
     {
         PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-        bh_flg = TRUE;
-        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
+        if (Item::Bomb == FALSE)
+        {
+            bh_flg = TRUE;
+        }
         E_life--;
         if (Item::Bomb == TRUE)
         {
+            PlaySoundMem(Item::BombSE, DX_PLAYTYPE_BACK);
+            BK_Flg=TRUE;
             Item::Bomb = FALSE;
             E_life--;
         }
@@ -706,6 +723,7 @@ void GameMain::E_Choice()
     }
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
+        PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
         bullet::FireC++;
     }
     isPlayerTurn = !isPlayerTurn;
@@ -738,8 +756,8 @@ void GameMain::P_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0)
         {
+            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
-
         }
 
 
@@ -837,11 +855,13 @@ void GameMain::P_UI()
         {
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX == 180 && CurY == 576)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX = 180;
                 CurY = 645;
             }
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX == 180 && CurY == 645)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX = 180;
                 CurY = 576;
             }
@@ -864,11 +884,13 @@ void GameMain::P_UI()
         {
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurX2 == 555 && CurY2 == 575)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX2 = 555;
                 CurY2 = 650;
             }
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurX2 == 555 && CurY2 == 650)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX2 = 555;
                 CurY2 = 575;
             }
@@ -888,19 +910,23 @@ void GameMain::P_UI()
         {
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) && CurY3 == 590)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurY3 = 640;
             }
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) && CurY3 == 640)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurY3 = 590;
             }
 
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) && CurX3 != 1100)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX3 += 135;
             }
             if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) && CurX3 != 830)
             {
+                PlaySoundMem(GM_SelectSE, DX_PLAYTYPE_BACK);
                 CurX3 -= 135;
             }
             if (CurX3 == 830 && CurY3 == 590
@@ -963,7 +989,7 @@ void GameMain::ROUND_UI()
 {
   
     
-        if (ET == 60)
+        if (ET == 120)
         {
             RoundUiflg = TRUE;
             E_life = 2;

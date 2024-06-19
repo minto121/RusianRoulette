@@ -8,6 +8,8 @@
 #include "InputRanking.h"
 #include "HelpScene.h"
 
+int Title::MenuSE;
+
 enum class TITLE_MENU
 {
 	GAME_START = 0,

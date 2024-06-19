@@ -47,8 +47,10 @@ private:
 	int Drag_img;
 	int CB_Img;
 	int Judge_Img;
+	int Loupe_Img;
+	int I_Bomb_SE;
 
-	int BombSE;
+
 	int DragSE;
 	int LoupeSE;
 	
@@ -99,6 +101,7 @@ public:
 	static int DRAG_Flg;
 	static int Bomb_Flg;
 	static int C_BULLET_Flg;
+	static int BombSE;
 
 };
 
