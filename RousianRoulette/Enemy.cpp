@@ -26,9 +26,12 @@ void Enemy::E_INIT()
 	}
 
 	NohitImg = LoadGraph("resouce/image/Nohit.png");
+	Hitdamage = LoadGraph("resouce/image/Damage.png");
 
 	Nohit_UI = FALSE;
+	Hit_UI = FALSE;
 	NT = 0;
+	YT = 0;
 }
 
 
@@ -90,6 +93,8 @@ void Enemy::E_AI()
 				bullet::Last_Bullet--;
 				bullet::Cylinder[bullet::FireC] = 0;
 				bullet::FireC++;
+				YT = 0;
+				Hit_UI = TRUE;
 
 			}
 
@@ -166,6 +171,13 @@ void Enemy::Update()
 				Nohit_UI = FALSE;
 			}
 	}
+
+	if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
+		YT++;
+		if (YT == 120) {
+			Hit_UI = FALSE;
+		}
+	}
 }
 
 void Enemy::Draw() const
@@ -185,6 +197,10 @@ void Enemy::Draw() const
 	
 	if (Nohit_UI == TRUE) {
 		DrawGraph(0, 0, NohitImg, TRUE);
+	}
+
+	if (Hit_UI == TRUE) {
+		DrawGraph(0, 0, Hitdamage, TRUE);
 	}
 }
 
