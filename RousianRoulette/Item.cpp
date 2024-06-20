@@ -116,7 +116,7 @@ void Item::INIT()
     itemtable[1] = 1;
     itemtable[2] = 1;
     itemtable[3] = 1;
-    itemtable[4] = 1;
+    //itemtable[4] = 1;
     itemtable[5] = 1;
     T_UI = 0;
     T_UIRand = 0;

@@ -28,7 +28,7 @@ Title::Title()
 	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
 
 	TitleImg = LoadGraph("resouce/image/title.png");
-	CursorImg=LoadGraph("resouce/image/BulletCur.png");
+	CursorImg=LoadGraph("Resources/images/Bullet/cursol.png");
 }
 
 Title::~Title()

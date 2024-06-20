@@ -41,7 +41,7 @@ GameMain::GameMain()
   /*  R = 2000;*/
     P_life = 2;
     E_life = 2;
-    Round = 0;
+    Round = 8;
     ResultFlg = FALSE/*TRUE*/;
   
     INIT();
@@ -162,6 +162,9 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
+
+    //Ranking::NewRanking = Round;
+
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
     {
         return new Title();
@@ -431,7 +434,7 @@ void GameMain::Draw() const
 
         //ラウンド数描画
         SetFontSize(48);
-        DrawFormatString(250, 30, 0xffffff, "%d", Round);
+        DrawFormatString(250, 35, 0xffffff, "%d", Round);
 
         //ライフ
         SetFontSize(48);
