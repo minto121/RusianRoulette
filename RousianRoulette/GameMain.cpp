@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "FpsControl.h"
+#include "InputRanking.h"
 
 
 int GameMain::E_life;
@@ -80,6 +81,8 @@ void GameMain::INIT()
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
+    BackGR_PlayerImg = LoadGraph("Resources/images/BG_Player.png");
+    BackGR_EnemyImg = LoadGraph("Resources/images/BG_Enemy.png");
     CursolImg[0] = LoadGraph("resouce/image/cursor3.png");
     CursolImg[1] = LoadGraph("resouce/image/cursor2.png");
     CursolImg[2] = LoadGraph("resouce/image/cursor4.png");
@@ -385,9 +388,6 @@ AbstractScene* GameMain::Update()
         
     }
 
-
-
-
     return this;
 }
 
@@ -413,8 +413,6 @@ void GameMain::Draw() const
             DrawFormatString(860, 222, 0x8A2BE2, "%d", Round+1);
             
         }
-       
-        
     }
 
 
@@ -423,6 +421,10 @@ void GameMain::Draw() const
 
         //背景
         DrawGraph(0, 0, BackGRImg, TRUE);
+        if (isPlayerTurn == FALSE || bh_flg == TRUE ||bh2_flg==TRUE)
+        {
+            DrawGraph(0, 0, BackGR_EnemyImg, TRUE);
+        }
 
         //敵
         if (E_life > 0) {
@@ -758,6 +760,7 @@ void GameMain::E_Choice()
     }
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
+        ChangeVolumeSoundMem(255, NshotSE);
         PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
         bullet::FireC++;
     }
@@ -789,6 +792,7 @@ void GameMain::P_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 99)
         {
+            ChangeVolumeSoundMem(255, NshotSE);
             PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
             OM = 0;
@@ -874,7 +878,6 @@ void GameMain::Result()
         Item::itemtable[4] -= 1;
         RoundUiflg = TRUE;
     }
-    
 }
 
 

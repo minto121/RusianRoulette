@@ -3,7 +3,7 @@
 #include "DxLib.h"
 #include "Title.h"
 
-DrawRankingScene::DrawRankingScene(int stage) {
+DrawRankingScene::DrawRankingScene(int round) {
 	ranking.ReadRanking();
 	for (int i = 0; i < 5; i++) {
 
