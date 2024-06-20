@@ -162,6 +162,7 @@
     <ClCompile Include="FpsControl.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="HelpScene.cpp" />
+    <ClCompile Include="HelpScene2.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="InputRanking.cpp" />
     <ClCompile Include="main.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="FpsControl.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="HelpScene.h" />
+    <ClInclude Include="HelpScene2.h" />
     <ClInclude Include="InputRanking.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Padinput.h" />
