@@ -683,7 +683,23 @@ AbstractScene*Item::Update()
 
 void Item::Draw() const
 {
+    //BombImg
+    if (Bomb == TRUE)
+    {
+        DrawExtendGraph(550, 380, 670, 490, Bomb_Img, TRUE);
+    }
 
+    if (Bomb_Flg == TRUE)
+    {
+
+        //DrawGraph(500, 190, Bomb_Img, TRUE);
+
+        if (Timer::FPS >= 120)
+        {
+            DrawString(450, 40, "Bullet Power UP", 0xffffff, TRUE);
+        }
+
+    }
     //空砲か実弾かを表示
     if (L_Check == 1)
     {
@@ -739,23 +755,7 @@ void Item::Draw() const
         }
     }
 
-    //BombImg
-    if (Bomb == TRUE)
-    {
-        DrawExtendGraph(550, 380, 670, 490, Bomb_Img, TRUE);
-    }
-
-    if (Bomb_Flg == TRUE)
-    {
-       
-        //DrawGraph(500, 190, Bomb_Img, TRUE);
-        
-        if(Timer::FPS >= 120)
-        {
-            DrawString(450, 40, "Bullet Power UP", 0xffffff, TRUE);
-        }
-       
-    }
+   
 
     //ドラッグimg
     if (DRAG_Flg == TRUE)
@@ -765,11 +765,11 @@ void Item::Draw() const
             DrawBox(200, 110, 1090, 500, /*0x87CEFA*/0x000000, TRUE);
             //DrawBox(500, 200, 760, 400, 0x000000, TRUE);
             //DrawExtendGraph(550, 380, 670, 490, Drag_img, TRUE);
-            DrawGraph(490, 120, Drag_img, TRUE);
+            DrawGraph(490, 110, Drag_img, TRUE);
         }
         else if (Timer::FPS >= 120)
         {
-            DrawString(430, 40, "LIFE +1", 0xffffff, TRUE);
+            DrawString(500, 40, "LIFE + 1", 0xffffff, TRUE);
         }
     }
 

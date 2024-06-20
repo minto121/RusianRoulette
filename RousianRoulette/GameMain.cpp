@@ -370,9 +370,6 @@ AbstractScene* GameMain::Update()
         
     }
 
-
-
-
     return this;
 }
 
@@ -398,8 +395,6 @@ void GameMain::Draw() const
             DrawFormatString(860, 222, 0x8A2BE2, "%d", Round+1);
             
         }
-       
-        
     }
 
 
