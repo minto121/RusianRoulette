@@ -9,8 +9,14 @@ private:
 
 	int E_UI[2];
 
+	int NohitImg;
+	int Hitdamage;
 	int E_Timer;
 
+	int Nohit_UI;
+	int Hit_UI;
+	int NT;
+	int YT;
 public:
 	static int E_WaitFlg;
 
