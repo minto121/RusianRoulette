@@ -377,12 +377,12 @@ AbstractScene* GameMain::Update()
                      }
 
 
-                if (Timer::FPS == 100 || Timer::FPS == 299)
-                {
-                    BK_Flg = FALSE;
-                    bh_flg = FALSE;
-                    bh2_flg = FALSE;
-                }
+                    if (Timer::FPS == 100 || Timer::FPS == 299)
+                    {
+                        BK_Flg = FALSE;
+                        bh_flg = FALSE;
+                        bh2_flg = FALSE;
+                    }
 
 
                  }
@@ -1023,7 +1023,6 @@ void GameMain::P_UI_INIT()
     CurY2 = 575;
     CurX3 = 830;
     CurY3 = 590;
-
 
     for (int i = 1; i < 5; i++)
     {

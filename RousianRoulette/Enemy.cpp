@@ -155,7 +155,7 @@ void Enemy::E_UI_TIME()
 void Enemy::Update()
 {
 	
-	if (E_Timer == 301&&GameMain::isPlayerTurn == FALSE)
+	if (E_Timer == 301/*&&GameMain::isPlayerTurn == FALSE*/)
 	{
 		GameMain::bh_flg = FALSE;
 		GameMain::bh2_flg = FALSE;
@@ -163,7 +163,7 @@ void Enemy::Update()
 			E_UI[a] = FALSE;
 		}
 		GameMain::isPlayerTurn = TRUE;
-
+		E_Timer = 0;
 	}
 
 	E_Turn();
