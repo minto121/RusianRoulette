@@ -7,6 +7,7 @@
 #include "EndScene.h"
 #include "InputRanking.h"
 #include "HelpScene.h"
+#include "HelpScene0.h"
 
 int Title::MenuSE;
 
@@ -96,7 +97,7 @@ AbstractScene* Title::Update()
 			break;
 			//�����L���O��ʂ�
 		case TITLE_MENU::GAME_RANKING:
-			return new  HelpScene();
+			return new  HelpScene0();
 			StopSoundMem(TitleBgm);
 			break;
 			//�w���v���
