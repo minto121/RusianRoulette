@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include <math.h>
 #include "GameMain.h"
-//#include "Result.h"
 #include "PadInput.h"
 #include "bullet.h"
 #include "Title.h"
@@ -699,10 +698,6 @@ void GameMain::Draw() const
         ITEM->Draw();
  
 }
-
-
-
-
 
 
 void GameMain::Turn()

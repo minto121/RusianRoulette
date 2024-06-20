@@ -8,15 +8,19 @@
 
 int Enemy::E_WaitFlg;
 //int Enemy::E_UI[];
+
+
 Enemy::Enemy()
 {
 	E_INIT();
 	
 }
 
+
 void Enemy::E_INIT()
 {
 	E_Choice = 0;
+	E_Timer = 0;
 	E_Shot_P = FALSE;
 	E_Shot_Self = FALSE;
 	E_WaitFlg = TRUE;
@@ -27,22 +31,22 @@ void Enemy::E_INIT()
 }
 
 
-
 Enemy::~Enemy()
 {
 
 }
+
 
 void Enemy::E_Turn()
 {
 	if (GameMain::isPlayerTurn == FALSE)
 	{
 		
-		if (E_WaitFlg == FALSE)
-		{
-			Timer::FPS = 1;
-			E_WaitFlg = TRUE;
-		}
+		/*if (E_Timer ==1)
+		{*/
+			E_Timer++;
+			
+		/*}*/
 		
 			E_AI();
 		
@@ -52,7 +56,7 @@ void Enemy::E_Turn()
 
 void Enemy::E_AI()
 {
-	if (Timer::FPS == 100)
+	if (E_Timer == 100)
 	{
 		E_Choice = GetRand(1);
 		switch (E_Choice)
@@ -66,7 +70,7 @@ void Enemy::E_AI()
 		}
 	}
 	
-	if (Timer::FPS == 200)
+	if (E_Timer == 200)
 	{
 		for (int a = 0; a <= 1; a++) {
 			E_UI[a] = FALSE;
@@ -115,16 +119,16 @@ void Enemy::E_AI()
 				
 			}
 
-			else if (bullet::Cylinder[bullet::FireC] == 0)
+			/*else if (bullet::Cylinder[bullet::FireC] == 0)
 			{
 				
 				bullet::FireC++;
 				
-				E_UI_TIME();
+			    E_UI_TIME();
 				
-			}
+			}*/
 
-			E_Shot_Self = FALSE;
+			
 			
 			break;
 
@@ -136,14 +140,25 @@ void Enemy::E_AI()
 
 void Enemy::E_UI_TIME()
 {
-	E_WaitFlg = FALSE;
+
+	if (bullet::Cylinder[bullet::FireC] == 0 && E_Shot_Self == TRUE&&E_Timer ==300)
+	{
+
+		bullet::FireC++;
+		E_Timer = 0;
+		E_Shot_Self = FALSE;
+
+	}
+	
 }
 
 void Enemy::Update()
 {
 	
-	if (Timer::FPS == 350&&GameMain::isPlayerTurn == FALSE)
+	if (E_Timer == 301&&GameMain::isPlayerTurn == FALSE)
 	{
+		GameMain::bh_flg = FALSE;
+		GameMain::bh2_flg = FALSE;
 		for (int a = 0; a <= 1; a++) {
 			E_UI[a] = FALSE;
 		}
@@ -168,7 +183,7 @@ void Enemy::Draw() const
 		DrawString(460, 40, "ENEMY", 0xfa2000, TRUE);
 		DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
 	}
-	
+	DrawFormatString(20, 10, 0xffffff, "ET%d", E_Timer);
 }
 
 

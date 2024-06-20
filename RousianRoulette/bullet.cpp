@@ -16,6 +16,7 @@ bullet::bullet()
 	B_INIT();
 }
 
+
 bullet::~bullet()
 {
 	
@@ -34,9 +35,8 @@ void bullet::B_INIT()
 	Last_Bullet = 0;
 	N_Of_Bullet();
 	B_location();
-
+	
 }
-
 
 
 void bullet::N_Of_Bullet()
@@ -66,8 +66,6 @@ void bullet::Reload()
 		B_INIT();
 	}
 }
-
-
 
 
 void bullet::B_location()
@@ -106,11 +104,13 @@ void bullet::B_location()
 
 }
 
+
 void bullet::Update()
 {
 	/*Shot();*/
 	Reload();
 }
+
 
 void bullet::Draw() const
 {
