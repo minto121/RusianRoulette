@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "FpsControl.h"
+#include "InputRanking.h"
 
 
 int GameMain::E_life;
@@ -730,6 +731,7 @@ void GameMain::E_Choice()
     }
     else if (bullet::Cylinder[bullet::FireC] == 0)
     {
+        ChangeVolumeSoundMem(255, NshotSE);
         PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
         bullet::FireC++;
     }
@@ -761,6 +763,7 @@ void GameMain::P_Choice()
         }
         else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 99)
         {
+            ChangeVolumeSoundMem(255, NshotSE);
             PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
         }
@@ -843,7 +846,6 @@ void GameMain::Result()
         Item::itemtable[4] -= 1;
         RoundUiflg = TRUE;
     }
-    
 }
 
 

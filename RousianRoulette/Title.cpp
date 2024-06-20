@@ -96,12 +96,12 @@ AbstractScene* Title::Update()
 			break;
 			//�����L���O��ʂ�
 		case TITLE_MENU::GAME_RANKING:
-			return new  DrawRankingScene(100);
+			return new  HelpScene();
 			StopSoundMem(TitleBgm);
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new HelpScene();
+			return new DrawRankingScene(0);
 			StopSoundMem(TitleBgm);
 			break;
 			//�G���h��ʂ�
