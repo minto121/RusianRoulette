@@ -66,9 +66,15 @@ void GameMain::INIT()
 
     AT = 0;
     ET = 0;
-    OM = 0;
+   
 
-    More_UI = FALSE;
+  
+    PSP_hit_Flg = FALSE;
+    PSP_miss_Flg = FALSE;
+    PSE_hit_Flg = FALSE;
+    PSE_miss_Flg = FALSE;
+
+
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
@@ -117,7 +123,7 @@ void GameMain::INIT()
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
 
     
-    A_shot = LoadGraph("resouce/image/AShot.png");
+    A_shotImg = LoadGraph("resouce/image/AShot.png");
    
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
@@ -326,76 +332,41 @@ AbstractScene* GameMain::Update()
             {
                 BULLET->Update();
                 
-                 /*if (bullet::FireC == 6)
-                 {
-                     BulettCount_UI = 0;
-                 }*/
+               
                  BulettUI();
+
+
+
                  if (BulettCount_UI == 181)
                  {
-                     if (A_UI[1] == TRUE) {
-                         AT++;
-                         if (AT == 99) {
-                             P_Choice();
-                         }
-                         if (AT == 100) {
-                             AT = 0;
-                             A_UI[1] = FALSE;
-                         }
-                        
-                     }
 
-                     if (A_UI[0] == TRUE) {
-                         AT++;
-                         if (AT == 99) {
-                             E_Choice();
-                         }
-                         if (AT == 100) {
-                             AT = 0;
-                             A_UI[0] = FALSE;
-                         }
-                         
-                     }
-
-                     if (E_life <= 0)
+                    
+                     if (isPlayerTurn == TRUE)
                      {
-                         ET++;
+                         P_UI();
                      }
 
+                     P_Choice();
+                     E_Choice();
 
+                     
                      if (Timer::FPS >= 10) {
                          WaitFlg2 = TRUE;
 
                      }
-                     if (isPlayerTurn == FALSE && Timer::FPS == 250)
+                     if (isPlayerTurn == FALSE/* && Timer::FPS == 250*/)
                      {
                          P_UI_INIT();
                      }
-                     /*  life();*/
+                    
                    
 
                      ENEMY->Update();
                      TIMER->Update();
                      //Choice();
                      Turn();
-                     if (isPlayerTurn == TRUE)
-                     {
-                         P_UI();
-                     }
-
-
-                if (Timer::FPS == 100 || Timer::FPS == 299)
-                {
-                    BK_Flg = FALSE;
-                    bh_flg = FALSE;
-                    bh2_flg = FALSE;
-                }
-                if (More_UI == TRUE) {
-                    OM++;
-                    if (OM == 120) {
-                        More_UI = FALSE;
-                    }
-                }
+                     
+       
 
                  }
             
@@ -471,7 +442,7 @@ void GameMain::Draw() const
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
       
 
-        //弾
+        //リロード
         if (BulettCount_UI < 180) {
             DrawFormatString(400, 40, 0xffffff, "RELOAD    %d    BULLET", bullet::Bullet);
             DrawBox(200, 115, 1090, 500, 0x000000, TRUE);
@@ -603,13 +574,13 @@ void GameMain::Draw() const
 
             //アクションUI
             SetFontSize(36);
-            if (A_UI[0] == TRUE)
+            if (A_UI[0] == TRUE&&AT<=121)
             {
                 DrawString(450, 40, "PLAYER", 0xfa2000, TRUE);
                 DrawString(560, 40, ": SHOT ENEMY!!", 0xffffff, TRUE);
             }
 
-            if (A_UI[1] == TRUE)
+            if (A_UI[1] == TRUE && AT <= 121)
             {
                 DrawString(460, 40, "PLAYER", 0xfa2000, TRUE);
                 DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
@@ -617,7 +588,7 @@ void GameMain::Draw() const
 
       
 
-
+        //弾
         if (bh2_flg == TRUE)
         {
             DrawCircle(660, 350, 150, 0x000000);
@@ -625,8 +596,8 @@ void GameMain::Draw() const
         }
 
 
-        if (More_UI == TRUE) {
-            DrawGraph(0, 0, A_shot, TRUE);
+        if (PSP_miss_Flg == TRUE) {
+            DrawGraph(0, 0, A_shotImg, TRUE);
         }
 
     }
@@ -767,68 +738,192 @@ void GameMain::E_Choice()
     {
         WaitFlg = !WaitFlg;
     }
-    if (bullet::Cylinder[bullet::FireC] == 1)
+
+    if (A_UI[0] == FALSE && A_UI[1] == FALSE)
     {
-        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-        if (Item::Bomb == FALSE)
-        {
-            bh_flg = TRUE;
-        }
-        E_life--;
-        if (Item::Bomb == TRUE)
-        {
-            PlaySoundMem(Item::BombSE, DX_PLAYTYPE_BACK);
-            BK_Flg=TRUE;
-            Item::Bomb = FALSE;
-            E_life--;
-        }
-        bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;       
+        AT = 0;
     }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        ChangeVolumeSoundMem(255, NshotSE);
-        PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
-        bullet::FireC++;
-    }
-    isPlayerTurn = !isPlayerTurn;
-    ENEMY->E_UI_TIME();
-}
 
 
-void GameMain::P_Choice()
-    {
-        /*if (WaitFlg == FALSE)
-        {
-            WaitFlg =!WaitFlg;
-        }*/
+    //プレイヤーから敵への射撃
+    if (A_UI[0] == TRUE) {
 
+
+        //処理の順番のための加算される変数
+        AT++;
        
 
-       
-
-        if (bullet::Cylinder[bullet::FireC] == 1&&AT==99)
+        //弾が発射 画像を表示 (AT == 121)
+        if (bullet::Cylinder[bullet::FireC] == 1&&AT == 121)
         {
-            bh2_flg = TRUE;
+            PSE_hit_Flg = TRUE;
             PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-            P_life--;
-            isPlayerTurn = !isPlayerTurn;
-            ENEMY->E_UI_TIME();
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 99)
-        {
-            ChangeVolumeSoundMem(255, NshotSE);
-            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
-            bullet::FireC++;
-            OM = 0;
-            More_UI = TRUE;
+
+            //爆弾がないなら
+            if (Item::Bomb == FALSE)
+            {
+                bh_flg = TRUE;
+              
+            }
+            E_life--;
+
+            //爆弾があるなら
+            if (Item::Bomb == TRUE)
+            {
+                PlaySoundMem(Item::BombSE, DX_PLAYTYPE_BACK);
+                BK_Flg = TRUE;
+               
+            }
            
         }
 
 
+        //弾が入ってなかった時 MISS表示 (AT == 121)
+        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 121)
+        {
+            PSE_miss_Flg = TRUE;
+            ChangeVolumeSoundMem(255, NshotSE);
+            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+           
+        }
+       
+
+        //弾が発射された場合、銃痕の画像を消して敵のHPを減らしシリンダーを進める  (AT == 241)
+        if (PSE_hit_Flg == TRUE && AT == 241)
+        {
+
+            //弾の画像を消す
+            bh_flg = FALSE;
+
+            //爆弾が発動中ならHPを1減らして画像を消す
+            if (Item::Bomb == TRUE) {
+                E_life--;
+                Item::Bomb = FALSE;
+            }
+
+            //敵のHPを減らしシリンダーを進める
+            E_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+
+
+        //弾が入ってなかった時、シリンダーを進めて敵のターンへ  (AT == 241)
+        if (PSE_miss_Flg == TRUE && AT == 241  )
+        {
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+            AT = 301;
+          
+        }
+
+
+        //敵のターンに切り替える、変数を初期化する  (AT == 301)
+        if (AT == 301) {
+
+            PSE_hit_Flg = FALSE;
+            PSE_miss_Flg = FALSE;
+            isPlayerTurn = !isPlayerTurn;
+            
+        }
+
+
+        //敵のターンになったら初期化する
+        if (isPlayerTurn == FALSE)
+        {
+            A_UI[1] = FALSE;
+        }
     }
+}
+
+
+void GameMain::P_Choice()
+{
+
+    
+    if (A_UI[0] == FALSE && A_UI[1] == FALSE)
+    {
+        AT = 0;
+    }
+
+
+        //プレイヤーからプレイヤーへの射撃
+    if (A_UI[1] == TRUE) {
+
+
+        //処理の順番のための加算される変数
+        AT++;
+
+
+        // 弾が発射 画像を表示　(AT == 121)
+        if (bullet::Cylinder[bullet::FireC] == 1 && AT == 121)
+        {
+            PSP_hit_Flg = TRUE;
+            bh2_flg = TRUE;
+
+            PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
+
+           
+          
+        }
+
+
+        //弾が入ってなかった時 1MORE表示(AT == 121)
+        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 121)
+        {
+            PSP_miss_Flg = TRUE;
+            ChangeVolumeSoundMem(255, NshotSE);
+            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+           
+          
+
+        }
+
+
+        //弾が発射された時、銃痕の画像を消してプレイヤーのHPを減らしシリンダーを進める  (AT == 241)
+        if (AT == 241 && PSP_hit_Flg == TRUE)
+        {
+            bh2_flg = FALSE;
+            P_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+
+
+        //弾が入ってなかった時、シリンダーを進めて処理を中断する  (AT == 241)
+        if (AT == 241 && PSP_miss_Flg == TRUE)
+        {
+           
+           
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+            PSP_hit_Flg = FALSE;
+            PSP_miss_Flg = FALSE;
+            A_UI[1] = FALSE;
+        }
+
+
+        //敵のターンに切り替える、変数を初期化する  (AT == 301)
+        if (AT == 301) {
+            PSP_hit_Flg = FALSE;
+            PSP_miss_Flg = FALSE;
+            isPlayerTurn = !isPlayerTurn;
+           
+           
+        }
+
+
+        //敵のターンになったら初期化する
+        if (isPlayerTurn == FALSE)
+        {
+            A_UI[1] = FALSE;
+        }
+
+
+      
+    }
+
+}
 
 
 void GameMain::Result()
@@ -1045,6 +1140,9 @@ void GameMain::P_UI_INIT()
     CurX3 = 830;
     CurY3 = 590;
 
+
+  
+
     for (int i = 1; i < 5; i++)
     {
         P_Ui_flg[i] = FALSE;
@@ -1062,7 +1160,10 @@ void GameMain::P_UI_INIT()
 void GameMain::ROUND_UI()
 {
   
-    
+    if (E_life <= 0 && A_UI[0] == FALSE && A_UI[1] == FALSE)
+    {
+        ET++;
+    }
         if (ET == 120)
         {
             RoundUiflg = TRUE;

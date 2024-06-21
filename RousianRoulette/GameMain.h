@@ -42,10 +42,9 @@ private:
     bool WaitFlg3;
     int ResultFlg;
     
-    int More_UI;
-    int A_shot;
-    int OM;
-
+   
+    int A_shotImg;
+  
     // プレイヤーターンのフラグ
 
    // プレイヤーとコンピュータの状態を表す列挙型
@@ -74,7 +73,7 @@ private:
     int PushSEflg;
     int ResultBackImg[10];
     int ResultBgm;
-    int  ResultBgmFlg;
+    int ResultBgmFlg;
     int RoundBackImg1;
     int RoundBackImg2;
     int RoundBackImg3;
@@ -102,6 +101,13 @@ private:
     int ET;       //E_UIの表示時間
     int RoundButtonSE;
 
+    int PSE_miss_Flg;//プレイヤーから敵にうって失敗
+
+    int PSE_hit_Flg; //プレイヤーから敵に撃ってヒット
+
+    int PSP_miss_Flg;//プレイヤーからプレイヤーにうって失敗
+  
+    int PSP_hit_Flg; //プレイヤーからプレイヤーに撃ってヒット
 public:
 
     //�R���X�g���N�^
@@ -128,6 +134,9 @@ public:
     void ROUND_UI();
     void ROUND_UP();
     void BulettUI();
+   
+
+
 
     bullet* BULLET;
     Item* ITEM;
