@@ -41,7 +41,7 @@ GameMain::GameMain()
   /*  R = 2000;*/
     P_life = 2;
     E_life = 2;
-    Round = 10;
+    Round = 0;
     ResultFlg = FALSE/*TRUE*/;
   
     INIT();
