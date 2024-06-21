@@ -17,6 +17,14 @@ private:
 	int Hit_UI;
 	int NT;
 	int YT;
+	int ShotSE;
+	int NshotSE;
+	int ESP_hit_flg;
+	int ESP_miss_flg;
+	int ESE_hit_flg;
+	int ESE_miss_flg;
+	int OneMore;
+	int OneMoreImg;
 public:
 	static int E_WaitFlg;
 
@@ -36,6 +44,8 @@ public:
 
 	void E_UI_TIME();
 
-	
+	void E_PChoice();
+
+	void E_EChoice();
 };
 

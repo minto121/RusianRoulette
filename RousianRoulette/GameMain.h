@@ -55,6 +55,11 @@ private:
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
+   
+    
+
+    int missImg;
+    int missFlg;
     int Enemyimg[IMAGE_CNT];
     int E_LifeImg;
     int P_LifeImg;
@@ -62,6 +67,7 @@ private:
     int LastEnemyNum;
     int bullet_holes;
     int bullet_holes2;
+    int bullet_holes3;
     int P_Ui_flg[5];
     int P_Ui[5];
     int BackGRImg;
@@ -81,7 +87,8 @@ private:
     int BK_Flg;
     int GM_SelectSE;
     int BlankSE;
- 
+    int PTurnImg;
+    int ETurnImg;
    
     int flash;
     int UraBotanSE;
@@ -154,5 +161,6 @@ public:
     static int ResultBgm2;
     static int FreezDiray;
     static int BulettCount_UI;
+    static int TurnTime;
 };
 
