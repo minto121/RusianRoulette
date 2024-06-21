@@ -20,6 +20,7 @@ int GameMain::PushFlgUI;
 int GameMain::FreezUI;
 int GameMain::ResultBgm2;
 int GameMain::FreezDiray;
+int GameMain::Round;
 
 
 enum class CURSOL
@@ -163,12 +164,7 @@ GameMain::~GameMain()
 AbstractScene* GameMain::Update()
 {
 
-    //Ranking::NewRanking = Round;
 
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
-    {
-        return new Title();
-    }
     ROUND_UI();
    
     
@@ -302,8 +298,6 @@ AbstractScene* GameMain::Update()
 
 
             Result();
-
-
             ITEM->Update();
 
 
@@ -549,17 +543,17 @@ void GameMain::Draw() const
             }
 
             //アクションUI
-            SetFontSize(36);
+            SetFontSize(49);
             if (A_UI[0] == TRUE)
             {
-                DrawString(450, 40, "PLAYER", 0xfa2000, TRUE);
-                DrawString(560, 40, ": SHOT ENEMY!!", 0xffffff, TRUE);
+                DrawString(380, 40, "PLAYER", 0xFFFF00, TRUE);
+                DrawString(550, 40, ": SHOT ENEMY!!", 0xffffff, TRUE);
             }
 
             if (A_UI[1] == TRUE)
             {
-                DrawString(460, 40, "PLAYER", 0xfa2000, TRUE);
-                DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
+                DrawString(380, 40, "PLAYER", 0xFFFF00, TRUE);
+                DrawString(550, 40, ": SHOT SELF!!", 0xffffff, TRUE);
             }
 
       

@@ -156,17 +156,17 @@ void Enemy::Update()
 
 void Enemy::Draw() const
 {
-	SetFontSize(36);
+	SetFontSize(49);
 	if (E_UI[0] == TRUE) 
 	{
-		DrawString(450, 40, "ENEMY", 0xfa2000, TRUE);
-		DrawString(560, 40, ": SHOT PLAYER!!", 0xffffff, TRUE);
+		DrawString(390, 40, "ENEMY", 0xfa2000, TRUE);
+		DrawString(520, 40, ": SHOT PLAYER!!", 0xffffff, TRUE);
 	}
 
 	if (E_UI[1] == TRUE)
 	{
-		DrawString(460, 40, "ENEMY", 0xfa2000, TRUE);
-		DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
+		DrawString(390, 40, "ENEMY", 0xfa2000, TRUE);
+		DrawString(520, 40, ": SHOT SELF!!", 0xffffff, TRUE);
 	}
 	
 }
