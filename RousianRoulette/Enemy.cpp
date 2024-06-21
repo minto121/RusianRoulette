@@ -177,7 +177,7 @@ void Enemy::E_EChoice()
 		if (bullet::Cylinder[bullet::FireC] == 1)
 		{
 			ESE_hit_flg = TRUE;
-			ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
+			PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
 			GameMain::bh_flg = TRUE;
 		}
 		else if (bullet::Cylinder[bullet::FireC] == 0)
@@ -197,12 +197,15 @@ void Enemy::E_EChoice()
 		{
 			GameMain::E_life -= 1;
 			GameMain::bh_flg = FALSE;
+
+
 			bullet::Cylinder[bullet::FireC] = 0;
 			bullet::FireC++;
 		}
 		else if (ESE_miss_flg == TRUE)
 		{
-			
+			bullet::Cylinder[bullet::FireC] = 0;
+			bullet::FireC++;
 			E_Timer = 300;
 		
 		}
