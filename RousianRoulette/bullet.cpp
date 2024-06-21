@@ -6,6 +6,7 @@
 int bullet::FireC;
 int bullet::Cylinder[6];
 int bullet::Last_Bullet;
+int bullet::Bullet;
 
 bullet::bullet()
 {
@@ -14,6 +15,7 @@ bullet::bullet()
 	BulletCur_Img = LoadGraph("Resources/images/Bullet/cursol.png");
 	B_INIT();
 }
+
 
 bullet::~bullet()
 {
@@ -33,9 +35,8 @@ void bullet::B_INIT()
 	Last_Bullet = 0;
 	N_Of_Bullet();
 	B_location();
-
+	
 }
-
 
 
 void bullet::N_Of_Bullet()
@@ -61,11 +62,10 @@ void bullet::Reload()
 {
 	if (FireC == 6)
 	{
+		GameMain::BulettCount_UI = 0;
 		B_INIT();
 	}
 }
-
-
 
 
 void bullet::B_location()
@@ -104,11 +104,13 @@ void bullet::B_location()
 
 }
 
+
 void bullet::Update()
 {
 	/*Shot();*/
 	Reload();
 }
+
 
 void bullet::Draw() const
 {

@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include <math.h>
 #include "GameMain.h"
-//#include "Result.h"
 #include "PadInput.h"
 #include "bullet.h"
 #include "Title.h"
@@ -20,7 +19,7 @@ int GameMain::PushFlgUI;
 int GameMain::FreezUI;
 int GameMain::ResultBgm2;
 int GameMain::FreezDiray;
-int GameMain::Round;
+int GameMain::BulettCount_UI;
 
 
 enum class CURSOL
@@ -67,6 +66,9 @@ void GameMain::INIT()
 
     AT = 0;
     ET = 0;
+    OM = 0;
+
+    More_UI = FALSE;
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
@@ -105,7 +107,18 @@ void GameMain::INIT()
     RoundBackImg1 = LoadGraph("Resources/images/Round/ROUND1.png");
     RoundBackImg2 = LoadGraph("Resources/images/Round/ROUND2.png");
     RoundBackImg3 = LoadGraph("Resources/images/Round/ROUND3.png");
+
+    BulletCount_Img = LoadGraph("Resources/images/Bullet/BulletUIImg1.png");
+    BulletCount_Img2 = LoadGraph("Resources/images/Bullet/BulletUIImg2.png");
+    BulletCount_Img3 = LoadGraph("Resources/images/Bullet/BulletUIImg3.png");
+
+
+
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
+
+    
+    A_shot = LoadGraph("resouce/image/AShot.png");
+   
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    RoundButtonSE = LoadSoundMem("Resources/sounds/kettei.mp3");
@@ -128,6 +141,8 @@ void GameMain::INIT()
     WaitFlg3 = FALSE;
     WaitFlg4 = FALSE;
     UraBotanFlg = TRUE;
+
+    BulettCount_UI = 0;
 
     /*ResultFlg = TRUE;*/
     GM_Select = 0;
@@ -174,7 +189,7 @@ AbstractScene* GameMain::Update()
     if (RoundUiflg == FALSE)
     {
         //BGM
-            if (ResultFlg == FALSE&&RoundUiflg == FALSE) {
+            if (ResultFlg == FALSE&&RoundUiflg == FALSE&& BulettCount_UI == 181) {
             ChangeVolumeSoundMem(75, GMBgm);
             PlaySoundMem(GMBgm, DX_PLAYTYPE_LOOP, FALSE);
             }
@@ -305,54 +320,65 @@ AbstractScene* GameMain::Update()
      //ゲームメイン
             if (ResultFlg == FALSE && P_life > 0 && FreezUI == FALSE)
             {
-                if (A_UI[1] == TRUE) {
-                    AT++;
-                    if (AT == 99) {
-                        P_Choice();
-                    }
-                    if (AT == 100) {
-                        AT = 0;
-                        A_UI[1] = FALSE;
-                    }
-                }
-
-                if (A_UI[0] == TRUE) {
-                    AT++;
-                    if (AT == 99) {
-                        E_Choice();
-                    }
-                    if (AT == 100) {
-                        AT = 0;
-                        A_UI[0] = FALSE;
-                    }
-                }
-
-                if (E_life <= 0)
-                {
-                    ET++;
-                }
-
-
-                if (Timer::FPS >= 10) {
-                    WaitFlg2 = TRUE;
-
-                }
-                if (isPlayerTurn == FALSE && Timer::FPS == 250)
-                {
-                    P_UI_INIT();
-                }
-                /*  life();*/
                 BULLET->Update();
+                
+                 /*if (bullet::FireC == 6)
+                 {
+                     BulettCount_UI = 0;
+                 }*/
+                 BulettUI();
+                 if (BulettCount_UI == 181)
+                 {
+                     if (A_UI[1] == TRUE) {
+                         AT++;
+                         if (AT == 99) {
+                             P_Choice();
+                         }
+                         if (AT == 100) {
+                             AT = 0;
+                             A_UI[1] = FALSE;
+                         }
+                        
+                     }
 
-                ENEMY->Update();
-                TIMER->Update();
-                //Choice();
-                Turn();
-                if (isPlayerTurn == TRUE)
-                {
-                    P_UI();
-                }
-               
+                     if (A_UI[0] == TRUE) {
+                         AT++;
+                         if (AT == 99) {
+                             E_Choice();
+                         }
+                         if (AT == 100) {
+                             AT = 0;
+                             A_UI[0] = FALSE;
+                         }
+                         
+                     }
+
+                     if (E_life <= 0)
+                     {
+                         ET++;
+                     }
+
+
+                     if (Timer::FPS >= 10) {
+                         WaitFlg2 = TRUE;
+
+                     }
+                     if (isPlayerTurn == FALSE && Timer::FPS == 250)
+                     {
+                         P_UI_INIT();
+                     }
+                     /*  life();*/
+                   
+
+                     ENEMY->Update();
+                     TIMER->Update();
+                     //Choice();
+                     Turn();
+                     if (isPlayerTurn == TRUE)
+                     {
+                         P_UI();
+                     }
+
 
                 if (Timer::FPS == 100 || Timer::FPS == 299)
                 {
@@ -360,9 +386,14 @@ AbstractScene* GameMain::Update()
                     bh_flg = FALSE;
                     bh2_flg = FALSE;
                 }
+                if (More_UI == TRUE) {
+                    OM++;
+                    if (OM == 120) {
+                        More_UI = FALSE;
+                    }
+                }
 
-              
-
+                 }
             
             }
         
@@ -435,6 +466,28 @@ void GameMain::Draw() const
         DrawFormatString(1220, 420, 0xffffff, "%d", P_life);
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
       
+
+        //弾
+        if (BulettCount_UI < 180) {
+            DrawFormatString(400, 40, 0xffffff, "RELOAD    %d    BULLET", bullet::Bullet);
+            DrawBox(200, 115, 1090, 500, 0x000000, TRUE);
+            if (bullet::Bullet == 2)
+            {
+                DrawGraph(200, 115, BulletCount_Img, TRUE);
+               
+            }
+            if (bullet::Bullet == 3)
+            {
+                DrawGraph(200, 115, BulletCount_Img2, TRUE);
+              
+            }
+            if (bullet::Bullet == 4)
+            {
+                DrawGraph(200,115, BulletCount_Img3, TRUE);
+              
+            }
+        }
+
         //アイテム
         SetFontSize(28);
         DrawFormatString(940, 600, 0xffffff, "%d", Item::itemtable[0]);
@@ -443,6 +496,8 @@ void GameMain::Draw() const
         DrawFormatString(1220, 600, 0xffffff, "%d", Item::itemtable[3]);
         DrawFormatString(1080, 650, 0xffffff, "%d", Item::itemtable[4]);
         DrawFormatString(1180, 650, 0xffffff, "%d", Item::itemtable[5]);
+
+        
 
       //if()
       //  DrawString(450, 40, "USE DRAG", 0xffffff);
@@ -566,6 +621,10 @@ void GameMain::Draw() const
         }
 
 
+        if (More_UI == TRUE) {
+            DrawGraph(0, 0, A_shot, TRUE);
+        }
+
     }
 
 
@@ -672,10 +731,6 @@ void GameMain::Draw() const
 }
 
 
-
-
-
-
 void GameMain::Turn()
 {
     TurnCount = bullet::FireC;
@@ -763,6 +818,9 @@ void GameMain::P_Choice()
             ChangeVolumeSoundMem(255, NshotSE);
             PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
             bullet::FireC++;
+            OM = 0;
+            More_UI = TRUE;
+           
         }
 
 
@@ -1055,5 +1113,17 @@ void GameMain::ROUND_UP()
       
      
    
+}
+
+
+void GameMain::BulettUI()
+{
+    if (RoundUiflg == FALSE&& BulettCount_UI != 181) {
+        BulettCount_UI++;
+        if (BulettCount_UI == 180) {
+           
+            BulettCount_UI = 181;
+        }
+    }
 }
 

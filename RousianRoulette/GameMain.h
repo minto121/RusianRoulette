@@ -18,6 +18,10 @@ private:
     /*int PushFlgUI;*/
     int Flash;
 
+    
+    int BulletCount_Img;
+    int BulletCount_Img2;
+    int BulletCount_Img3;
     int RoundImg;
     int RoundUiflg;
     int R;
@@ -38,6 +42,9 @@ private:
     bool WaitFlg3;
     int ResultFlg;
     
+    int More_UI;
+    int A_shot;
+    int OM;
 
     // プレイヤーターンのフラグ
 
@@ -120,7 +127,7 @@ public:
     void P_UI_INIT();
     void ROUND_UI();
     void ROUND_UP();
-
+    void BulettUI();
 
     bullet* BULLET;
     Item* ITEM;
@@ -137,5 +144,6 @@ public:
     static int FreezUI;
     static int ResultBgm2;
     static int FreezDiray;
+    static int BulettCount_UI;
 };
 

@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include "HelpScene.h"
+#include "HelpScene0.h"
 #include "HelpScene2.h"
 #include"PadInput.h"
 #include"GameMain.h"
@@ -39,7 +40,7 @@ AbstractScene* HelpScene::Update()
 	{
 		PlaySoundMem(BSE, DX_PLAYTYPE_BACK, FALSE);
 		StopSoundMem(Bgm);
-		return new Title();
+		return new HelpScene0();
 
 	}
 
