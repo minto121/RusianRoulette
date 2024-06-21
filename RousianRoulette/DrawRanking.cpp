@@ -16,7 +16,7 @@ DrawRankingScene::DrawRankingScene(int round) {
 }
 
 AbstractScene* DrawRankingScene::Update() {
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1) {
+	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A) == 1) {
 		PlaySoundMem(DesideSE, DX_PLAYTYPE_BACK);
 
 		return new Title();
