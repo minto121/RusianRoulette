@@ -10,7 +10,7 @@ DrawRankingScene::DrawRankingScene(int round) {
 		rankingData[i] = ranking.GetRankingData(i);
 	}
 
-	image = LoadGraph("Resources/images/Ranking.png");
+	image = LoadGraph("Resources/images/Ranking_bg.png");
 	DesideSE = LoadSoundMem("Resources/sounds/kettei.mp3");
 
 }
@@ -29,15 +29,16 @@ AbstractScene* DrawRankingScene::Update() {
 void DrawRankingScene::Draw() const {
 	DrawGraph(0, 0, image, TRUE);
 
-	SetFontSize(60);
-	DrawString(140, 100, "RANKING", 0xffffff);
+	SetFontSize(100);
+	DrawString(450, 100, "RANKING", 0xff0000);
 
-	SetFontSize(40);
+	SetFontSize(60);
 	for (int i = 0; i < 5; i++) {
-		DrawFormatString(92, 300 + 50 * i, 0xffffff, "%d %4s ", rankingData[i].no, rankingData[i].name.c_str());
-		DrawFormatString(390, 300 + 50 * i, 0xffffff, "%5ld", rankingData[i].score);
+
+		DrawFormatString(350, 300 + 50 * i, 0xffffff, "%d %4s ", rankingData[i].no, rankingData[i].name.c_str());
+		DrawFormatString(650, 300 + 50 * i, 0xffffff, "%5ld", rankingData[i].score);
 	}
 
-	SetFontSize(32);
-	DrawString(280, 610, "A  PUSH", 0xffffff);
+	SetFontSize(40);
+	DrawString(550, 610, "A  PUSH", 0xff0000);
 }
