@@ -130,12 +130,6 @@ void Title::Draw()const
 
 	SetFontSize(48);
 
-	//���j���[�̕`��
-	//DrawFormatString(520, 380, 0xffffff, "START");
-	//DrawFormatString(520, 460, 0xffffff, "RANKING");
-	//DrawFormatString(520, 540, 0xffffff, "HELP");
-	//DrawFormatString(520, 620, 0xffffff, "END");
-
 	//�J�[�\���̕`��
 	int select_y = 360 + Select * 80;
 	//DrawGraph(650, select_y, CursorImg, TRUE);
