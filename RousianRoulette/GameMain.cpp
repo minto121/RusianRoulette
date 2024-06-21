@@ -22,7 +22,6 @@ int GameMain::FreezDiray;
 int GameMain::BulettCount_UI;
 int GameMain::TurnTime;
 
-
 enum class CURSOL
 {
     C_ENEMY = 0,
@@ -318,7 +317,7 @@ AbstractScene* GameMain::Update()
                     if (Item::itemtable[4] == 0 && Item::TotemRand == 0 && Item::Freez == FALSE)
                     {
                       
-                        return new Title();
+                        return new InputRankingScene(Round);
                         FreezDiray = 1;
                        
                       
