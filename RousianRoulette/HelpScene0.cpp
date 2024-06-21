@@ -12,16 +12,16 @@ HelpScene0::HelpScene0()
 {
 	image = LoadGraph("Resources/images/HelpScene0.png");
 	Bgm = LoadSoundMem("Resources/sounds/I like.wav");
-	//ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
-	//BSE = LoadSoundMem("Resources/sounds/cancel.mp3");
+	ASE = LoadSoundMem("Resources/sounds/kettei.mp3");
+	BSE = LoadSoundMem("Resources/sounds/cancel.mp3");
 }
 
 HelpScene0::~HelpScene0()
 {
 	DeleteGraph(image);
 	DeleteSoundMem(Bgm);
-	//DeleteSoundMem(ASE);
-	//DeleteSoundMem(BSE);
+	DeleteSoundMem(ASE);
+	DeleteSoundMem(BSE);
 }
 
 AbstractScene* HelpScene0::Update()
@@ -32,13 +32,13 @@ AbstractScene* HelpScene0::Update()
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1) {
 
-		//PlaySoundMem(ASE, DX_PLAYTYPE_BACK, FALSE);
+		PlaySoundMem(ASE, DX_PLAYTYPE_BACK, FALSE);
 		return new HelpScene();
 		StopSoundMem(Bgm);
 	}
 	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) == 1)
 	{
-		//PlaySoundMem(BSE, DX_PLAYTYPE_BACK, FALSE);
+		PlaySoundMem(BSE, DX_PLAYTYPE_BACK, FALSE);
 		return new Title();
 		StopSoundMem(Bgm);
 
