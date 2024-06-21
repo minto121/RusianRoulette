@@ -20,7 +20,7 @@ int GameMain::PushFlgUI;
 int GameMain::FreezUI;
 int GameMain::ResultBgm2;
 int GameMain::FreezDiray;
-
+//int GameMain::Round;
 
 enum class CURSOL
 {
@@ -41,7 +41,7 @@ GameMain::GameMain()
   /*  R = 2000;*/
     P_life = 2;
     E_life = 2;
-    Round = 0;
+    Round = 10;
     ResultFlg = FALSE/*TRUE*/;
   
     INIT();
@@ -286,7 +286,7 @@ AbstractScene* GameMain::Update()
                     if (Item::itemtable[4] == 0 && Item::TotemRand == 0 && Item::Freez == FALSE)
                     {
                       
-                        return new Title();
+                        return new InputRankingScene(Round);
                         FreezDiray = 1;
                        
                       

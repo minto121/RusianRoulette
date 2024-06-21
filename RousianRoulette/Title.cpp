@@ -102,7 +102,7 @@ AbstractScene* Title::Update()
 			break;
 			//�w���v���
 		case TITLE_MENU::GAME_HELP:
-			return new DrawRankingScene(0);
+			return new InputRankingScene(0);
 			StopSoundMem(TitleBgm);
 			break;
 			//�G���h��ʂ�
