@@ -23,6 +23,7 @@ int GameMain::BulettCount_UI;
 int GameMain::TurnTime;
 int GameMain::GMBgm;
 
+
 enum class CURSOL
 {
     C_ENEMY = 0,

@@ -168,9 +168,7 @@ void bullet::Draw() const
 	{
 		DrawGraph(30, 435, BulletCur_Img, TRUE);
 	}
-	DrawFormatString(200, 150, 0xffffff, "FC%d", FireC);
-	DrawFormatString(200, 180, 0xffffff, "LB%d",Last_Bullet);
-
+	
 }
 
 
