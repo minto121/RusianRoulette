@@ -115,25 +115,10 @@ void bullet::Update()
 void bullet::Draw() const
 {
 	SetFontSize(14);
-	/*DrawFormatString(0, 280, 0xffffff, "Bullet:%d", Bullet);
-	DrawFormatString(0, 300, 0xffffff, "B_Location:%d", Cylinder[0]);
-	DrawFormatString(0, 320, 0xffffff, "B_Location:%d", Cylinder[1]);
-	DrawFormatString(0, 340, 0xffffff, "B_Location:%d", Cylinder[2]);
-	DrawFormatString(0, 360, 0xffffff, "B_Location:%d", Cylinder[3]);
-	DrawFormatString(0, 380, 0xffffff, "B_Location:%d", Cylinder[4]);
-	DrawFormatString(0, 400, 0xffffff, "B_Location:%d", Cylinder[5]);
-	DrawFormatString(0, 420, 0xffffff, "FC:%d", FireC);*/
+	
 
 	SetFontSize(32);
-	/*DrawFormatString(15, 200, 0xffffff, "LAST : %d", Last_Bullet);
-	DrawString(80, 240, "BULLET", 0xffffff, TRUE);*/
-
-	/*DrawGraph(15, 140, Bullet_img, TRUE);
-	DrawGraph(15, 200, Bullet_img, TRUE);
-	DrawGraph(15, 260, Bullet_img, TRUE);
-	DrawGraph(15, 320, Bullet_img, TRUE);
-	DrawGraph(15, 380, Bullet_img, TRUE);
-	DrawGraph(15, 440, Bullet_img, TRUE);*/
+	
 	if (FireC == 1 || FireC == 2||FireC == 3 || FireC == 4 || FireC == 5 || FireC == 6)
 	{
 		DrawGraph(20, 110, Shot_Ui_Img, TRUE);
@@ -183,6 +168,9 @@ void bullet::Draw() const
 	{
 		DrawGraph(30, 435, BulletCur_Img, TRUE);
 	}
+	DrawFormatString(200, 150, 0xffffff, "FC%d", FireC);
+	DrawFormatString(200, 180, 0xffffff, "LB%d",Last_Bullet);
+
 }
 
 

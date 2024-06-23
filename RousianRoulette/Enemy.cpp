@@ -39,6 +39,7 @@ void Enemy::E_INIT()
 	NohitImg = LoadGraph("Resources/images/ESP_MISS.png");
 	OneMoreImg = LoadGraph("Resources/images/1more_Enemy.png");
 	NshotSE = LoadSoundMem("Resources/sounds/not shot.mp3");
+	EnemyUISE = LoadSoundMem("Resources/SE/PUI[1]SE.mp3");
 	/*Hitdamage = LoadGraph("resouce/image/Damage.png");*/
 
 	Nohit_UI = FALSE;
@@ -67,13 +68,23 @@ void Enemy::E_Turn()
 		E_Timer = 0;
 		OneMore = FALSE;
 	}
-	if (GameMain::isPlayerTurn == FALSE&&GameMain::E_life>0)
+	if (GameMain::isPlayerTurn == FALSE&&GameMain::E_life>0&&GameMain::TurnTime==120)
 	{
 		
 		/*if (E_Timer ==1)
 		{*/
+
+
+		ChangeVolumeSoundMem(55, GameMain::GMBgm);
+
+
 			E_Timer++;
 			
+
+			if (E_Timer == 1)
+			{
+				PlaySoundMem(EnemyUISE, DX_PLAYTYPE_BACK);
+			}
 		/*}*/
 		
 			E_AI();
@@ -88,21 +99,44 @@ void Enemy::E_AI()
 {
 	if (E_Timer ==2)
 	{
-		E_Choice = GetRand(1);
-		switch (E_Choice)
+		if (6 - bullet::FireC == bullet::Last_Bullet 
+			|| 6 - bullet::FireC - bullet::Last_Bullet < bullet::Last_Bullet)
 		{
-		case(0):
+			E_Choice = 0;
 			E_UI[0] = TRUE;
-			break;
-		case(1):
+		}
+
+
+
+		else if (6 - bullet::FireC - bullet::Last_Bullet > bullet::Last_Bullet)
+		{
+			E_Choice = 1;
 			E_UI[1] = TRUE;
-			break;
+		}
+
+
+
+
+
+		else if (6 - bullet::FireC - bullet::Last_Bullet == bullet::Last_Bullet)
+		{
+			E_Choice = GetRand(1);
+			switch (E_Choice)
+			{
+			case(0):
+				E_UI[0] = TRUE;
+				break;
+			case(1):
+				E_UI[1] = TRUE;
+				break;
+			}
 		}
 	}
 	
 	
 
 }
+
 
 void Enemy::E_UI_TIME()
 {
@@ -126,6 +160,7 @@ void Enemy::E_PChoice()
 	{
 		if (bullet::Cylinder[bullet::FireC] == 1)
 		{
+			bullet::Last_Bullet -= 1;
 			ESP_hit_flg = TRUE;
 			GameMain::bh2_flg = TRUE;
 			PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
@@ -147,16 +182,17 @@ void Enemy::E_PChoice()
 		if (ESP_hit_flg == TRUE)
 		{
 			GameMain::P_life -=1;
-			GameMain::bh2_flg = FALSE;
 			bullet::Cylinder[bullet::FireC] = 0;
 			bullet::FireC++;
+			GameMain::bh2_flg = FALSE;
+			E_Timer = 301;
 		}
 		else if (ESP_miss_flg == TRUE)
 		{
 			bullet::Cylinder[bullet::FireC] = 0;
 			bullet::FireC++;
 			Nohit_UI = FALSE;
-			E_Timer = 300;
+			E_Timer = 301;
 		}
 		
 	}
@@ -176,6 +212,7 @@ void Enemy::E_EChoice()
 	{
 		if (bullet::Cylinder[bullet::FireC] == 1)
 		{
+			bullet::Last_Bullet -= 1;
 			ESE_hit_flg = TRUE;
 			PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
 			GameMain::bh_flg = TRUE;
@@ -196,17 +233,18 @@ void Enemy::E_EChoice()
 		if (ESE_hit_flg == TRUE)
 		{
 			GameMain::E_life -= 1;
-			GameMain::bh_flg = FALSE;
-
 
 			bullet::Cylinder[bullet::FireC] = 0;
 			bullet::FireC++;
+
+			GameMain::bh_flg = FALSE;
+			E_Timer = 301;
 		}
 		else if (ESE_miss_flg == TRUE)
 		{
 			bullet::Cylinder[bullet::FireC] = 0;
 			bullet::FireC++;
-			E_Timer = 300;
+			E_Timer = 301;
 		
 		}
 
@@ -263,8 +301,8 @@ void Enemy::Draw() const
 
 	/*if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
 		DrawGraph(0, 0, Hitdamage, TRUE);
-	}
-	DrawFormatString(20, 10, 0xffffff, "ET%d", E_Timer);*/
+	}*/
+	
 
 }
 

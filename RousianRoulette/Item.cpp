@@ -31,14 +31,13 @@ Item::Item()
    
     for (int a = 0; a <= 5; a++)
     {
-        itemtable[a] = 0;
+        itemtable[a] = 1;
     }
    
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
 
-   
 }
 
 
@@ -211,23 +210,24 @@ void Item::LOUPE()
 
 void Item::JUDGE()
 {
-    int Judge = GetRand(1);
+    
+        int Judge = GetRand(1);
+   
     if(itemtable[3] >= 1){
         PlaySoundMem(JudgeSE, DX_PLAYTYPE_BACK);
         Timer::FPS = 1;
-
-        if (Judge == 0) {
-            GameMain::P_life--;
-            J_Player_Flg = TRUE;
-        }
-        else {
-            GameMain::E_life--;
-            J_Enemy_Flg = TRUE;
-        }
+       
+            if (Judge == 0) {
+                J_Player_Flg = TRUE;
+           
+            }
+            else {
+                J_Enemy_Flg = TRUE;
+               
+               
+            }
         
-        if (GameMain::E_life < 1) {
-            GameMain::P_life = 2;
-        }
+       
         itemtable[3] -= 1;
     }
 }
@@ -238,7 +238,7 @@ void Item::TOTEM()
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = GetRand(1);
+            TotemRand = 1/*GetRand(1)*/;
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)
@@ -343,7 +343,7 @@ void Item::C_BULLET()
         PlaySoundMem(BC_SE, DX_PLAYTYPE_BACK);
         C_BULLET_Flg = TRUE;
         Timer::FPS = 1;
-
+        bullet::Last_Bullet = 0;
 
         int i;
         for (i = 0; i < 6; i++) {
@@ -352,6 +352,13 @@ void Item::C_BULLET()
             }
             else if (bullet::Cylinder[i] == 1) {
                 bullet::Cylinder[i] = 0;
+            }
+        }
+        int j;
+        for (j = bullet::FireC; j < 6; j++)
+        {
+            if (bullet::Cylinder[j] == 1) {
+               bullet::Last_Bullet+=1;
             }
         }
         itemtable[5] -= 1;
@@ -365,7 +372,7 @@ void Item::TOTEM_UI_TIME()
     if (GameMain::PushFlgUI != 5 || GameMain::PushFlgUI == 5&&TotemRand ==0) {
         if (WaitTime == FALSE)
         {
-            R4 = 0;
+            R4 = -30;
         }
         if (WaitTime == TRUE)
         {
@@ -393,7 +400,7 @@ void Item::TOTEM_UI_TIME()
     {
         if (WaitTime == FALSE)
         {
-            R4 = 0;
+            R4 = -30;
         }
         if (WaitTime == TRUE)
         {
@@ -416,14 +423,14 @@ void Item::TOTEM_UI_TIME()
         //freez横線
         if (R5 != 640)
         {
-            R5 += 70;
+            R5 += 60;
         }
       
         if (R6 != 640)
         {
-            R6 -= 70;
+            R6 -= 60;
         }
-        if (R5 >= 640||R2<=0) {
+        if (R5 >= 640/*||R2<=0*/) {
             R5 = 640;
             R6 = 640;
         }
@@ -462,7 +469,7 @@ void Item::TOTEM_UI_TIME()
 
 
         if (R2 != -650) {
-            R2 -= 10;
+            R2 -= 8;
 
         }
 
@@ -491,12 +498,12 @@ void Item::SOUND()
 {
   
     //Totem↓
-    if (T_UI == 1 && R3 == 1 || T_UI == 1 && R4 == 1)
+    if (T_UI == 1 && R3 == 1 || T_UI == 1 && R4 == -29)
     {
         
         PlaySoundMem(WhiteBulletSE, DX_PLAYTYPE_BACK);
     }
-    if (T_UI == 2 && R3 == 1 || T_UI == 2 && R4 == 1)
+    if (T_UI == 2 && R3 == 1 || T_UI == 2 && R4 == -29)
     {
       
         PlaySoundMem(RedBulletSE, DX_PLAYTYPE_BACK);
@@ -637,16 +644,19 @@ AbstractScene*Item::Update()
  /*   C_BULLET();*/
     TOTEM_UI_TIME();
 
-    //if (Timer::FPS == 120)
-    //{
-    //    Bomb_Img;
-    //    Loope_Img;
-    //    Drag_img;
-    //    CB_Img;
-    //    Judge_Img;
-    //}
+    if (Timer::FPS == 120&&J_Enemy_Flg==TRUE)
+    {
+        GameMain::E_life -= 1;
+        if (GameMain::E_life < 1) {
+            GameMain::P_life = 2;
+        }
+    }
+    if (Timer::FPS == 120 && J_Player_Flg == TRUE)
+    {
+        GameMain::P_life -= 1;
+    }
 
-    if (Timer::FPS == 320)
+    if (Timer::FPS == 241)
     {
         L_Check = 0;
         J_Player_Flg = FALSE;
@@ -725,18 +735,18 @@ void Item::Draw() const
     //ジャッジの結果表示
     if (J_Player_Flg == TRUE)
     {
-        if (Timer::FPS <= 120)
+        if (Timer::FPS <= 120&&GameMain::P_life >=1)
         {
             //DrawBox(490, 190, 770, 410, 0xffffff, TRUE);
             DrawBox(200, 110, 1090, 500, /*0xFFFF00*/0x000000, TRUE);
             DrawGraph(540, 190, Judge_Img, TRUE);
         }
-        else if (Timer::FPS >= 120)
+        else if (Timer::FPS >= 120&&GameMain::P_life >=1 )
         {
             DrawString(420, 40, "JUDGE:PLAYER LIFE -1", 0xfa2000, TRUE);
         }
     }
-    if (J_Enemy_Flg == TRUE)
+    if (J_Enemy_Flg == TRUE && GameMain::E_life >= 1)
     {
         if (Timer::FPS <= 120)
         {
@@ -744,7 +754,7 @@ void Item::Draw() const
             DrawBox(200, 110, 1090, 500, /*0xFFFF00*/0x000000, TRUE);
             DrawGraph(540, 190, Judge_Img, TRUE);
         }
-        else if (Timer::FPS >= 120)
+        else if (Timer::FPS >= 120 &&GameMain::E_life >= 1)
         {
             DrawString(420, 40, "JUDGE:ENEMY LIFE -1", 0xfa2000, TRUE);
         }
@@ -1093,11 +1103,7 @@ void Item::Draw() const
 
 
 }
-  /*  DrawBox(638, R8, 642, R7, 0xEE82EE, true);
-    DrawBox(R5, 359, R6, 361, 0xEE82EE, true);
-   
-    DrawCircle(640, 360, R2, 0xFFFFFF, true);*/
-
+  
 
   
 
@@ -1107,37 +1113,7 @@ void Item::Draw() const
    
 
 
-   /* SetFontSize(28);
-    DrawString(860, 600, "DRAG:", 0xffff00, TRUE);
-    DrawString(990, 600, "LOUPE:", 0x87CEFA, TRUE);
-    DrawString(1130, 600, "JUDGE:", 0xFF0000, TRUE);
-    DrawString(860, 650, "BOMB:", 0xFF0000, TRUE);
-    DrawString(990, 650, "TOTEM:", 0xffff00, TRUE);
-    DrawString(1130, 650, "BC:", 0x87CEFA, TRUE);*/
-
    
-   
-   
-  /*  DrawFormatString(100, 340, 0x000ff, "T:%d", itemtable[4]);*/
-    /* DrawFormatString(100, 20, 0xffffff, "TR:%d", TotemRand);
-     DrawFormatString(100, 40, 0xffffff, "TCOLOR:%d", T_UIRand);*/
-     /*DrawFormatString(100, 40, 0x000ff, "FREEZ:%d", Freez);
-     DrawFormatString(100, 80, 0x0000ff, "FREEZUI:%d", GameMain::FreezUI);
-     DrawFormatString(100, 160, 0x000ff, "PUSHUI:%d", GameMain::PushFlgUI);
-     DrawFormatString(100, 120, 0x000ff, "R:%d", R);
-     DrawFormatString(100, 280, 0x000ff, "R2:%d", R2);
-     DrawFormatString(100, 200, 0x000ff, "T:%d", R4);
-     DrawFormatString(100, 240, 0x000ff, "A:%d", T_RevivalAnim);
-     DrawFormatString(100, 320, 0x000ff, "To:%d", TotemRand);
-     DrawFormatString(100, 360, 0x000ff, "TUI:%d", T_UI);
-     DrawFormatString(100, 400, 0x000ff, "TUIR:%d", T_UIRand);
-     */
-     /* DrawString(0, 50, "Loupe:", 0xffffff, TRUE);*/
-    
-
-   /* DrawFormatString(100, 20, 0xffffff, "Bomb:%d", Bomb);*/
-   
-
 
 
 

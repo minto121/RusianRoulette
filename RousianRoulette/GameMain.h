@@ -5,7 +5,7 @@
 #include "Timer.h"
 #include "Enemy.h"
 
-#define IMAGE_CNT 5
+#define IMAGE_CNT 8
 
 class GameMain :
     public AbstractScene
@@ -96,11 +96,15 @@ private:
     int WaitFlg4;
     int TotemChanceBgm;
 
-    int GMBgm;
+   
     int SelectSE;
 
     int ShotSE;
     int NshotSE;
+
+    int Totem2Img;
+    int Totem2SE;
+    int TotemTime;
 
     int REnemyimg;
     int A_UI[2];  //Action UI プレイヤーの行動
@@ -115,6 +119,8 @@ private:
     int PSP_miss_Flg;//プレイヤーからプレイヤーにうって失敗
   
     int PSP_hit_Flg; //プレイヤーからプレイヤーに撃ってヒット
+
+    int P_UI_SE[3]; //けっていSE,キャンセルSE
 public:
 
     //�R���X�g���N�^
@@ -162,5 +168,6 @@ public:
     static int FreezDiray;
     static int BulettCount_UI;
     static int TurnTime;
+    static  int GMBgm;
 };
 

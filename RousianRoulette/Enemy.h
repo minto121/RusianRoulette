@@ -17,6 +17,7 @@ private:
 	int Hit_UI;
 	int NT;
 	int YT;
+	int EnemyUISE;
 	int ShotSE;
 	int NshotSE;
 	int ESP_hit_flg;
