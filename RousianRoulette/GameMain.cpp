@@ -20,6 +20,7 @@ int GameMain::FreezUI;
 int GameMain::ResultBgm2;
 int GameMain::FreezDiray;
 int GameMain::BulettCount_UI;
+int GameMain::TurnTime;
 
 enum class CURSOL
 {
@@ -33,6 +34,7 @@ bool GameMain::isPlayerTurn;
 
 GameMain::GameMain()
 {
+    ShuffleEnemyNum = 0;
     BULLET = new bullet;
     ITEM = new Item;
     TIMER = new Timer;
@@ -55,7 +57,7 @@ void GameMain::INIT()
     CurY = 576;
     P_UI_INIT();
     flash = 0;
-  
+    TurnTime =0;
    
     TurnCount = 0;
 
@@ -65,9 +67,15 @@ void GameMain::INIT()
 
     AT = 0;
     ET = 0;
-    OM = 0;
+   
 
-    More_UI = FALSE;
+  
+    PSP_hit_Flg = FALSE;
+    PSP_miss_Flg = FALSE;
+    PSE_hit_Flg = FALSE;
+    PSE_miss_Flg = FALSE;
+
+
     //Turn = 1;
    /* isPlayerTurn = TRUE;*/
     Enemyimg[0] = LoadGraph("Resources/images/reaper.png");
@@ -75,8 +83,9 @@ void GameMain::INIT()
     Enemyimg[2] = LoadGraph("Resources/images/mummy.png");
     Enemyimg[3] = LoadGraph("Resources/images/shocker.png");
     Enemyimg[4] = LoadGraph("Resources/images/devil.png");
-    bullet_holes = LoadGraph("Resources/images/k0100_1.png");
+    bullet_holes = LoadGraph("Resources/images/NewBh.png");
     bullet_holes2 = LoadGraph("Resources/images/Item/Red.png");
+    bullet_holes3 = LoadGraph("Resources/images/NewBh2.5.png");
     P_LifeImg = LoadGraph("Resources/images/P_Life.png");
     E_LifeImg = LoadGraph("Resources/images/E_Life.png");
     BackGRImg = LoadGraph("Resources/images/BG.png");
@@ -86,7 +95,8 @@ void GameMain::INIT()
     CursolImg[1] = LoadGraph("resouce/image/cursor2.png");
     CursolImg[2] = LoadGraph("resouce/image/cursor4.png");
     Bakuhatsu_Img = LoadGraph("Resources/images/Item2/bakuhatsu.png");
-    
+    PTurnImg = LoadGraph("Resources/images/PlayerTurn.png");
+    ETurnImg = LoadGraph("Resources/images/Enemyturn.png");
 
     PushSE = LoadSoundMem("Resources/SE/Push.mp3");
     PushSE2 = LoadSoundMem("Resources/SE/Push2.mp3");
@@ -110,18 +120,18 @@ void GameMain::INIT()
     BulletCount_Img = LoadGraph("Resources/images/Bullet/BulletUIImg1.png");
     BulletCount_Img2 = LoadGraph("Resources/images/Bullet/BulletUIImg2.png");
     BulletCount_Img3 = LoadGraph("Resources/images/Bullet/BulletUIImg3.png");
-
+    missImg = LoadGraph("Resources/images/PSE_Miss.png");
 
 
     REnemyimg = LoadGraph("Resources/images/RinjiEnemy.png");
 
     
-    A_shot = LoadGraph("resouce/image/AShot.png");
+    A_shotImg = LoadGraph("resouce/image/AShot.png");
    
 
     UraBotanSE = LoadSoundMem("Resources/SE/UraBotann.mp3");
    RoundButtonSE = LoadSoundMem("Resources/sounds/kettei.mp3");
-    ShuffleEnemyNum = 0;
+    
     LastEnemyNum = -1;
     GMBgm = LoadSoundMem("Resources/sounds/destruct.wav");
     SelectSE = LoadSoundMem("Resources/sounds/cursorsound.mp3");
@@ -177,18 +187,22 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X))
-    {
-        return new Title();
-    }
+   
     ROUND_UI();
    
-    
+    if (E_life <= 0)
+    {
+        ShuffleEnemyNum = GetRand(4);
+    }
 
 
 
     if (RoundUiflg == FALSE)
     {
+
+       
+
+
         //BGM
             if (ResultFlg == FALSE&&RoundUiflg == FALSE&& BulettCount_UI == 181) {
             ChangeVolumeSoundMem(75, GMBgm);
@@ -266,7 +280,7 @@ AbstractScene* GameMain::Update()
                 StopSoundMem(ResultBgm2);
                 if (WaitFlg3 == FALSE)
                 {
-                   PushFlgUI = 5/*GetRand(5)*/;
+                   PushFlgUI = GetRand(5);
           
                 }
       
@@ -325,76 +339,48 @@ AbstractScene* GameMain::Update()
             {
                 BULLET->Update();
                 
-                 /*if (bullet::FireC == 6)
-                 {
-                     BulettCount_UI = 0;
-                 }*/
+               
                  BulettUI();
+
+                
+
+
                  if (BulettCount_UI == 181)
                  {
-                     if (A_UI[1] == TRUE) {
-                         AT++;
-                         if (AT == 99) {
-                             P_Choice();
-                         }
-                         if (AT == 100) {
-                             AT = 0;
-                             A_UI[1] = FALSE;
-                         }
-                        
-                     }
 
-                     if (A_UI[0] == TRUE) {
-                         AT++;
-                         if (AT == 99) {
-                             E_Choice();
-                         }
-                         if (AT == 100) {
-                             AT = 0;
-                             A_UI[0] = FALSE;
-                         }
-                         
-                     }
-
-                     if (E_life <= 0)
+                     if (TurnTime != 90)
                      {
-                         ET++;
+                         TurnTime++;
                      }
+                     if (TurnTime == 90)
 
-
-                     if (Timer::FPS >= 10) {
-                         WaitFlg2 = TRUE;
-
-                     }
-                     if (isPlayerTurn == FALSE && Timer::FPS == 250)
                      {
-                         P_UI_INIT();
+                         if (isPlayerTurn == TRUE)
+                         {
+                             P_UI();
+                         }
+
+                         P_Choice();
+                         E_Choice();
+
+
+                         if (Timer::FPS >= 10) {
+                             WaitFlg2 = TRUE;
+
+                         }
+                         if (isPlayerTurn == FALSE/* && Timer::FPS == 250*/)
+                         {
+                             P_UI_INIT();
+                         }
+
+
+
+                         ENEMY->Update();
+                         TIMER->Update();
+                         //Choice();
+                         Turn();
+
                      }
-                     /*  life();*/
-                   
-
-                     ENEMY->Update();
-                     TIMER->Update();
-                     //Choice();
-                     Turn();
-                     if (isPlayerTurn == TRUE)
-                     {
-                         P_UI();
-                     }
-
-
-                if (Timer::FPS == 100 || Timer::FPS == 299)
-                {
-                    BK_Flg = FALSE;
-                    bh_flg = FALSE;
-                    bh2_flg = FALSE;
-                }
-                if (More_UI == TRUE) {
-                    OM++;
-                    if (OM == 120) {
-                        More_UI = FALSE;
-                    }
-                }
 
                  }
             
@@ -433,23 +419,28 @@ void GameMain::Draw() const
     //ゲームメイン
     if (ResultFlg == FALSE&& RoundUiflg == FALSE) {
 
-        //背景
-        DrawGraph(0, 0, BackGRImg, TRUE);
-        if (isPlayerTurn == FALSE || bh_flg == TRUE ||bh2_flg==TRUE)
+       
+       
+        if (isPlayerTurn == FALSE)
         {
             DrawGraph(0, 0, BackGR_EnemyImg, TRUE);
         }
+        if (isPlayerTurn == TRUE)
+        {
+            DrawGraph(0, 0, BackGR_PlayerImg, TRUE);
+        }
 
+       
         //敵
-        if (E_life > 0) {
-            /*  DrawGraph(370, 100, Enemyimg[ShuffleEnemyNum], TRUE);*/
-            DrawGraph(520, 170, REnemyimg, TRUE);
+        if (E_life > 0&&TurnTime ==90) {
+              DrawGraph(450, 140, Enemyimg[ShuffleEnemyNum], TRUE);
+          
         }
 
         if (bh_flg == TRUE&&Item::Bomb_Flg==FALSE)
         {
            
-            DrawGraph(370, 50, bullet_holes, TRUE);
+            DrawGraph(200, 110, bullet_holes, TRUE);
         }
         if (BK_Flg == TRUE)
         {
@@ -470,26 +461,7 @@ void GameMain::Draw() const
         DrawFormatString(1220, 220, 0xffffff, "%d", E_life);
       
 
-        //弾
-        if (BulettCount_UI < 180) {
-            DrawFormatString(400, 40, 0xffffff, "RELOAD    %d    BULLET", bullet::Bullet);
-            DrawBox(200, 115, 1090, 500, 0x000000, TRUE);
-            if (bullet::Bullet == 2)
-            {
-                DrawGraph(200, 115, BulletCount_Img, TRUE);
-               
-            }
-            if (bullet::Bullet == 3)
-            {
-                DrawGraph(200, 115, BulletCount_Img2, TRUE);
-              
-            }
-            if (bullet::Bullet == 4)
-            {
-                DrawGraph(200,115, BulletCount_Img3, TRUE);
-              
-            }
-        }
+      
 
         //アイテム
         SetFontSize(28);
@@ -501,77 +473,45 @@ void GameMain::Draw() const
         DrawFormatString(1180, 650, 0xffffff, "%d", Item::itemtable[5]);
 
         
-
-      //if()
-      //  DrawString(450, 40, "USE DRAG", 0xffffff);
-        //  //白枠
-        //DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
-        //DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
-        //DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
-        //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
-        //DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
-        //DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
-        //DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
-        //DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
-        //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
-        //DrawBox(1090, 180, 1280, 190, GetColor(255, 255, 255), TRUE);
-        //DrawBox(1090, 300, 1280, 310, GetColor(255, 255, 255), TRUE);
-        //DrawBox(1090, 375, 1280, 385, GetColor(255, 255, 255), TRUE);
-        //DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
-        //DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
-        //DrawBox(380, 500, 390, 710, GetColor(255, 255, 255), TRUE);
-        //DrawBox(800, 500, 810, 710, GetColor(255, 255, 255), TRUE);
-        //DrawBox(0, 560, 1280, 570, GetColor(255, 255, 255), TRUE);
-        //DrawBox(140, 560, 150, 710, GetColor(255, 255, 255), TRUE);
-
-        //SetFontSize(36);
-
-        ////Life
-        //DrawString(1140, 130, "ENEMY", 0xFF0000);
-        //DrawString(1130, 325, "PLAYER", 0xFFFF00);
-        //DrawGraph(1110, 225, E_LifeImg, TRUE);
-        //DrawGraph(1110, 420, P_LifeImg, TRUE);
-        //DrawFormatString(1180, 227, 0xffffff, ": ", E_life);
-        //DrawFormatString(1180, 422, 0xffffff, ":", P_life);
+    
 
 
-        //SetFontSize(48);
 
-        ////Round
-        //DrawString(40, 35, "ROUND :", 0xE6E6FA);
-
-        //   //Turn
-        //DrawString(1130, 35, ":TURN", 0xEE82EE);
-
-        ////Action
-
-        //DrawString(250, 580, "SHOOT", 0xFF0000);
-        //DrawString(247, 650, "ITEM", 0x87CEFA);
-        //DrawString(620, 655, "PLAYER", 0xFFFF00);
-        //DrawString(620, 580, "ENEMY", 0xFF0000);
-
-        //SetFontSize(42);
-        //DrawString(30, 515, "ACTION FOR SELF", 0xFFFF00);
-        //DrawString(430, 515, "SHOOT FOR ALL !!", 0xFF0000);
-        //DrawString(950, 515, "ITEM LIST", 0x87CEFA);
-        //DrawString(410, 618, "SHOOT:", 0xFF0000);
-
-
-        //SetFontSize(24);
-        //     DrawString(35, 575, "BUTTON", 0xFFFFFF);
-        //    DrawString(65, 605, "A", 0x9ACD32);
-        //    DrawString(25, 630, "DECISION", 0x9ACD32);
-       
-        //    DrawString(65, 655, "B", 0xFF0000);
-        //    DrawString(45, 680, "BACK", 0xFF0000);
-     
-       
-          //if (P_Ui[1] == FALSE)
-          //{
-          //   /* DrawBox(390, 510, 800, 560, 0x000000, TRUE);*/
-          //    DrawBox(390, 570, 800, 710, 0x000000, TRUE);
-          //}
+        if (TurnTime <= 89)
+        {
+            if (isPlayerTurn == TRUE)
+            {
+                DrawGraph(200, 115, PTurnImg, FALSE);
+            }
+            if (isPlayerTurn == FALSE)
+            {
+                DrawGraph(200, 115, ETurnImg, FALSE);
+            }
+        }
         
+        //リロード
+        if (BulettCount_UI < 180) {
+
+            DrawGraph(0, 0, BackGRImg, TRUE);
+            
+            DrawBox(200, 115, 1090, 500, 0x000000, TRUE);
+            if (bullet::Bullet == 2)
+            {
+                DrawGraph(200, 115, BulletCount_Img, TRUE);
+
+            }
+            if (bullet::Bullet == 3)
+            {
+                DrawGraph(200, 115, BulletCount_Img2, TRUE);
+
+            }
+            if (bullet::Bullet == 4)
+            {
+                DrawGraph(200, 115, BulletCount_Img3, TRUE);
+
+            }
+        }
+
        
           //カーソル
 
@@ -602,13 +542,13 @@ void GameMain::Draw() const
 
             //アクションUI
             SetFontSize(36);
-            if (A_UI[0] == TRUE)
+            if (A_UI[0] == TRUE&&AT<=121)
             {
                 DrawString(450, 40, "PLAYER", 0xfa2000, TRUE);
                 DrawString(560, 40, ": SHOT ENEMY!!", 0xffffff, TRUE);
             }
 
-            if (A_UI[1] == TRUE)
+            if (A_UI[1] == TRUE && AT <= 121)
             {
                 DrawString(460, 40, "PLAYER", 0xfa2000, TRUE);
                 DrawString(570, 40, ": SHOT SELF!!", 0xffffff, TRUE);
@@ -616,16 +556,40 @@ void GameMain::Draw() const
 
       
 
-
+        //弾
         if (bh2_flg == TRUE)
         {
-            DrawCircle(660, 350, 150, 0x000000);
+            DrawGraph(200, 110, bullet_holes3, TRUE);
+            DrawCircle(660,350, 150, 0x000000);
             DrawGraph(-150, -650, bullet_holes2, TRUE);
+           
         }
 
 
-        if (More_UI == TRUE) {
-            DrawGraph(0, 0, A_shot, TRUE);
+        if (PSP_miss_Flg == TRUE) {
+            DrawGraph(200, 110, A_shotImg, FALSE);
+        }
+        if (missFlg == TRUE) {
+            DrawGraph(200, 110, missImg, FALSE);
+        }
+
+       
+
+
+
+
+
+        if (E_life <= 0) 
+        {
+            SetFontSize(72);
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawString(500, 300, "YOU WIN", 0xFFFF00, TRUE);
+        }
+        if (P_life <= 0)
+        {
+            SetFontSize(72);
+            DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+            DrawString(490, 300, "YOU DEAD", 0xFF0000, TRUE);
         }
 
     }
@@ -730,7 +694,80 @@ void GameMain::Draw() const
 
 
         ITEM->Draw();
- 
+        //if()
+            //  DrawString(450, 40, "USE DRAG", 0xffffff);
+              //  //白枠
+              //DrawBox(0, 5, 1280, 115, GetColor(255, 255, 255), TRUE);
+              //DrawBox(10, 15, 1270, 105, GetColor(0, 0, 0), TRUE);
+              //DrawBox(330, 5, 340, 105, GetColor(255, 255, 255), TRUE);
+              //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+              //DrawBox(190, 105, 200, 500, GetColor(255, 255, 255), TRUE);
+              //DrawBox(0, 105, 10, 500, GetColor(255, 255, 255), TRUE);
+              //DrawBox(1090, 105, 1100, 500, GetColor(255, 255, 255), TRUE);
+              //DrawBox(1270, 105, 1280, 500, GetColor(255, 255, 255), TRUE);
+              //DrawBox(950, 5, 960, 105, GetColor(255, 255, 255), TRUE);
+              //DrawBox(1090, 180, 1280, 190, GetColor(255, 255, 255), TRUE);
+              //DrawBox(1090, 300, 1280, 310, GetColor(255, 255, 255), TRUE);
+              //DrawBox(1090, 375, 1280, 385, GetColor(255, 255, 255), TRUE);
+              //DrawBox(0, 500, 1280, 720, GetColor(255, 255, 255), TRUE);
+              //DrawBox(10, 510, 1270, 710, GetColor(0, 0, 0), TRUE);
+              //DrawBox(380, 500, 390, 710, GetColor(255, 255, 255), TRUE);
+              //DrawBox(800, 500, 810, 710, GetColor(255, 255, 255), TRUE);
+              //DrawBox(0, 560, 1280, 570, GetColor(255, 255, 255), TRUE);
+              //DrawBox(140, 560, 150, 710, GetColor(255, 255, 255), TRUE);
+
+              //SetFontSize(36);
+
+              ////Life
+              //DrawString(1140, 130, "ENEMY", 0xFF0000);
+              //DrawString(1130, 325, "PLAYER", 0xFFFF00);
+              //DrawGraph(1110, 225, E_LifeImg, TRUE);
+              //DrawGraph(1110, 420, P_LifeImg, TRUE);
+              //DrawFormatString(1180, 227, 0xffffff, ": ", E_life);
+              //DrawFormatString(1180, 422, 0xffffff, ":", P_life);
+
+
+              //SetFontSize(48);
+
+              ////Round
+              //DrawString(40, 35, "ROUND :", 0xE6E6FA);
+
+              //   //Turn
+              //DrawString(1130, 35, ":TURN", 0xEE82EE);
+
+              ////Action
+
+              //DrawString(250, 580, "SHOOT", 0xFF0000);
+              //DrawString(247, 650, "ITEM", 0x87CEFA);
+              //DrawString(620, 655, "PLAYER", 0xFFFF00);
+              //DrawString(620, 580, "ENEMY", 0xFF0000);
+
+              //SetFontSize(42);
+              //DrawString(30, 515, "ACTION FOR SELF", 0xFFFF00);
+              //DrawString(430, 515, "SHOOT FOR ALL !!", 0xFF0000);
+              //DrawString(950, 515, "ITEM LIST", 0x87CEFA);
+              //DrawString(410, 618, "SHOOT:", 0xFF0000);
+
+
+              //SetFontSize(24);
+              //     DrawString(35, 575, "BUTTON", 0xFFFFFF);
+              //    DrawString(65, 605, "A", 0x9ACD32);
+              //    DrawString(25, 630, "DECISION", 0x9ACD32);
+
+              //    DrawString(65, 655, "B", 0xFF0000);
+              //    DrawString(45, 680, "BACK", 0xFF0000);
+
+
+                //if (P_Ui[1] == FALSE)
+                //{
+                //   /* DrawBox(390, 510, 800, 560, 0x000000, TRUE);*/
+                //    DrawBox(390, 570, 800, 710, 0x000000, TRUE);
+                //}
+
+
+
+
+      
 }
 
 
@@ -766,68 +803,197 @@ void GameMain::E_Choice()
     {
         WaitFlg = !WaitFlg;
     }
-    if (bullet::Cylinder[bullet::FireC] == 1)
+
+    if (A_UI[0] == FALSE && A_UI[1] == FALSE)
     {
-        PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-        if (Item::Bomb == FALSE)
-        {
-            bh_flg = TRUE;
-        }
-        E_life--;
-        if (Item::Bomb == TRUE)
-        {
-            PlaySoundMem(Item::BombSE, DX_PLAYTYPE_BACK);
-            BK_Flg=TRUE;
-            Item::Bomb = FALSE;
-            E_life--;
-        }
-        bullet::Cylinder[bullet::FireC] = 0;
-        bullet::FireC++;       
+        AT = 0;
     }
-    else if (bullet::Cylinder[bullet::FireC] == 0)
-    {
-        ChangeVolumeSoundMem(255, NshotSE);
-        PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
-        bullet::FireC++;
-    }
-    isPlayerTurn = !isPlayerTurn;
-    ENEMY->E_UI_TIME();
-}
 
 
-void GameMain::P_Choice()
-    {
-        /*if (WaitFlg == FALSE)
-        {
-            WaitFlg =!WaitFlg;
-        }*/
+    //プレイヤーから敵への射撃
+    if (A_UI[0] == TRUE) {
 
+
+        //処理の順番のための加算される変数
+        AT++;
        
 
-       
-
-        if (bullet::Cylinder[bullet::FireC] == 1&&AT==99)
+        //弾が発射 画像を表示 (AT == 121)
+        if (bullet::Cylinder[bullet::FireC] == 1&&AT == 121)
         {
-            bh2_flg = TRUE;
+            PSE_hit_Flg = TRUE;
             PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
-            P_life--;
-            isPlayerTurn = !isPlayerTurn;
-            ENEMY->E_UI_TIME();
-            bullet::Cylinder[bullet::FireC] = 0;
-            bullet::FireC++;
-        }
-        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 99)
-        {
-            ChangeVolumeSoundMem(255, NshotSE);
-            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
-            bullet::FireC++;
-            OM = 0;
-            More_UI = TRUE;
+
+            //爆弾がないなら
+            if (Item::Bomb == FALSE)
+            {
+                bh_flg = TRUE;
+              
+            }
+         
+
+            //爆弾があるなら
+            if (Item::Bomb == TRUE)
+            {
+                PlaySoundMem(Item::BombSE, DX_PLAYTYPE_BACK);
+                BK_Flg = TRUE;
+               
+            }
            
         }
 
 
+        //弾が入ってなかった時 MISS表示 (AT == 121)
+        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 121)
+        {
+            PSE_miss_Flg = TRUE;
+            missFlg = TRUE;
+            ChangeVolumeSoundMem(255, NshotSE);
+            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+           
+        }
+       
+
+        //弾が発射された場合、銃痕の画像を消して敵のHPを減らしシリンダーを進める  (AT == 241)
+        if (PSE_hit_Flg == TRUE && AT == 241)
+        {
+
+            //弾の画像を消す
+            bh_flg = FALSE;
+
+            //爆弾が発動中ならHPを1減らして画像を消す
+            if (Item::Bomb == TRUE) {
+                E_life--;
+                Item::Bomb = FALSE;
+            }
+
+            //敵のHPを減らしシリンダーを進める
+            E_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+
+
+        //弾が入ってなかった時、シリンダーを進めて敵のターンへ  (AT == 241)
+        if (PSE_miss_Flg == TRUE && AT == 241  )
+        {
+            missFlg = FALSE;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+            AT = 301;
+          
+        }
+
+
+        //敵のターンに切り替える、変数を初期化する  (AT == 301)
+        if (AT == 301) {
+
+            PSE_hit_Flg = FALSE;
+            PSE_miss_Flg = FALSE;
+            TurnTime = 0;
+            isPlayerTurn = !isPlayerTurn;
+            
+        }
+
+
+        //敵のターンになったら初期化する
+        if (isPlayerTurn == FALSE)
+        {
+            A_UI[0] = FALSE;
+        }
     }
+}
+
+
+void GameMain::P_Choice()
+{
+
+    
+    if (A_UI[0] == FALSE && A_UI[1] == FALSE)
+    {
+        AT = 0;
+    }
+
+
+        //プレイヤーからプレイヤーへの射撃
+    if (A_UI[1] == TRUE) {
+
+
+        //処理の順番のための加算される変数
+        AT++;
+
+
+        // 弾が発射 画像を表示　(AT == 121)
+        if (bullet::Cylinder[bullet::FireC] == 1 && AT == 121)
+        {
+            PSP_hit_Flg = TRUE;
+            bh2_flg = TRUE;
+
+            PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
+
+           
+          
+        }
+
+
+        //弾が入ってなかった時 1MORE表示(AT == 121)
+        else if (bullet::Cylinder[bullet::FireC] == 0 && AT == 121)
+        {
+            PSP_miss_Flg = TRUE;
+            ChangeVolumeSoundMem(255, NshotSE);
+            PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+           
+          
+
+        }
+
+
+        //弾が発射された時、銃痕の画像を消してプレイヤーのHPを減らしシリンダーを進める  (AT == 241)
+        if (AT == 241 && PSP_hit_Flg == TRUE)
+        {
+
+            bh2_flg = FALSE;
+            P_life--;
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+        }
+
+
+        //弾が入ってなかった時、シリンダーを進めて処理を中断する  (AT == 241)
+        if (AT == 241 && PSP_miss_Flg == TRUE)
+        {
+           
+           
+            bullet::Cylinder[bullet::FireC] = 0;
+            bullet::FireC++;
+            PSP_hit_Flg = FALSE;
+            PSP_miss_Flg = FALSE;
+            A_UI[1] = FALSE;
+        }
+
+
+        //敵のターンに切り替える、変数を初期化する  (AT == 301)
+        if (AT == 301) {
+            PSP_hit_Flg = FALSE;
+            PSP_miss_Flg = FALSE;
+            TurnTime = 0;
+            isPlayerTurn = !isPlayerTurn;
+           
+           
+        }
+
+
+        //敵のターンになったら初期化する
+        if (isPlayerTurn == FALSE)
+        {
+            A_UI[1] = FALSE;
+        }
+
+
+      
+    }
+
+}
 
 
 void GameMain::Result()
@@ -1045,6 +1211,8 @@ void GameMain::P_UI_INIT()
     CurY3 = 590;
 
 
+  
+
     for (int i = 1; i < 5; i++)
     {
         P_Ui_flg[i] = FALSE;
@@ -1062,7 +1230,10 @@ void GameMain::P_UI_INIT()
 void GameMain::ROUND_UI()
 {
   
-    
+    if (E_life <= 0 && A_UI[0] == FALSE && A_UI[1] == FALSE)
+    {
+        ET++;
+    }
         if (ET == 120)
         {
             RoundUiflg = TRUE;
@@ -1093,12 +1264,15 @@ void GameMain::ROUND_UP()
         Round++;
        
         isPlayerTurn = TRUE;
-        do
+       /* do
         {
             ShuffleEnemyNum = GetRand(IMAGE_CNT - 1);
         } while (ShuffleEnemyNum == LastEnemyNum);
 
-        LastEnemyNum = ShuffleEnemyNum;
+        LastEnemyNum = ShuffleEnemyNum;*/
+        
+       
+
 
         Item:: ReRound[0] = FALSE;
         Item::ReRound[1] = FALSE;
@@ -1114,7 +1288,7 @@ void GameMain::ROUND_UP()
         Timer::FPS = 0;
         INIT();
       
-     
+        isPlayerTurn = TRUE;
    
 }
 

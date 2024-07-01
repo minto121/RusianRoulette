@@ -42,10 +42,9 @@ private:
     bool WaitFlg3;
     int ResultFlg;
     
-    int More_UI;
-    int A_shot;
-    int OM;
-
+   
+    int A_shotImg;
+  
     // プレイヤーターンのフラグ
 
    // プレイヤーとコンピュータの状態を表す列挙型
@@ -56,6 +55,11 @@ private:
 
     PlayerState currentPlayer = PlayerState::PLAYER; // 現在のプレイヤー
 
+   
+    
+
+    int missImg;
+    int missFlg;
     int Enemyimg[IMAGE_CNT];
     int E_LifeImg;
     int P_LifeImg;
@@ -63,6 +67,7 @@ private:
     int LastEnemyNum;
     int bullet_holes;
     int bullet_holes2;
+    int bullet_holes3;
     int P_Ui_flg[5];
     int P_Ui[5];
     int BackGRImg;
@@ -74,7 +79,7 @@ private:
     int PushSEflg;
     int ResultBackImg[10];
     int ResultBgm;
-    int  ResultBgmFlg;
+    int ResultBgmFlg;
     int RoundBackImg1;
     int RoundBackImg2;
     int RoundBackImg3;
@@ -82,7 +87,8 @@ private:
     int BK_Flg;
     int GM_SelectSE;
     int BlankSE;
- 
+    int PTurnImg;
+    int ETurnImg;
    
     int flash;
     int UraBotanSE;
@@ -102,6 +108,13 @@ private:
     int ET;       //E_UIの表示時間
     int RoundButtonSE;
 
+    int PSE_miss_Flg;//プレイヤーから敵にうって失敗
+
+    int PSE_hit_Flg; //プレイヤーから敵に撃ってヒット
+
+    int PSP_miss_Flg;//プレイヤーからプレイヤーにうって失敗
+  
+    int PSP_hit_Flg; //プレイヤーからプレイヤーに撃ってヒット
 public:
 
     //�R���X�g���N�^
@@ -128,6 +141,9 @@ public:
     void ROUND_UI();
     void ROUND_UP();
     void BulettUI();
+   
+
+
 
     bullet* BULLET;
     Item* ITEM;
@@ -145,5 +161,6 @@ public:
     static int ResultBgm2;
     static int FreezDiray;
     static int BulettCount_UI;
+    static int TurnTime;
 };
 

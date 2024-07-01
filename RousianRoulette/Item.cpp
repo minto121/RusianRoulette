@@ -33,7 +33,7 @@ Item::Item()
     {
         itemtable[a] = 0;
     }
-    itemtable[4] = 1;
+   
     ReRound[0] = FALSE;
     ReRound[1] = FALSE;
     INIT();
@@ -112,12 +112,7 @@ void Item::INIT()
     UItime = 0;
     Bomb = FALSE;
     TotemRand = 0;
-    itemtable[0] = 1;
-    itemtable[1] = 1;
-    itemtable[2] = 1;
-    itemtable[3] = 1;
-    itemtable[4] = 1;
-    itemtable[5] = 1;
+   
     T_UI = 0;
     T_UIRand = 0;
     T_RevivalAnim = FALSE;
@@ -243,7 +238,7 @@ void Item::TOTEM()
     if (itemtable[4] >= 1) {
         if (WaitTime2 == FALSE)
         {
-            TotemRand = 1/*GetRand(1)*/;
+            TotemRand = GetRand(1);
             WaitTime2 = TRUE;
         }
         if (TotemFlg == TRUE)

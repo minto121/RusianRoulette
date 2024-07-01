@@ -19,18 +19,27 @@ Enemy::Enemy()
 
 void Enemy::E_INIT()
 {
-	E_Choice = 0;
+	E_Choice = 3;
 	E_Timer = 0;
 	E_Shot_P = FALSE;
 	E_Shot_Self = FALSE;
 	E_WaitFlg = TRUE;
 
+	ESP_hit_flg = FALSE;
+    ESP_miss_flg = FALSE;
+    ESE_hit_flg = FALSE;
+    ESE_miss_flg = FALSE;
+	OneMore = FALSE;
+	ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
+
 	for (int a = 0; a <= 1; a++) {
 		E_UI[a] = FALSE;
 	}
 
-	NohitImg = LoadGraph("resouce/image/Nohit.png");
-	Hitdamage = LoadGraph("resouce/image/Damage.png");
+	NohitImg = LoadGraph("Resources/images/ESP_MISS.png");
+	OneMoreImg = LoadGraph("Resources/images/1more_Enemy.png");
+	NshotSE = LoadSoundMem("Resources/sounds/not shot.mp3");
+	/*Hitdamage = LoadGraph("resouce/image/Damage.png");*/
 
 	Nohit_UI = FALSE;
 	Hit_UI = FALSE;
@@ -47,7 +56,18 @@ Enemy::~Enemy()
 
 void Enemy::E_Turn()
 {
-	if (GameMain::isPlayerTurn == FALSE)
+	if (GameMain::isPlayerTurn == TRUE||E_Timer ==0)
+	{
+		Nohit_UI = FALSE;
+		ESP_hit_flg = FALSE;
+		ESP_miss_flg = FALSE;
+		ESE_hit_flg = FALSE;
+		ESE_miss_flg = FALSE;
+		E_Choice = 3;
+		E_Timer = 0;
+		OneMore = FALSE;
+	}
+	if (GameMain::isPlayerTurn == FALSE&&GameMain::E_life>0)
 	{
 		
 		/*if (E_Timer ==1)
@@ -57,14 +77,16 @@ void Enemy::E_Turn()
 		/*}*/
 		
 			E_AI();
-		
+			E_PChoice();
+			E_EChoice();
 		
 	}
 }
 
+
 void Enemy::E_AI()
 {
-	if (E_Timer == 100)
+	if (E_Timer ==2)
 	{
 		E_Choice = GetRand(1);
 		switch (E_Choice)
@@ -78,74 +100,6 @@ void Enemy::E_AI()
 		}
 	}
 	
-	if (E_Timer == 200)
-	{
-		for (int a = 0; a <= 1; a++) {
-			E_UI[a] = FALSE;
-		}
-	
-		switch (E_Choice)
-		{
-		case(0):
-
-			E_Shot_P = TRUE;
-
-			if (bullet::Cylinder[bullet::FireC] == 1)
-			{
-				GameMain::bh2_flg = TRUE;
-				GameMain::P_life--;
-				bullet::Last_Bullet--;
-				bullet::Cylinder[bullet::FireC] = 0;
-				bullet::FireC++;
-				YT = 0;
-				Hit_UI = TRUE;
-
-			}
-
-			else if (bullet::Cylinder[bullet::FireC] == 0)
-			{
-				bullet::FireC++;
-				NT = 0;
-				Nohit_UI = TRUE;
-
-
-				E_Shot_P = FALSE;
-
-				break;
-
-
-
-		case(1):
-
-			E_Shot_Self = TRUE;
-
-			if (bullet::Cylinder[bullet::FireC] == 1)
-			{
-
-				GameMain::bh_flg = TRUE;
-				GameMain::E_life--;
-				bullet::Last_Bullet--;
-				bullet::Cylinder[bullet::FireC] = 0;
-				bullet::FireC++;
-
-			}
-
-			/*else if (bullet::Cylinder[bullet::FireC] == 0)
-			{
-
-				bullet::FireC++;
-				
-			    E_UI_TIME();
-				
-			}*/
-
-			
-			
-			break;
-
-			}
-		}
-	}
 	
 
 }
@@ -164,35 +118,120 @@ void Enemy::E_UI_TIME()
 	
 }
 
-void Enemy::Update()
+
+void Enemy::E_PChoice()
 {
-	
-	if (E_Timer == 301&&GameMain::isPlayerTurn == FALSE)
+
+	if (E_Timer == 121 && E_Choice == 0)
 	{
-		GameMain::bh_flg = FALSE;
-		GameMain::bh2_flg = FALSE;
-		for (int a = 0; a <= 1; a++) {
-			E_UI[a] = FALSE;
+		if (bullet::Cylinder[bullet::FireC] == 1)
+		{
+			ESP_hit_flg = TRUE;
+			GameMain::bh2_flg = TRUE;
+			PlaySoundMem(ShotSE, DX_PLAYTYPE_BACK);
 		}
+		else if(bullet::Cylinder[bullet::FireC] == 0)
+		{
+			PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+			ESP_miss_flg = TRUE;
+			Nohit_UI = TRUE;
+		}
+
+		E_UI[0] = FALSE;
+	}
+
+
+	if (E_Timer == 241 && E_Choice == 0)
+	{
+
+		if (ESP_hit_flg == TRUE)
+		{
+			GameMain::P_life -=1;
+			GameMain::bh2_flg = FALSE;
+			bullet::Cylinder[bullet::FireC] = 0;
+			bullet::FireC++;
+		}
+		else if (ESP_miss_flg == TRUE)
+		{
+			bullet::Cylinder[bullet::FireC] = 0;
+			bullet::FireC++;
+			Nohit_UI = FALSE;
+			E_Timer = 300;
+		}
+		
+	}
+	if (E_Timer == 301 && E_Choice == 0)
+	{
+		GameMain::TurnTime = 0;
+		GameMain::isPlayerTurn = TRUE;
+	}
+
+}
+
+
+
+void Enemy::E_EChoice()
+{
+	if (E_Timer == 121 && E_Choice == 1)
+	{
+		if (bullet::Cylinder[bullet::FireC] == 1)
+		{
+			ESE_hit_flg = TRUE;
+			ShotSE = LoadSoundMem("Resources/sounds/Gunshot.mp3");
+			GameMain::bh_flg = TRUE;
+		}
+		else if (bullet::Cylinder[bullet::FireC] == 0)
+		{
+			PlaySoundMem(NshotSE, DX_PLAYTYPE_BACK);
+			ESE_miss_flg = TRUE;
+			OneMore = TRUE;
+		}
+
+		E_UI[1] = FALSE;
+	}
+
+	if (E_Timer == 241 && E_Choice == 1)
+	{
+
+		if (ESE_hit_flg == TRUE)
+		{
+			GameMain::E_life -= 1;
+			GameMain::bh_flg = FALSE;
+			bullet::Cylinder[bullet::FireC] = 0;
+			bullet::FireC++;
+		}
+		else if (ESE_miss_flg == TRUE)
+		{
+			
+			E_Timer = 300;
+		
+		}
+
+	}
+	if (E_Timer == 301 && E_Choice == 1&&ESE_hit_flg ==TRUE)
+	{
+		 GameMain::TurnTime =0;
+
 		GameMain::isPlayerTurn = TRUE;
 
 	}
+	if (E_Timer == 301 && E_Choice == 1 && ESE_miss_flg == TRUE)
+	{
+		E_Timer = 0;
+	}
+}
+
+
+
+
+void Enemy::Update()
+{
+	
+	
 
 	E_Turn();
 
-	if (Nohit_UI == TRUE) {
-		NT++;
-			if (NT == 120) {
-				Nohit_UI = FALSE;
-			}
-	}
-
-	if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
-		YT++;
-		if (YT == 120) {
-			Hit_UI = FALSE;
-		}
-	}
+	
 }
 
 void Enemy::Draw() const
@@ -211,13 +250,19 @@ void Enemy::Draw() const
 	}
 	
 	if (Nohit_UI == TRUE) {
-		DrawGraph(0, 0, NohitImg, TRUE);
+		DrawGraph(200, 110, NohitImg, FALSE);
 	}
 
-	if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
+	if (OneMore == TRUE)
+	{
+		DrawGraph(200, 110, OneMoreImg, FALSE);
+	}
+
+	/*if (Hit_UI == TRUE&&GameMain::bh2_flg==FALSE) {
 		DrawGraph(0, 0, Hitdamage, TRUE);
 	}
-	DrawFormatString(20, 10, 0xffffff, "ET%d", E_Timer);
+	DrawFormatString(20, 10, 0xffffff, "ET%d", E_Timer);*/
+
 }
 
 
